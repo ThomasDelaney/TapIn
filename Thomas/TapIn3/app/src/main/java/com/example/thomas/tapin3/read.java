@@ -2,7 +2,6 @@ package com.example.thomas.tapin3;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +34,7 @@ public class read extends AppCompatActivity
             {
                 userID = (EditText)findViewById(R.id.enter);
                 age = (TextView)findViewById(R.id.age);
-                fname = (TextView)findViewById(R.id.fname);
+                fname = (TextView)findViewById(R.id.textView4);
                 sname = (TextView)findViewById(R.id.sname);
 
                 if (!String.valueOf(userID.getText()).equals(""))
@@ -49,11 +48,12 @@ public class read extends AppCompatActivity
                         public void processFinish(String output)
                         {
                             ArrayList<String> info = new ArrayList<String>();
-                            if (output.equals(""))
+
+                            if (output.equals("Employee not Found "))
                             {
-                                info.add("");
-                                info.add("Employee not Found");
-                                info.add("");
+                                age.setText("");
+                                fname.setText("Employee Not Found");
+                                sname.setText("");
                             }
                             else
                             {
@@ -63,11 +63,11 @@ public class read extends AppCompatActivity
                                 {
                                     info.add(t);
                                 }
-                            }
 
-                            age.setText("Age: "+info.get(0));
-                            fname.setText("First Name: "+info.get(1));
-                            sname.setText("Second Name: "+info.get(2));
+                                age.setText("Age: "+info.get(0));
+                                fname.setText("First Name: "+info.get(1));
+                                sname.setText("Second Name: "+info.get(2));
+                            }
                         }
                     });
 

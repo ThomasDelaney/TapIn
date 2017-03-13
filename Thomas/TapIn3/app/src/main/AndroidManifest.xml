@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".read" />
+        <activity android:name=".write"></activity>
     </application>
 
 </manifest>

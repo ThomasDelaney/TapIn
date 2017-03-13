@@ -40,6 +40,7 @@ class BackgroundTask extends AsyncTask<String, Void, String>
     protected String doInBackground(String... params)
     {
         String read_url = "http://tapin.comli.com/read.php";
+        String write_url = "http://tapin.comli.com/write.php";
         String method = params[0];
 
         if (method.equals("read"))
@@ -92,6 +93,59 @@ class BackgroundTask extends AsyncTask<String, Void, String>
                 e.printStackTrace();
             }
 
+        }
+        else if (method.equals("write"))
+        {
+            String age = params[1];
+            String fname = params[2];
+            String sname = params[3];
+
+            try
+            {
+                URL url = new URL(write_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                //encode data and write to php file on server
+                String data = URLEncoder.encode("age", "UTF-8")+"="+URLEncoder.encode(age, "UTF-8")+"&"+URLEncoder.encode("fname", "UTF-8")+"="+URLEncoder.encode(fname, "UTF-8")
+                        +"&"+URLEncoder.encode("sname", "UTF-8")+"="+URLEncoder.encode(sname, "UTF-8");
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+
+                String response = "";
+
+                String line = "";
+
+                while((line = bufferedReader.readLine()) != null)
+                {
+                    response += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return response;
+            }
+            catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
         return null;
     }

@@ -9,6 +9,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity
 {
     public Button readButton;
+    public Button writeButton;
 
     public void init()
     {
@@ -18,6 +19,16 @@ public class MainActivity extends AppCompatActivity
             public void onClick (View v)
             {
                 Intent intent = new Intent(MainActivity.this, read.class);
+                startActivity(intent);
+            }
+        });
+
+        writeButton = (Button)findViewById(R.id.write);
+        writeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v)
+            {
+                Intent intent = new Intent(MainActivity.this, write.class);
                 startActivity(intent);
             }
         });
