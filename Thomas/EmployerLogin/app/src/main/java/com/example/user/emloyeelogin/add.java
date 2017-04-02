@@ -45,6 +45,7 @@ public class add extends AppCompatActivity
                     String ePhone = phone.getText().toString();
                     String eJob = job.getText().toString();
                     String eWage = wage.getText().toString();
+                    String cid = getIntent().getExtras().getString("cid");
 
                     Intent intent = new Intent(getApplicationContext(), add2.class);
                     intent.putExtra("name", eName);
@@ -52,14 +53,15 @@ public class add extends AppCompatActivity
                     intent.putExtra("phone", ePhone);
                     intent.putExtra("job", eJob);
                     intent.putExtra("wage", eWage);
+                    intent.putExtra("cid", cid);
 
                     if (parttime.isChecked())
                     {
-                        intent.putExtra("parttime", 1);
+                        intent.putExtra("parttime", "1");
                     }
                     else
                     {
-                        intent.putExtra("parttime", 0);
+                        intent.putExtra("parttime", "0");
                     }
 
                     startActivity(intent);
