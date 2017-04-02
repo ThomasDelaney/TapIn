@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.user.emloyeelogin.add2">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Give "
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/TextView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:text="a Username and Password"
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        android:layout_below="@+id/eName2"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/eName2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp"
+        android:text="TextView"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/TextView15"
+        android:layout_alignRight="@+id/TextView15"
+        android:layout_below="@+id/TextView15"
+        android:layout_marginTop="45dp"
+        android:ems="10"
+        android:hint="Enter Username"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/username"
+        android:layout_alignStart="@+id/username"
+        android:layout_below="@+id/username"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:hint="Enter Password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/password2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/password"
+        android:layout_alignStart="@+id/password"
+        android:layout_below="@+id/password"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="Re-Enter Password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/next2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/eName2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/eName2"
+        android:layout_marginBottom="38dp"
+        android:text="Next" />
+
+</RelativeLayout>

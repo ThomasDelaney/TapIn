@@ -1,4 +1,5 @@
 package com.example.user.emloyeelogin;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,6 +12,7 @@ public class MainActivity extends AppCompatActivity
 {
     TextView nameDisplay;
     Button logout;
+    Button add;
 
     String username = "";
     String cid = "";
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity
 
         nameDisplay = (TextView)findViewById(R.id.name);
         logout = (Button)findViewById(R.id.logout);
+        add = (Button)findViewById(R.id.add);
 
         //check if the user is already logged in
         if (session.checkLogin())
@@ -51,6 +54,15 @@ public class MainActivity extends AppCompatActivity
             {
                 session.logOut();
                 finish();
+            }
+        });
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getApplicationContext(), add.class);
+                startActivity(intent);
             }
         });
     }

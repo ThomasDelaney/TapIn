@@ -16,7 +16,6 @@ public class loginPage extends AppCompatActivity
     EditText pass;
     Button login;
 
-    private boolean loggedIn = false;
     SessionManager session;
 
     @Override
