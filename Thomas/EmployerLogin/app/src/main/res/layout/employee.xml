@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp"
+    android:background="#c47cff">
 
     <TextView
         android:id="@+id/ename"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name"
-        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        android:textColor="@android:color/background_light"
         android:textSize="18sp" />
 
     <TextView
@@ -18,7 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Checked In?"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="14sp" />
+        android:textStyle="italic"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="18sp" />
 
 </LinearLayout>

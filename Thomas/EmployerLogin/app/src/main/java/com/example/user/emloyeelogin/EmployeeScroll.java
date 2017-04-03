@@ -60,6 +60,6 @@ public class EmployeeScroll extends BaseAdapter
             checkin.setText("Not Clocked In");
         }
 
-        return null;
+        return v;
     }
 }

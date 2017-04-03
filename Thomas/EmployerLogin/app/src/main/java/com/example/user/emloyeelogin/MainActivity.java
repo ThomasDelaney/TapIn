@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity
     TextView nameDisplay;
     Button logout;
     Button add;
+    Button check;
 
     String username = "";
     String cid = "";
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity
         nameDisplay = (TextView)findViewById(R.id.name);
         logout = (Button)findViewById(R.id.logout);
         add = (Button)findViewById(R.id.add);
+        check = (Button)findViewById(R.id.checkStaff);
 
         //check if the user is already logged in
         if (session.checkLogin())
@@ -62,6 +64,16 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Intent intent = new Intent(getApplicationContext(), nfcCheck.class);
+                intent.putExtra("cid", cid);
+                startActivity(intent);
+            }
+        });
+
+        check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getApplicationContext(), view.class);
                 intent.putExtra("cid", cid);
                 startActivity(intent);
             }
