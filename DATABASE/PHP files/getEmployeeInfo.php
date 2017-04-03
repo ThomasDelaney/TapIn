@@ -2,7 +2,7 @@
 	require "init.php";
 	$yee = $_POST["employee"];
 
-	$query = "select * from EMPLOYEE where name = '$yee'";
+	$query = "select * from EMPLOYEE where yeeid = '$yee'";
 
 	$result = mysqli_query($con, $query);
 

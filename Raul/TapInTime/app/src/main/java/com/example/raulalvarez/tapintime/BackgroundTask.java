@@ -63,7 +63,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
                 //encode data and write to php file on server
-                String data = URLEncoder.encode(employee, "UTF-8");
+                String data = URLEncoder.encode("employee", "UTF-8")+"="+URLEncoder.encode(employee, "UTF-8");
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
                 bufferedWriter.close();

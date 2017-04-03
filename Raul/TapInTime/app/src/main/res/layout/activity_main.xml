@@ -16,9 +16,9 @@
         android:inputType="textPersonName"
         tools:layout_editor_absoluteY="126dp"
         tools:layout_editor_absoluteX="85dp"
+        android:layout_marginTop="51dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/checkin"
@@ -30,5 +30,18 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="92dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignEnd="@+id/employee"
+        android:layout_alignLeft="@+id/employee"
+        android:layout_alignRight="@+id/employee"
+        android:layout_alignStart="@+id/employee"
+        android:layout_below="@+id/employee"
+        android:layout_marginTop="17dp"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 </RelativeLayout>

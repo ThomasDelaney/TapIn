@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     EditText yee;
+    TextView nfcid;
     Button checkin;
 
 
