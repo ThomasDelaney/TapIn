@@ -1,8 +1,8 @@
 package com.example.user.emloyeelogin;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -47,24 +47,35 @@ public class add extends AppCompatActivity
                     String eWage = wage.getText().toString();
                     String cid = getIntent().getExtras().getString("cid");
 
-                    Intent intent = new Intent(getApplicationContext(), add2.class);
-                    intent.putExtra("name", eName);
-                    intent.putExtra("email", eEmail);
-                    intent.putExtra("phone", ePhone);
-                    intent.putExtra("job", eJob);
-                    intent.putExtra("wage", eWage);
-                    intent.putExtra("cid", cid);
-
-                    if (parttime.isChecked())
+                    if (!eEmail.contains("@"))
                     {
-                        intent.putExtra("parttime", "1");
+                        Toast.makeText(add.this, "Email Must Contain an @ Symbol", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (eWage.length() != 5 || eWage.charAt(2) != '.')
+                    {
+                        Toast.makeText(add.this, "Wage Must be in Format 'XX.XX'", Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
-                        intent.putExtra("parttime", "0");
-                    }
+                        Intent intent = new Intent(getApplicationContext(), add2.class);
+                        intent.putExtra("name", eName);
+                        intent.putExtra("email", eEmail);
+                        intent.putExtra("phone", ePhone);
+                        intent.putExtra("job", eJob);
+                        intent.putExtra("wage", eWage);
+                        intent.putExtra("cid", cid);
 
-                    startActivity(intent);
+                        if (parttime.isChecked())
+                        {
+                            intent.putExtra("parttime", "1");
+                        }
+                        else
+                        {
+                            intent.putExtra("parttime", "0");
+                        }
+
+                        startActivity(intent);
+                    }
                 }
                 else
                 {
