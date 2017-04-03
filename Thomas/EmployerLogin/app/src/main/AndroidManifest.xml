@@ -24,7 +24,8 @@
         <activity android:name=".add" />
         <activity android:name=".add2" />
         <activity android:name=".add3" />
-        <activity android:name=".nfcCheck"></activity>
+        <activity android:name=".nfcCheck" />
+        <activity android:name=".view"></activity>
     </application>
 
 </manifest>
