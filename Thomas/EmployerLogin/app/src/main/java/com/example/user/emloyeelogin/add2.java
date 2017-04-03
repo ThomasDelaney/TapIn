@@ -35,6 +35,7 @@ public class add2 extends AppCompatActivity
         final String eJob = getIntent().getExtras().getString("job");
         final String eWage = getIntent().getExtras().getString("wage");
         final String ePart = getIntent().getExtras().getString("parttime");
+        final String cid = getIntent().getExtras().getString("cid");
 
         name.setText(eName);
 
@@ -47,7 +48,8 @@ public class add2 extends AppCompatActivity
                     String uPass1 = password.getText().toString();
                     String uPass2 = password2.getText().toString();
 
-                    if (uPass1.equals(uPass2)) {
+                    if (uPass1.equals(uPass2))
+                    {
                         Intent intent = new Intent(getApplicationContext(), add3.class);
                         intent.putExtra("name", eName);
                         intent.putExtra("email", eEmail);
@@ -57,6 +59,7 @@ public class add2 extends AppCompatActivity
                         intent.putExtra("parttime", ePart);
                         intent.putExtra("username", uName);
                         intent.putExtra("password", uPass1);
+                        intent.putExtra("cid", cid);
 
                         startActivity(intent);
                     }
