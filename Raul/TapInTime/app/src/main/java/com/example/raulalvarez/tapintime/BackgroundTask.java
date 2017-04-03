@@ -1,6 +1,7 @@
 package com.example.raulalvarez.tapintime;
 
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -46,6 +47,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
 
         if (method.equals("getEmployeeInfo"))
         {
+
             String employee = params[1];
 
             try
@@ -61,7 +63,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
                 //encode data and write to php file on server
-                String data = URLEncoder.encode("employee", "UTF-8")+"="+URLEncoder.encode(employee, "UTF-8");
+                String data = URLEncoder.encode(employee, "UTF-8");
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
