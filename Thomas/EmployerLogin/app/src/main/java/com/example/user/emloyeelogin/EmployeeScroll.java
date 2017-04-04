@@ -1,6 +1,7 @@
 package com.example.user.emloyeelogin;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -54,10 +55,12 @@ public class EmployeeScroll extends BaseAdapter
         if (employees.get(position).isCheckedIn())
         {
             checkin.setText("Clocked In");
+            checkin.setTextColor(Color.parseColor("#00ff00"));
         }
         else
         {
             checkin.setText("Not Clocked In");
+            checkin.setTextColor(Color.parseColor("#ff0000"));
         }
 
         return v;
