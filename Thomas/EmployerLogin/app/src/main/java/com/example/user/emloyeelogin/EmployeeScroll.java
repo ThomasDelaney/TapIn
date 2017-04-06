@@ -55,13 +55,15 @@ public class EmployeeScroll extends BaseAdapter
         if (employees.get(position).isCheckedIn())
         {
             checkin.setText("Clocked In");
-            checkin.setTextColor(Color.parseColor("#00ff00"));
+            checkin.setTextColor(Color.parseColor("#0aad1a"));
         }
         else
         {
             checkin.setText("Not Clocked In");
             checkin.setTextColor(Color.parseColor("#ff0000"));
         }
+
+        v.setTag(employees.get(position).getInAppID());
 
         return v;
     }

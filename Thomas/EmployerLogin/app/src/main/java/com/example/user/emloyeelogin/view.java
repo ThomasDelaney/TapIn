@@ -2,10 +2,13 @@ package com.example.user.emloyeelogin;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -27,6 +30,7 @@ public class view extends AppCompatActivity
 
         spinner = (ProgressBar)findViewById(R.id.progressBar2);
         spinner.setVisibility(View.VISIBLE);
+        spinner.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
 
         cid = getIntent().getExtras().getString("cid");
 
@@ -80,13 +84,42 @@ public class view extends AppCompatActivity
 
                         String[] splitInfo = employee.split(",");
 
-                        Employee n = new Employee(splitInfo[0], splitInfo[1]);
+                        Employee n = new Employee(i, splitInfo[0], splitInfo[1], splitInfo[2], splitInfo[3]);
                         currentEmployees.add(n);
                     }
 
                     spinner.setVisibility(View.INVISIBLE);
                     scroll = new EmployeeScroll(getApplicationContext(), currentEmployees);
                     listView.setAdapter(scroll);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                        {
+                            final AlertDialog alertDialog = new AlertDialog.Builder(view.this).create();
+                            Employee e = currentEmployees.get((int)view.getTag());
+
+                            alertDialog.setTitle(e.getName());
+
+                            if (!e.isCheckedIn())
+                            {
+                                alertDialog.setMessage("Should Clock in at "+e.getTime1());
+                            }
+                            else
+                            {
+                                alertDialog.setMessage("Clocked in at "+e.getTime1()+" and will Clock out at "+e.getTime2());
+                            }
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Okay",
+                                    new DialogInterface.OnClickListener()
+                                    {
+                                        public void onClick(DialogInterface dialog, int which)
+                                        {
+                                            alertDialog.cancel();
+                                        }
+                                    });
+                            alertDialog.show();
+                        }
+                    });
                 }
             }
         });

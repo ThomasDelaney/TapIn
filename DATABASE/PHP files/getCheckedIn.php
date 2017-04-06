@@ -4,7 +4,7 @@
 	$month = $_POST["month"];
 	$cid = $_POST["cid"];
 	
-	$query = "select E.YEENAME, T.CHECKEDIN from TIMETABLE T join EMPLOYEE E on T.YEEID = E.YEEID where T.DAYOFWEEK = '$day' and T.MONTH = '$month' and E.CID = '$cid'";
+	$query = "select E.YEENAME, T.CHECKEDIN, T.STARTTIME, T.ENDTIME, T.CINTIME from TIMETABLE T join EMPLOYEE E on T.YEEID = E.YEEID where T.DAYOFWEEK = '$day' and T.MONTH = '$month' and E.CID = '$cid'";
 	
 	$result = mysqli_query($con, $query);
 	
@@ -16,7 +16,18 @@
 		{
 			$name = $row["YEENAME"];
 			$isIn = $row["CHECKEDIN"];
-		    $final = $final.$name.",".$isIn.", ";
+			$stime = $row["STARTTIME"];
+			$etime = $row["ENDTIME"];
+			$citime = $row["CINTIME"];
+			
+			if (is_null($citime))
+			{
+				$final = $final.$name.",".$isIn.",".$stime.",".$etime.", ";
+			}
+			else
+			{
+				$final = $final.$name.",".$isIn.",".$citime.",".$etime.", ";
+			}
 		}
 		echo $final;
 	}

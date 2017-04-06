@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7b00e0"
+    android:background="#c6ceff"
     android:orientation="vertical">
 
     <ProgressBar
@@ -21,7 +21,7 @@
         android:layout_marginLeft="10dp"
         android:dividerHeight="10dp"
         android:id="@+id/employeeList"
-        android:divider="#7b00e0">
+        android:divider="#c6ceff">
     </ListView>
 
 </RelativeLayout>
