@@ -46,6 +46,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
         String writeEmployeeUrl = "http://tapin.comli.com/writeEmployee.php";
         String getEmployeeIDUrl = "http://tapin.comli.com/getEmployeeID.php";
         String getCheckedInUrl = "http://tapin.comli.com/getCheckedIn.php";
+        String employeeTimetableGetUrl = "http://tapin.comli.com/employeeTimetableGet.php";
 
         String method = params[0];
 
@@ -247,6 +248,58 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
 
                 //encode data and write to php file on server
                 String data = URLEncoder.encode("day", "UTF-8")+"="+URLEncoder.encode(day, "UTF-8")+"&"+URLEncoder.encode("month", "UTF-8")+"="+URLEncoder.encode(month, "UTF-8")
+                        +"&"+URLEncoder.encode("cid", "UTF-8")+"="+URLEncoder.encode(cid, "UTF-8");
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+
+                String response = "";
+
+                String line = "";
+
+                while((line = bufferedReader.readLine()) != null)
+                {
+                    response += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return response;
+            }
+            catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else if (method.equals("employeeTimetableGet"))
+        {
+            String cid = params[1];
+            String month = params[2];
+
+            try
+            {
+                URL url = new URL(employeeTimetableGetUrl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                //encode data and write to php file on server
+                String data = URLEncoder.encode("month", "UTF-8")+"="+URLEncoder.encode(month, "UTF-8")
                         +"&"+URLEncoder.encode("cid", "UTF-8")+"="+URLEncoder.encode(cid, "UTF-8");
                 bufferedWriter.write(data);
                 bufferedWriter.flush();

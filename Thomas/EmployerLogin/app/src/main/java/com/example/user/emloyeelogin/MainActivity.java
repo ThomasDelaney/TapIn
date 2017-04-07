@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity
     Button logout;
     Button add;
     Button check;
+    Button timetable;
 
     String username = "";
     String cid = "";
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity
         logout = (Button)findViewById(R.id.logout);
         add = (Button)findViewById(R.id.add);
         check = (Button)findViewById(R.id.checkStaff);
+        timetable = (Button)findViewById(R.id.timetable);
 
         //check if the user is already logged in
         if (session.checkLogin())
@@ -74,6 +76,16 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Intent intent = new Intent(getApplicationContext(), view.class);
+                intent.putExtra("cid", cid);
+                startActivity(intent);
+            }
+        });
+
+        timetable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getApplicationContext(), addTimetables.class);
                 intent.putExtra("cid", cid);
                 startActivity(intent);
             }

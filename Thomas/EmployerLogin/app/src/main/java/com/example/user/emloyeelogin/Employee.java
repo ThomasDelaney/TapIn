@@ -11,6 +11,9 @@ public class Employee
     private String time1;
     private String time2;
     private int inAppID;
+    private String eid;
+    private String job;
+    private String parttime;
 
     Employee(int inAppID, String name, String checkedIn, String time1, String time2)
     {
@@ -29,6 +32,40 @@ public class Employee
             this.checkedIn = true;
         }
     }
+
+    Employee (String eid, String name, String job, String parttime, int inAppID)
+    {
+        this.eid = eid;
+        this.name = name;
+        this.job = job;
+        this.parttime = parttime;
+        this.inAppID = inAppID;
+    }
+
+    public String getEid() {
+        return eid;
+    }
+
+    public void setEid(String eid) {
+        this.eid = eid;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public String getParttime() {
+        return parttime;
+    }
+
+    public void setParttime(String parttime) {
+        this.parttime = parttime;
+    }
+
 
     public int getInAppID()
     {

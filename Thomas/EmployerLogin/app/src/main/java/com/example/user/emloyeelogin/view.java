@@ -71,7 +71,7 @@ public class view extends AppCompatActivity
                 }
                 else
                 {
-                    String[] tokens = output.split(" ");
+                    String[] tokens = output.split("-");
 
                     for (String t : tokens)
                     {
@@ -89,7 +89,7 @@ public class view extends AppCompatActivity
                     }
 
                     spinner.setVisibility(View.INVISIBLE);
-                    scroll = new EmployeeScroll(getApplicationContext(), currentEmployees);
+                    scroll = new EmployeeScroll(getApplicationContext(), currentEmployees, 0);
                     listView.setAdapter(scroll);
 
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,11 +18,23 @@ public class EmployeeScroll extends BaseAdapter
 {
     private Context context;
     private ArrayList<Employee> employees;
+    private int type;
 
-    public EmployeeScroll(Context context, ArrayList<Employee> employees)
+    public EmployeeScroll(Context context, ArrayList<Employee> employees, int type)
     {
+        this.type = type;
         this.context = context;
         this.employees = employees;
+    }
+
+    public int getType()
+    {
+        return this.type;
+    }
+
+    public void setType(int type)
+    {
+        this.type = type;
     }
 
     @Override
@@ -43,28 +56,43 @@ public class EmployeeScroll extends BaseAdapter
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
+    public View getView(final int position, View convertView, ViewGroup parent)
     {
-        View v = View.inflate(context, R.layout.employee, null);
-
-        TextView name = (TextView)v.findViewById(R.id.ename);
-        TextView checkin = (TextView)v.findViewById(R.id.checkin);
-
-        name.setText(employees.get(position).getName());
-
-        if (employees.get(position).isCheckedIn())
+        if (type == 0)
         {
-            checkin.setText("Clocked In");
-            checkin.setTextColor(Color.parseColor("#0aad1a"));
+            View v = View.inflate(context, R.layout.employee, null);
+
+            TextView name = (TextView) v.findViewById(R.id.ename);
+            TextView checkin = (TextView) v.findViewById(R.id.checkin);
+
+            name.setText(employees.get(position).getName());
+
+            if (employees.get(position).isCheckedIn()) {
+                checkin.setText("Clocked In");
+                checkin.setTextColor(Color.parseColor("#0aad1a"));
+            } else {
+                checkin.setText("Not Clocked In");
+                checkin.setTextColor(Color.parseColor("#ff0000"));
+            }
+
+            v.setTag(employees.get(position).getInAppID());
+
+            return v;
         }
         else
         {
-            checkin.setText("Not Clocked In");
-            checkin.setTextColor(Color.parseColor("#ff0000"));
+            final View v = View.inflate(context, R.layout.employee_time, null);
+
+            TextView name = (TextView) v.findViewById(R.id.employeeName);
+            TextView ejob = (TextView) v.findViewById(R.id.ejob);
+            Button ebutton = (Button) v.findViewById(R.id.ebutton);
+
+            name.setText(employees.get(position).getName());
+            ejob.setText(employees.get(position).getJob());
+
+            v.setTag(employees.get(position).getInAppID());
+
+            return v;
         }
-
-        v.setTag(employees.get(position).getInAppID());
-
-        return v;
     }
 }

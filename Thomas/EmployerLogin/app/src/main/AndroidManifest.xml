@@ -25,7 +25,9 @@
         <activity android:name=".add2" />
         <activity android:name=".add3" />
         <activity android:name=".nfcCheck" />
-        <activity android:name=".view"></activity>
+        <activity android:name=".view" />
+        <activity android:name=".addTimetables" />
+        <activity android:name=".employeeTimetable"></activity>
     </application>
 
 </manifest>
