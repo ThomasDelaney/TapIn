@@ -1,6 +1,7 @@
 package com.example.user.emloyeelogin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,9 @@ public class EmployeeScroll extends BaseAdapter
     private Context context;
     private ArrayList<Employee> employees;
     private int type;
+
+    public String day;
+    public String month;
 
     public EmployeeScroll(Context context, ArrayList<Employee> employees, int type)
     {
@@ -104,6 +108,18 @@ public class EmployeeScroll extends BaseAdapter
                 isWorking.setText("Timetable Already Added");
                 isWorking.setTextColor(Color.parseColor("#0aad1a"));
             }
+
+            ebutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    Intent intent2 = new Intent(context, timetableForm.class);
+                    intent2.putExtra("day", day);
+                    intent2.putExtra("month", month);
+                    intent2.putExtra("eid", employees.get(position).getEid());
+                    context.startActivity(intent2);
+                }
+            });
 
             v.setTag(employees.get(position).getInAppID());
 

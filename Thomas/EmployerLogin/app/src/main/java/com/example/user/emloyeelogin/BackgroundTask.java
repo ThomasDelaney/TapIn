@@ -47,6 +47,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
         String getEmployeeIDUrl = "http://tapin.comli.com/getEmployeeID.php";
         String getCheckedInUrl = "http://tapin.comli.com/getCheckedIn.php";
         String eWorkingCheckUrl = "http://tapin.comli.com/eWorkingCheck.php";
+        String writeEmployeeScheduleUrl = "http://tapin.comli.com/writeEmployeeSchedule.php";
 
         String method = params[0];
 
@@ -316,7 +317,62 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
 
                 while((line = bufferedReader.readLine()) != null)
                 {
-                    System.out.println(line);
+                    response += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return response;
+            }
+            catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else if (method.equals("writeEmployeeSchedule"))
+        {
+            String eid = params[1];
+            String day = params[2];
+            String month = params[3];
+            String sTime = params[4];
+            String eTime = params[5];
+
+            try
+            {
+                URL url = new URL(writeEmployeeScheduleUrl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                //encode data and write to php file on server
+                String data = URLEncoder.encode("eid", "UTF-8")+"="+URLEncoder.encode(eid, "UTF-8")+"&"+URLEncoder.encode("day", "UTF-8")+"="+URLEncoder.encode(day, "UTF-8")
+                        +"&"+URLEncoder.encode("month", "UTF-8")+"="+URLEncoder.encode(month, "UTF-8")+"&"+URLEncoder.encode("sTime", "UTF-8")+"="+URLEncoder.encode(sTime, "UTF-8")
+                        +"&"+URLEncoder.encode("eTime", "UTF-8")+"="+URLEncoder.encode(eTime, "UTF-8");
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+
+                String response = "";
+
+                String line = "";
+
+                while((line = bufferedReader.readLine()) != null)
+                {
                     response += line;
                 }
 

@@ -27,7 +27,9 @@
         <activity android:name=".nfcCheck" />
         <activity android:name=".view" />
         <activity android:name=".addTimetables" />
-        <activity android:name=".employeeTimetable"></activity>
+        <activity android:name=".timetableForm" />
+        <activity android:name=".employeeTimetable" />
+        <activity android:name=".timetableForm2"></activity>
     </application>
 
 </manifest>

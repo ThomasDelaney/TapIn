@@ -31,18 +31,17 @@ public class addTimetables extends AppCompatActivity
         //Sunday will be the first day in the CalendarView
         calendar.setFirstDayOfWeek(1);
 
-        //next view lines will only allow the Employer to add timetimes to employees for the current month
-        //get first date of the month and set it to the minimum month available for selection in the CalendarView
-        Calendar firstDate = Calendar.getInstance();
-        firstDate.set(firstDate.get(Calendar.YEAR), firstDate.get(Calendar.MONTH), 1, 0, 0, 0);
-        calendar.setMinDate(firstDate.getTimeInMillis());
+        //next view lines will only allow the Employer to add timetimes to employees for the current month and next 2 months but not past the current day
+        Calendar firstDay = Calendar.getInstance();
+        firstDay.set(firstDay.get(Calendar.YEAR), firstDay.get(Calendar.MONTH), Calendar.DAY_OF_WEEK+3, 0, 0, 0);
+        calendar.setMinDate(firstDay.getTimeInMillis());
 
         //do same for the last day of the month, set to max
         Calendar lastDate = Calendar.getInstance();
-        lastDate.set(lastDate.get(Calendar.YEAR), lastDate.get(Calendar.MONTH)+1, 0, 0, 0, 0);
+        lastDate.set(lastDate.get(Calendar.YEAR), lastDate.get(Calendar.MONTH)+3, 0, 0, 0, 0);
         calendar.setMaxDate(lastDate.getTimeInMillis());
 
-        calendar.setDate(firstDate.getTimeInMillis());
+        calendar.setDate(firstDay.getTimeInMillis());
 
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener()
         {
@@ -51,7 +50,7 @@ public class addTimetables extends AppCompatActivity
             {
                 final AlertDialog alertDialog = new AlertDialog.Builder(addTimetables.this).create();
                 alertDialog.setTitle("Add Timetables");
-                alertDialog.setMessage("For "+dayOfMonth+"/"+month+"/"+year+"?");
+                alertDialog.setMessage("For "+dayOfMonth+"/"+(month+1)+"/"+year+"?");
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Okay",
                         new DialogInterface.OnClickListener()
                         {
@@ -60,9 +59,7 @@ public class addTimetables extends AppCompatActivity
                                 Intent intent2 = new Intent(getApplicationContext(), employeeTimetable.class);
                                 intent2.putExtra("cid", cid);
                                 intent2.putExtra("day", String.valueOf(dayOfMonth));
-                                intent2.putExtra("month", String.valueOf(month));
-
-                                System.out.println(String.valueOf(dayOfMonth)+" "+String.valueOf(month)+" "+cid);
+                                intent2.putExtra("month", String.valueOf(month+1));
                                 startActivity(intent2);
                             }
                         });

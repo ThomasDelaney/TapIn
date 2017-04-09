@@ -95,6 +95,9 @@ public class employeeTimetable extends AppCompatActivity
                     spinner.setVisibility(View.INVISIBLE);
                     scroll = new EmployeeScroll(getApplicationContext(), currentEmployees, 1);
                     listView.setAdapter(scroll);
+
+                    scroll.day = day;
+                    scroll.month = month;
                 }
             }
         });
