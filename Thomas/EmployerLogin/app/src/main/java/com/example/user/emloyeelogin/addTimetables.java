@@ -1,6 +1,7 @@
 package com.example.user.emloyeelogin;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,7 @@ import java.util.Calendar;
 
 public class addTimetables extends AppCompatActivity
 {
-    //TextView month;
+    private String cid;
     CalendarView calendar;
 
     @Override
@@ -22,6 +23,8 @@ public class addTimetables extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_date);
+
+        cid = getIntent().getExtras().getString("cid");
 
         calendar = (CalendarView)findViewById(R.id.calendar);
 
@@ -44,7 +47,7 @@ public class addTimetables extends AppCompatActivity
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener()
         {
             @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth)
+            public void onSelectedDayChange(CalendarView view, int year, final int month, final int dayOfMonth)
             {
                 final AlertDialog alertDialog = new AlertDialog.Builder(addTimetables.this).create();
                 alertDialog.setTitle("Add Timetables");
@@ -54,7 +57,13 @@ public class addTimetables extends AppCompatActivity
                         {
                             public void onClick(DialogInterface dialog, int which)
                             {
+                                Intent intent2 = new Intent(getApplicationContext(), employeeTimetable.class);
+                                intent2.putExtra("cid", cid);
+                                intent2.putExtra("day", String.valueOf(dayOfMonth));
+                                intent2.putExtra("month", String.valueOf(month));
 
+                                System.out.println(String.valueOf(dayOfMonth)+" "+String.valueOf(month)+" "+cid);
+                                startActivity(intent2);
                             }
                         });
 

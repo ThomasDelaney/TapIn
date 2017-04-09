@@ -46,7 +46,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
         String writeEmployeeUrl = "http://tapin.comli.com/writeEmployee.php";
         String getEmployeeIDUrl = "http://tapin.comli.com/getEmployeeID.php";
         String getCheckedInUrl = "http://tapin.comli.com/getCheckedIn.php";
-        String employeeTimetableGetUrl = "http://tapin.comli.com/employeeTimetableGet.php";
+        String eWorkingCheckUrl = "http://tapin.comli.com/eWorkingCheck.php";
 
         String method = params[0];
 
@@ -281,14 +281,15 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
                 e.printStackTrace();
             }
         }
-        else if (method.equals("employeeTimetableGet"))
+        else if (method.equals("eWorkingCheck"))
         {
             String cid = params[1];
-            String month = params[2];
+            String day = params[2];
+            String month = params[3];
 
             try
             {
-                URL url = new URL(employeeTimetableGetUrl);
+                URL url = new URL(eWorkingCheckUrl);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
@@ -300,7 +301,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
 
                 //encode data and write to php file on server
                 String data = URLEncoder.encode("month", "UTF-8")+"="+URLEncoder.encode(month, "UTF-8")
-                        +"&"+URLEncoder.encode("cid", "UTF-8")+"="+URLEncoder.encode(cid, "UTF-8");
+                        +"&"+URLEncoder.encode("cid", "UTF-8")+"="+URLEncoder.encode(cid, "UTF-8")+"&"+URLEncoder.encode("day", "UTF-8")+"="+URLEncoder.encode(day, "UTF-8");
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -315,6 +316,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
 
                 while((line = bufferedReader.readLine()) != null)
                 {
+                    System.out.println(line);
                     response += line;
                 }
 

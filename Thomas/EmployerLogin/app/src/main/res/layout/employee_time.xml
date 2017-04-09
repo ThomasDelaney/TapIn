@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,8 +23,11 @@
         android:id="@+id/ejob"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/employeeName"
         android:text="Job"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="@android:color/background_dark"
         android:textSize="18sp"
         android:textStyle="italic" />
 
@@ -35,6 +38,21 @@
         android:layout_height="wrap_content"
         android:background="#e8e8e8"
         android:text="Add Timetables"
-        android:textColor="#FF00A4" />
+        android:textColor="#FF00A4"
+        android:layout_alignBaseline="@+id/ejob"
+        android:layout_alignBottom="@+id/ejob"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/isWorking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="is Working?"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="18sp"
+        android:layout_below="@+id/ejob"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

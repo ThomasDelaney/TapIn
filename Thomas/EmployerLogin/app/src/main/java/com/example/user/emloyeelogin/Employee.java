@@ -14,6 +14,7 @@ public class Employee
     private String eid;
     private String job;
     private String parttime;
+    private String isWorkingDay;
 
     Employee(int inAppID, String name, String checkedIn, String time1, String time2)
     {
@@ -33,13 +34,21 @@ public class Employee
         }
     }
 
-    Employee (String eid, String name, String job, String parttime, int inAppID)
+    Employee (String name, String eid, String job, String isWorkingDay, int inAppID)
     {
         this.eid = eid;
         this.name = name;
         this.job = job;
-        this.parttime = parttime;
+        this.isWorkingDay = isWorkingDay;
         this.inAppID = inAppID;
+    }
+
+    public String getIsWorkingDay() {
+        return isWorkingDay;
+    }
+
+    public void setIsWorkingDay(String isWorkingDay) {
+        this.isWorkingDay = isWorkingDay;
     }
 
     public String getEid() {

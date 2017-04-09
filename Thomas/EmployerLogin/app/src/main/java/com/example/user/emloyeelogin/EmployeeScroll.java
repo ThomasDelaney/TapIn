@@ -85,10 +85,25 @@ public class EmployeeScroll extends BaseAdapter
 
             TextView name = (TextView) v.findViewById(R.id.employeeName);
             TextView ejob = (TextView) v.findViewById(R.id.ejob);
+            TextView isWorking = (TextView) v.findViewById(R.id.isWorking);
             Button ebutton = (Button) v.findViewById(R.id.ebutton);
 
+
+            ebutton.setVisibility(View.INVISIBLE);
             name.setText(employees.get(position).getName());
             ejob.setText(employees.get(position).getJob());
+
+            if (employees.get(position).getIsWorkingDay().equals("false"))
+            {
+                isWorking.setText("No Timetable for Today");
+                isWorking.setTextColor(Color.parseColor("#ff0000"));
+                ebutton.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                isWorking.setText("Timetable Already Added");
+                isWorking.setTextColor(Color.parseColor("#0aad1a"));
+            }
 
             v.setTag(employees.get(position).getInAppID());
 
