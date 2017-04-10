@@ -51,18 +51,18 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void processFinish(String output)
                     {
-                        if (output.equals("true "))
+                        if (output.equals("true"))
                         {
-                            startActivity(new Intent(MainActivity.this, secondActivity.class));
-                        }else if(output.equals("false "))
+                            Intent intent = new Intent(getApplicationContext(), secondActivity.class);
+                            startActivity(intent);
+                        }
+                        else if(output.equals("false"))
                         {
                             Toast.makeText(MainActivity.this, "Wrong login details", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
-
                 backgroundTask.execute(method, user, pass);
-
             }
 
             }
