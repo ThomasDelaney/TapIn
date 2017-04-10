@@ -1,6 +1,7 @@
 package com.example.user.emloyeelogin;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -34,8 +35,17 @@ public class timetableForm extends AppCompatActivity
         next = (Button)findViewById(R.id.nbutton);
 
         clock.setIs24HourView(true);
-        clock.setCurrentHour(8);
-        clock.setCurrentMinute(0);
+
+        if (Build.VERSION.SDK_INT >= 23)
+        {
+            clock.setHour(8);
+            clock.setMinute(0);
+        }
+        else
+        {
+            clock.setCurrentHour(8);
+            clock.setCurrentMinute(0);
+        }
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,8 +55,17 @@ public class timetableForm extends AppCompatActivity
                 intent2.putExtra("day", day);
                 intent2.putExtra("month", month);
                 intent2.putExtra("eid", eid);
-                intent2.putExtra("sTimeHour", clock.getCurrentHour());
-                intent2.putExtra("sTimeMinute", clock.getCurrentMinute());
+
+                if (Build.VERSION.SDK_INT >= 23)
+                {
+                    intent2.putExtra("sTimeHour", clock.getHour());
+                    intent2.putExtra("sTimeMinute", clock.getMinute());
+                }
+                else
+                {
+                    intent2.putExtra("sTimeHour", clock.getCurrentHour());
+                    intent2.putExtra("sTimeMinute", clock.getCurrentMinute());
+                }
                 startActivity(intent2);
             }
         });

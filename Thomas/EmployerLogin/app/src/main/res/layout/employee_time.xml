@@ -28,7 +28,7 @@
         android:layout_below="@+id/employeeName"
         android:text="Job"
         android:textColor="@android:color/background_dark"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textStyle="italic" />
 
     <Button
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:background="#e8e8e8"
         android:text="Add Timetables"
-        android:textColor="#FF00A4"
+        android:textColor="#6098f2"
         android:layout_alignBaseline="@+id/ejob"
         android:layout_alignBottom="@+id/ejob"
         android:layout_alignParentRight="true"
@@ -48,11 +48,38 @@
         android:id="@+id/isWorking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ejob"
         android:text="is Working?"
         android:textColor="@android:color/holo_red_dark"
-        android:textSize="18sp"
-        android:layout_below="@+id/ejob"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/sTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@android:color/background_dark"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/ebutton"
+        android:layout_alignStart="@+id/ebutton"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp" />
+
+    <TextView
+        android:id="@+id/eTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@android:color/background_dark"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_alignBaseline="@+id/isWorking"
+        android:layout_alignBottom="@+id/isWorking"
+        android:layout_alignLeft="@+id/sTimeText"
+        android:layout_alignStart="@+id/sTimeText" />
 
 </RelativeLayout>

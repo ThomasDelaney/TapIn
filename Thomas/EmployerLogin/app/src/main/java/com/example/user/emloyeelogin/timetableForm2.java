@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -61,16 +62,39 @@ public class timetableForm2 extends AppCompatActivity
         spinner.getIndeterminateDrawable().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
 
         clock.setIs24HourView(true);
-        clock.setCurrentHour(8);
-        clock.setCurrentMinute(0);
+
+        if (Build.VERSION.SDK_INT >= 23)
+        {
+            clock.setHour(8);
+            clock.setMinute(0);
+        }
+        else
+        {
+            clock.setCurrentHour(8);
+            clock.setCurrentMinute(0);
+        }
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                if (clock.getCurrentHour() <= sTimeHour)
+                int currentHour;
+                int currentMinute;
+
+                if (Build.VERSION.SDK_INT >= 23)
                 {
-                    Toast.makeText(timetableForm2.this, "End Time Cannot be Greater than Start Time + 1 Hour", Toast.LENGTH_SHORT).show();
+                    currentHour = clock.getHour();
+                    currentMinute = clock.getMinute();
+                }
+                else
+                {
+                    currentHour = clock.getCurrentHour();
+                    currentMinute = clock.getCurrentMinute();
+                }
+
+                if (currentHour <= sTimeHour)
+                {
+                    Toast.makeText(timetableForm2.this, "End Time Cannot be Less than Start Time + 1 Hour", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -80,7 +104,7 @@ public class timetableForm2 extends AppCompatActivity
                     spinner.setVisibility(View.VISIBLE);
 
                     sTime = String.valueOf(sTimeHour)+":"+String.valueOf(sTimeMinute)+":00";
-                    eTime = String.valueOf(clock.getCurrentHour())+":"+String.valueOf(clock.getCurrentMinute())+":00";
+                    eTime = String.valueOf(currentHour)+":"+String.valueOf(currentMinute)+":00";
 
                     BackgroundTask backgroundTask = new BackgroundTask(new BackgroundTask.AsyncResponse()
                     {

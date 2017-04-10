@@ -90,10 +90,14 @@ public class EmployeeScroll extends BaseAdapter
             TextView name = (TextView) v.findViewById(R.id.employeeName);
             TextView ejob = (TextView) v.findViewById(R.id.ejob);
             TextView isWorking = (TextView) v.findViewById(R.id.isWorking);
+            TextView sTimeText = (TextView) v.findViewById(R.id.sTimeText);
+            TextView eTimeText = (TextView) v.findViewById(R.id.eTimeText);
             Button ebutton = (Button) v.findViewById(R.id.ebutton);
 
 
             ebutton.setVisibility(View.INVISIBLE);
+            sTimeText.setVisibility(View.INVISIBLE);
+            eTimeText.setVisibility(View.INVISIBLE);
             name.setText(employees.get(position).getName());
             ejob.setText(employees.get(position).getJob());
 
@@ -107,6 +111,17 @@ public class EmployeeScroll extends BaseAdapter
             {
                 isWorking.setText("Timetable Already Added");
                 isWorking.setTextColor(Color.parseColor("#0aad1a"));
+                sTimeText.setVisibility(View.VISIBLE);
+                eTimeText.setVisibility(View.VISIBLE);
+
+                String[] sTimeSplit = employees.get(position).getTime1().split(":");
+                String nSTime = sTimeSplit[0]+":"+sTimeSplit[1];
+
+                String[] eTimeSplit = employees.get(position).getTime2().split(":");
+                String nETime = eTimeSplit[0]+":"+eTimeSplit[1];
+
+                sTimeText.setText(nSTime+"\n     -");
+                eTimeText.setText(nETime);
             }
 
             ebutton.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +132,7 @@ public class EmployeeScroll extends BaseAdapter
                     intent2.putExtra("day", day);
                     intent2.putExtra("month", month);
                     intent2.putExtra("eid", employees.get(position).getEid());
+                    intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent2);
                 }
             });

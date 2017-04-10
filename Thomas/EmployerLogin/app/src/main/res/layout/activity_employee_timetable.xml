@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.emloyeelogin.timetableForm">
+    tools:context="com.example.user.emloyeelogin.timetableForm"
+    android:background="#c6ceff">
 
     <TextView
         android:id="@+id/headerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:text="Pick Start Time"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+        android:textStyle="bold"/>
 
     <TimePicker
         android:id="@+id/timeSelect"
@@ -24,7 +26,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/headerText"
-        android:layout_marginTop="34dp" />
+        android:layout_marginTop="34dp"
+        android:headerBackground="#3a4cbc"
+        android:numbersSelectorColor="#3a4cbc" />
 
     <Button
         android:id="@+id/nbutton"
@@ -33,6 +37,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
-        android:text="Next" />
+        android:text="Next"
+        android:textColor="#6098f2"
+        android:background="#e8e8e8"/>
 
 </RelativeLayout>

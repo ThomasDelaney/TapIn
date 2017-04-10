@@ -34,11 +34,13 @@ public class Employee
         }
     }
 
-    Employee (String name, String eid, String job, String isWorkingDay, int inAppID)
+    Employee (int inAppID, String name, String eid, String job, String time1, String time2, String isWorkingDay)
     {
         this.eid = eid;
         this.name = name;
         this.job = job;
+        this.time1 = time1;
+        this.time2 = time2;
         this.isWorkingDay = isWorkingDay;
         this.inAppID = inAppID;
     }

@@ -88,7 +88,7 @@ public class employeeTimetable extends AppCompatActivity
 
                         String[] splitInfo = employee.split(",");
 
-                        Employee n = new Employee(splitInfo[0], splitInfo[1], splitInfo[2], splitInfo[3], i);
+                        Employee n = new Employee(i, splitInfo[0], splitInfo[1], splitInfo[2], splitInfo[3], splitInfo[4], splitInfo[5]);
                         currentEmployees.add(n);
                     }
 
