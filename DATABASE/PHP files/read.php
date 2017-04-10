@@ -2,6 +2,7 @@
 	require "init.php";
 	$id = $_POST["id"];
 	
+	
 	$query = "select age, fname, sname from test where id = '$id'";
 	
 	$result = mysqli_query($con, $query);
