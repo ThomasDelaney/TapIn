@@ -10,15 +10,13 @@ public class Product
 {
     private int id;
     private String name;
-    private int price;
     private String description;
 
     // Constructor
-    public Product(int id, String name, int price, String description)
+    public Product(int id, String name, String description)
     {
         this.id = id;
         this.name = name;
-        this.price = price;
         this.description = description;
     }
 
@@ -43,16 +41,6 @@ public class Product
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    public int getPrice()
-    {
-        return price;
-    }
-
-    public void setPrice(int price)
-    {
-        this.price = price;
     }
 
     public String getDescription()

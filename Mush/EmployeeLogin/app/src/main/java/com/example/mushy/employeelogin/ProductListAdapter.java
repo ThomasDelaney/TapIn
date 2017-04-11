@@ -51,12 +51,10 @@ public class ProductListAdapter extends BaseAdapter
     {
         View v = View.inflate(mContext, R.layout.item_product_list, null);
         TextView tvName= (TextView) v.findViewById(R.id.tv_name);
-        TextView tvPrice= (TextView) v.findViewById(R.id.tv_price);
         TextView tvDescription= (TextView) v.findViewById(R.id.tv_description);
 
         // set text for TextView
         tvName.setText(mProductList.get(position).getName());
-        tvPrice.setText(String.valueOf(mProductList.get(position).getPrice())+ " $");
         tvDescription.setText(mProductList.get(position).getDescription());
 
         // save product id to tag

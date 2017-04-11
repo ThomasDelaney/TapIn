@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#c1c1c1"
+    android:background="#c3ccff"
     android:orientation="vertical"
     tools:context="com.example.mushy.employeelogin.secondActivity">
 
@@ -17,9 +17,8 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:dividerHeight="10dp"
-        android:divider="#d1d1d1"
-
+        android:dividerHeight="15dp"
+        android:divider="#c7ceff"
         >
 
     </ListView>

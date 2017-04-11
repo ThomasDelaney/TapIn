@@ -34,11 +34,13 @@ public class secondActivity extends Activity
                 mProductList = new ArrayList<>();
 
                 // Add sample data for test
-                mProductList.add(new Product(1, "Test1", 100, "Tester1"));
-                mProductList.add(new Product(2, "Test2", 200, "Tester2"));
-                mProductList.add(new Product(3, "Test3", 300, "Tester3"));
-                mProductList.add(new Product(4, "Test4", 400, "Tester4"));
-                mProductList.add(new Product(5, "Test5", 500, "Tester5"));
+                mProductList.add(new Product(1, "Monday", "9:00 - 18:00"));
+                mProductList.add(new Product(2, "Tuesday", "9:00 - 18:00"));
+                mProductList.add(new Product(3, "Wednesday", "9:00 - 18:00"));
+                mProductList.add(new Product(4, "Thursday", "9:00 - 18:00"));
+                mProductList.add(new Product(5, "Friday", "9:00 - 18:00"));
+                mProductList.add(new Product(6, "Saturday", "9:00 - 18:00"));
+                mProductList.add(new Product(7, "Sunday", "9:00 - 18:00"));
 
 
                 // init adapter
