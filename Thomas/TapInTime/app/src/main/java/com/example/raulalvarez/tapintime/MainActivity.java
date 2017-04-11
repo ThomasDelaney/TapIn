@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     NfcAdapter nfcAdapter;
     TextView yeeid;
-    Button checkin;
+
 
 
     @Override
@@ -34,13 +34,43 @@ public class MainActivity extends AppCompatActivity {
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         yeeid = (TextView)findViewById(R.id.yeeid);
-        checkin = (Button)findViewById(R.id.checkin);
 
-        checkin.setOnClickListener(new View.OnClickListener() {
+    }
 
-            @Override
-            public void onClick (View v)
+    @Override
+    public void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+
+        if(intent.hasExtra(NfcAdapter.EXTRA_TAG))
+        {
+            Toast.makeText(this, "Reading from Tag", Toast.LENGTH_SHORT).show();
+            Parcelable[] parcelables = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+
+            if(parcelables != null && parcelables.length > 0)
             {
+                readTextfromMessage((NdefMessage)parcelables[0]);
+            }
+        }
+    }
+
+    private void readTextfromMessage(NdefMessage ndefMessage)
+    {
+        NdefRecord[] ndefRecords = ndefMessage.getRecords();
+
+        if(ndefRecords != null && ndefRecords.length > 0)
+        {
+            NdefRecord ndefRecord = ndefRecords[0];
+
+            String content = getTextFromNdefRecord(ndefRecord);
+
+            if(content == null)
+            {
+                Toast.makeText(this, "Tag is Empty", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                yeeid.setText(content);
 
                 if(!String.valueOf(yeeid.getText()).equals("")) {
 
@@ -79,48 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
                     backgroundTask.execute(method,employee);
                 }
-                else
-                {
-                    Toast.makeText(MainActivity.this, "Please Enter All Fields", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    @Override
-    public void onNewIntent(Intent intent)
-    {
-        super.onNewIntent(intent);
-
-        if(intent.hasExtra(NfcAdapter.EXTRA_TAG))
-        {
-            Toast.makeText(this, "Reading from Tag", Toast.LENGTH_SHORT).show();
-            Parcelable[] parcelables = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-
-            if(parcelables != null && parcelables.length > 0)
-            {
-                readTextfromMessage((NdefMessage)parcelables[0]);
-            }
-        }
-    }
-
-    private void readTextfromMessage(NdefMessage ndefMessage)
-    {
-        NdefRecord[] ndefRecords = ndefMessage.getRecords();
-
-        if(ndefRecords != null && ndefRecords.length > 0)
-        {
-            NdefRecord ndefRecord = ndefRecords[0];
-
-            String content = getTextFromNdefRecord(ndefRecord);
-
-            if(content == null)
-            {
-                Toast.makeText(this, "Tag is Empty", Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
-                yeeid.setText(content);
             }
         }
     }
