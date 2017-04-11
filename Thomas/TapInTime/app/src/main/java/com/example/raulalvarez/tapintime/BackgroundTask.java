@@ -104,11 +104,12 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
                 e.printStackTrace();
             }
         }
+
         else if(method.equals("ClockIn"))
         {
-            String cid = params[1];
-            String day = params[2];
-            String month = params[3];
+            String day = params[1];
+            String month = params[2];
+            String cid = params[3];
 
             try
             {
@@ -123,9 +124,9 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
                 //encode data and write to php file on server
-                String data =   URLEncoder.encode("employee", "UTF-8")+"="+URLEncoder.encode(cid, "UTF-8")+"&"+
-                                URLEncoder.encode("day", "UTF-8")+"="+URLEncoder.encode(day, "UTF-8")+"&"+
-                                URLEncoder.encode("month", "UTF-8")+"="+URLEncoder.encode(month, "UTF-8");
+                String data =   URLEncoder.encode("day", "UTF-8")+"="+URLEncoder.encode(day, "UTF-8")+"&"+
+                                URLEncoder.encode("month", "UTF-8")+"="+URLEncoder.encode(month, "UTF-8")+"&"+
+                                URLEncoder.encode("cid", "UTF-8")+"="+URLEncoder.encode(cid, "UTF-8");
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
                 bufferedWriter.close();

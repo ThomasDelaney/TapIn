@@ -16,10 +16,12 @@ import java.util.Date;
  */
 
 
-
 public class ClockIn extends AppCompatActivity {
 
     TextView disptime;
+    TextView working;
+
+    String yeeid = MainActivity.employee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +33,13 @@ public class ClockIn extends AppCompatActivity {
         String currentDateTimeString = sdf.format(d);
 
         disptime = (TextView)findViewById(R.id.clock);
+        working = (TextView)findViewById(R.id.working);
         disptime.setText(currentDateTimeString);
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(d);
 
         String method = "ClockIn";
-        String employee;
         String day = String.valueOf(cal.get(Calendar.DAY_OF_WEEK));
         String month = String.valueOf(cal.get(Calendar.MONTH));
 
@@ -49,19 +51,17 @@ public class ClockIn extends AppCompatActivity {
 
                 if (output.equals("null "))
                 {
-                    Toast.makeText(ClockIn.this, "Employee Does Not Exists", Toast.LENGTH_SHORT).show();
+                    working.setText("You are not working today");
                 }
                 else
                 {
-
-                    Intent myIntent = new Intent(getApplicationContext(), ClockIn.class);
-                    startActivity(myIntent);
-
+                    working.setText("You are working today");
                 }
             }
         });
 
-        backgroundTask.execute(method, day, month);
+
+        backgroundTask.execute(method, day, month, yeeid);
 
 
     }

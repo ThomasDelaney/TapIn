@@ -10,20 +10,19 @@ import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Date;
+
 
 public class MainActivity extends AppCompatActivity {
 
     NfcAdapter nfcAdapter;
     TextView yeeid;
+    public static String employee;
 
 
 
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(!String.valueOf(yeeid.getText()).equals("")) {
 
-                    String employee = yeeid.getText().toString();
+                    employee = yeeid.getText().toString();
 
                     String method = "getEmployeeInfo";
 
@@ -91,14 +90,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                             else
                             {
-                                /*String[] tokens = output.split(",");
-
-                                for (String t : tokens)
-                                {
-                                    info.add(t);
-                                }*/
-
-                                //Toast.makeText(MainActivity.this, "YUSH", Toast.LENGTH_SHORT).show();
                                 yeeid.setText("");
                                 Intent myIntent = new Intent(getApplicationContext(), ClockIn.class);
                                 startActivity(myIntent);
