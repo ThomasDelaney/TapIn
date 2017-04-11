@@ -40,6 +40,7 @@ class BackgroundTask extends AsyncTask<String, Void, String>
         String method = params[0];
 
         String read_url = "http://tapin.comli.com/employee.php";
+        String get_timetable= "http://tapin.comli.com/yeeTimetableGet.php";
 
         if (method.equals("read"))
         {
@@ -113,7 +114,7 @@ class BackgroundTask extends AsyncTask<String, Void, String>
 
             try
             {
-                URL url = new URL(read_url);
+                URL url = new URL(get_timetable);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);

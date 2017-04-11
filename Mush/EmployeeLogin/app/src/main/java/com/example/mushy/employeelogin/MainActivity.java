@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity
 
                             // This returns the id of the employee based on the username and password
                             id = output.replaceAll("[^0-9]", "");
+
                             Intent intent = new Intent(getApplicationContext(), secondActivity.class);
                             startActivity(intent);
                         }
