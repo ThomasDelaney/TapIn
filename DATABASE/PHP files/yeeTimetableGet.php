@@ -16,7 +16,8 @@
 			$starttime = $row["STARTTIME"];
 			$endtime = $row["ENDTIME"];
 	                
-			$final = $final.$eid.",".$dayofweek.",".$starttime.",".$endtime."-";
+			$final = $eid.",".$dayofweek.",".$starttime.",".$endtime."-";
+			
 		}
 		echo $final;
 	}
