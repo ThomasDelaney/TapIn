@@ -17,6 +17,7 @@ public class secondActivity extends Activity
     private ListView lvProduct;
     private ProductListAdapter adapter;
     private List<Product> mProductList;
+    private int[] days_working= new int[7];
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -79,10 +80,20 @@ public class secondActivity extends Activity
 
                     sTimeSplit = splitInfo[3].split(":");
                     String nSTime2= sTimeSplit[0] +":"+ sTimeSplit[1];
-                    System.out.println(month + " " + Integer.valueOf(splitInfo[1]));
+
                     if(Integer.valueOf(splitInfo[0]) >= (monday_index +1) && Integer.valueOf(splitInfo[0]) <= (monday_index +8) && Integer.valueOf(splitInfo[1]) == month)
                     {
+                        System.out.println(((Integer.valueOf(splitInfo[0]) - monday_index) % 7) + " " + 1);
+                        days_working[(Integer.valueOf(splitInfo[0]) - monday_index) % 7]=1;
                         mProductList.add(new Product(Integer.valueOf(splitInfo[0]), nDate +" "+ splitInfo[0] + "/" + splitInfo[1], nSTime1 + " - " + nSTime2));
+                    }
+                }
+                for(int index=0; index<7; index++)
+                {
+                    if(days_working[index] != 1)
+                    {
+                        String MyDate2= Day_Of_Week(index);
+                        mProductList.add(new Product(index, MyDate2 + " "+ (monday_index+index) + "/" + month, "Not Scheduled"));
                     }
                 }
 
@@ -96,5 +107,56 @@ public class secondActivity extends Activity
         backgroundTask.execute("getTimetable", MainActivity.getId());
 
 
+    }
+
+    public String Day_Of_Week(int a)
+    {
+        String output_String;
+
+        switch(a)
+        {
+            case 0:
+            {
+                output_String = "Sunday";
+                break;
+            }
+            case 1:
+            {
+                output_String = "Monday";
+                break;
+            }
+            case 2:
+            {
+                output_String = "Tuesday";
+                break;
+            }
+            case 3:
+            {
+                output_String = "Wednesday";
+                break;
+            }
+            case 4:
+            {
+                output_String = "Thursday";
+                break;
+            }
+            case 5:
+            {
+                output_String = "Friday";
+                break;
+            }
+            case 6:
+            {
+                output_String = "Saturday";
+                break;
+            }
+
+            default:
+            {
+                output_String = "error";
+            }
+        }
+
+        return output_String;
     }
 }
