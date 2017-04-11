@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.raulalvarez.tapintime.MainActivity">
@@ -14,13 +15,36 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="67dp"
         android:textAlignment="center"
+        android:textColor="@color/colorAccent"
         android:textSize="40sp" />
 
     <TextView
         android:id="@+id/working"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:layout_below="@+id/clock"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/clockin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/clockout"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:textSize="40sp" />
+        android:layout_marginBottom="29dp"
+        android:text="Clock In" />
+
+    <Button
+        android:id="@+id/clockout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/clockin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/clockin"
+        android:layout_marginBottom="59dp"
+        android:text="Clock out" />
+
 </RelativeLayout>

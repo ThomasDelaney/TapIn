@@ -145,8 +145,6 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
                     response += " ";
                 }
 
-                System.out.println(response);
-
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
