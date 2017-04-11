@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Created by raulalvarez on 3/4/17.
@@ -36,7 +38,7 @@ public class ClockIn extends AppCompatActivity {
         working = (TextView)findViewById(R.id.working);
         disptime.setText(currentDateTimeString);
 
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = new GregorianCalendar(Locale.ENGLISH);
         cal.setTime(d);
 
         String method = "ClockIn";
@@ -62,6 +64,10 @@ public class ClockIn extends AppCompatActivity {
 
 
         backgroundTask.execute(method, day, month, yeeid);
+        System.out.println(method);
+        System.out.println(day);
+        System.out.println(month);
+        System.out.println(yeeid);
 
 
     }
