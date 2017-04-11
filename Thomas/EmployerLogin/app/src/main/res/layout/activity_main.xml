@@ -44,7 +44,7 @@
         android:layout_below="@+id/add"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="54dp"
-        android:text="Add Timetables" />
+        android:text="Schedules" />
 
     <Button
         android:id="@+id/logout"

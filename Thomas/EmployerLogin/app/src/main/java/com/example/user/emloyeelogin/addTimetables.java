@@ -46,7 +46,7 @@ public class addTimetables extends AppCompatActivity
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener()
         {
             @Override
-            public void onSelectedDayChange(CalendarView view, int year, final int month, final int dayOfMonth)
+            public void onSelectedDayChange(CalendarView view, final int year, final int month, final int dayOfMonth)
             {
                 final AlertDialog alertDialog = new AlertDialog.Builder(addTimetables.this).create();
                 alertDialog.setTitle("Add Timetables");
@@ -60,6 +60,7 @@ public class addTimetables extends AppCompatActivity
                                 intent2.putExtra("cid", cid);
                                 intent2.putExtra("day", String.valueOf(dayOfMonth));
                                 intent2.putExtra("month", String.valueOf(month+1));
+                                intent2.putExtra("year", String.valueOf(year));
                                 startActivity(intent2);
                             }
                         });

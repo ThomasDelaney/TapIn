@@ -18,6 +18,7 @@ public class employeeTimetable extends AppCompatActivity
     private String day;
     private String month;
     private String cid;
+    private String year;
 
     private ListView listView;
     private EmployeeScroll scroll;
@@ -33,6 +34,7 @@ public class employeeTimetable extends AppCompatActivity
         cid = getIntent().getExtras().getString("cid");
         day = getIntent().getExtras().getString("day");
         month = getIntent().getExtras().getString("month");
+        year = getIntent().getExtras().getString("year");
 
         spinner = (ProgressBar)findViewById(R.id.progressBar2);
         spinner.setVisibility(View.VISIBLE);
@@ -92,6 +94,7 @@ public class employeeTimetable extends AppCompatActivity
                         currentEmployees.add(n);
                     }
 
+                    setTitle("Schedule for Date: "+day+"/"+month+"/"+year);
                     spinner.setVisibility(View.INVISIBLE);
                     scroll = new EmployeeScroll(getApplicationContext(), currentEmployees, 1);
                     listView.setAdapter(scroll);
