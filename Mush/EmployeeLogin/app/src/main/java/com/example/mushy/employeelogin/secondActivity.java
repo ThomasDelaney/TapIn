@@ -12,6 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class secondActivity extends Activity
 {
     private ListView lvProduct;
@@ -33,6 +34,8 @@ public class secondActivity extends Activity
                 lvProduct = (ListView) findViewById(R.id.listview_product);
                 mProductList = new ArrayList<>();
 
+                // Getting the details from the DB
+
                 // Add sample data for test
                 mProductList.add(new Product(1, "Monday", "9:00 - 18:00"));
                 mProductList.add(new Product(2, "Tuesday", "9:00 - 18:00"));
@@ -49,7 +52,9 @@ public class secondActivity extends Activity
 
             }
         });
-        backgroundTask.execute("getTimetable", "1");
+
+        // getId gets the id of the employee
+        backgroundTask.execute("getTimetable", MainActivity.getId());
 
 
     }

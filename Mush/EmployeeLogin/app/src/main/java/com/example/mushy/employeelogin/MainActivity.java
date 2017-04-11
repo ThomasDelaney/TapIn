@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity
     public Button loginbutton;
     public EditText user2;
     public EditText pass2;
+    public static String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity
         loginbutton = (Button) findViewById(R.id.loginButton);
         user2 = (EditText) findViewById(R.id.user);
         pass2 = (EditText) findViewById(R.id.pass);
+
 
         loginbutton.setOnClickListener(new View.OnClickListener()
         {
@@ -51,14 +53,17 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void processFinish(String output)
                     {
-                        if (output.equals("true"))
-                        {
-                            Intent intent = new Intent(getApplicationContext(), secondActivity.class);
-                            startActivity(intent);
-                        }
-                        else if(output.equals("false"))
+
+                        if(output.equals("false"))
                         {
                             Toast.makeText(MainActivity.this, "Wrong login details", Toast.LENGTH_LONG).show();
+                        }else //if (output.equals("true"))
+                        {
+
+                            // This returns the id of the employee based on the username and password
+                            id = output.replaceAll("[^0-9]", "");
+                            Intent intent = new Intent(getApplicationContext(), secondActivity.class);
+                            startActivity(intent);
                         }
                     }
                 });
@@ -70,4 +75,9 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+    public static String getId()
+    {
+        return id;
+    }
+
 }
