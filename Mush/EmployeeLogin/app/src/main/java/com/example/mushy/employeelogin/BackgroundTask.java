@@ -87,7 +87,6 @@ class BackgroundTask extends AsyncTask<String, Void, String>
 
                 while((line = bufferedReader.readLine()) != null)
                 {
-                    System.out.println(line);
                     response += line;
                 }
 

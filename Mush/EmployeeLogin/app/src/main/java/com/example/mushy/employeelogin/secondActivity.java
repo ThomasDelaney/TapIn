@@ -23,7 +23,7 @@ public class secondActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        setTitle("Schedule for week 1");
+        setTitle("Schedule for the current week");
         BackgroundTask backgroundTask = new BackgroundTask(
         new BackgroundTask.AsyncResponse()
         {
@@ -36,6 +36,18 @@ public class secondActivity extends Activity
                 lvProduct = (ListView) findViewById(R.id.listview_product);
                 mProductList = new ArrayList<>();
 
+                // Getting the index for the weeks Monday
+                Calendar calendar = Calendar.getInstance();
+                int monday_index = calendar.get(Calendar.DAY_OF_MONTH);
+                while(monday_index != Calendar.MONDAY && monday_index != (Calendar.MONDAY +7) && monday_index != (Calendar.MONDAY +14) && monday_index != (Calendar.MONDAY +21))
+                {
+                    monday_index--;
+                }
+
+                // Getting the current month
+
+                int month = calendar.get(Calendar.MONTH) +1;
+
                 // Getting the details from the DB
                 String[] tokens = output.split("-");
                 for (String t : tokens)
@@ -45,14 +57,11 @@ public class secondActivity extends Activity
                 for (int i = 0; i < days.size() -1; i++)
                 {
                     String day = days.get(i);
-
                     String[] splitInfo = day.split(",");
 
-                    System.out.println(splitInfo[0] + " " + splitInfo[1] + " " + splitInfo[2] + " " + splitInfo[3]);
                     SimpleDateFormat newDateFormat= new SimpleDateFormat("dd/MM/yyyy");
                     Date myDate=null;
                     Calendar c = Calendar.getInstance(); // used to get the year
-
                     try
                     {
                         myDate = newDateFormat.parse(splitInfo[0]+"/"+splitInfo[1]+"/"+c.get(Calendar.YEAR));
@@ -70,20 +79,16 @@ public class secondActivity extends Activity
 
                     sTimeSplit = splitInfo[3].split(":");
                     String nSTime2= sTimeSplit[0] +":"+ sTimeSplit[1];
-
-                    mProductList.add(new Product(Integer.valueOf(splitInfo[0]), nDate, nSTime1 + " - " +nSTime2));
-
+                    System.out.println(month + " " + Integer.valueOf(splitInfo[1]));
+                    if(Integer.valueOf(splitInfo[0]) >= (monday_index +1) && Integer.valueOf(splitInfo[0]) <= (monday_index +8) && Integer.valueOf(splitInfo[1]) == month)
+                    {
+                        mProductList.add(new Product(Integer.valueOf(splitInfo[0]), nDate +" "+ splitInfo[0] + "/" + splitInfo[1], nSTime1 + " - " + nSTime2));
+                    }
                 }
-
-
-
-                // Add sample data for test
-
 
                 // init adapter
                 adapter = new ProductListAdapter(getApplicationContext(), mProductList);
                 lvProduct.setAdapter(adapter);
-
             }
         });
 
