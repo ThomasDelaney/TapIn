@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="42dp"
-        android:text="Clock In"
+        android:text="Clock In Time"
         android:textColor="@android:color/background_dark"
         android:textSize="24sp" />
 

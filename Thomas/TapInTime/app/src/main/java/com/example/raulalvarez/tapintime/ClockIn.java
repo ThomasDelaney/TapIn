@@ -32,8 +32,10 @@ public class ClockIn extends AppCompatActivity {
     String yeeid = MainActivity.employee;
 
     String currentDateTimeString;
-    String minimumTime;
-    String maximumTime;
+    String minimuminTime;
+    String maximuminTime;
+    String minimumoutTime;
+    String maximumoutTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,7 @@ public class ClockIn extends AppCompatActivity {
         clockout= (Button)findViewById(R.id.clockout);
         disptime.setText(currentDateTimeString);
 
-        Calendar cal = Calendar.getInstance(Locale.ITALY);
+        Calendar cal = Calendar.getInstance();
         cal.setTime(d);
 
         String method = "ClockIn";
@@ -74,48 +76,47 @@ public class ClockIn extends AppCompatActivity {
                     working.setText("You are working today");
 
 
-                    String[] tokens = output.split("-");
+                    String[] tokens = output.split(",");
                     System.out.println(output);
-                    for (String t : tokens) {
-                        info.add(t);
-                    }
 
 
-                    String[] starttimestr = new String[0];
-                    String[] endtimestr = new String[0];
-                    String[] splitInfo = new String[0];
+                    String[] starttimestr;
+                    String[] endtimestr;
+                    String[] currenttimestr;
 
-                    for (int i = 0; i < info.size(); i++)
+
+
+
+                    starttimestr = tokens[2].split(":");
+                    endtimestr = tokens[3].split(":");
+                    currenttimestr = currentDateTimeString.split(":");
+
+                    System.out.println(starttimestr[0]);
+                    System.out.println(starttimestr[1]);
+                    System.out.println(starttimestr[2]);
+                    System.out.println(endtimestr[0]);
+                    System.out.println(endtimestr[1]);
+                    System.out.println(endtimestr[2]);
+                    System.out.println(currenttimestr[0]);
+                    System.out.println(currenttimestr[1]);
+                    System.out.println(currenttimestr[2]);
+
+                    int[] currenttime = new int[3];
+                    int[] starttime = new int[3];
+                    int[] endtime = new int[3];
+
+                    for(int i = 0; i < 3; i++)
                     {
-                        String employee = info.get(i);
-                        splitInfo = employee.split(",");
-                        System.out.print(employee);
-                    }
-
-                    for (String s: splitInfo)
-                    {
-                        System.out.print(s);
-                    }
-
-
-
-                    /*starttimestr = splitInfo[0].split(":");
-                    endtimestr = splitInfo[0].split(":");
-
-                    //final int[] currenttime = new int[0];
-                    final int[] starttime = new int[0];
-                    int[] endtime = new int[0];
-                    for(int i = 0; i < starttime.length; i++)
-                    {
-                        starttime[i] = Integer.parseInt(starttimestr[i]);
-                        endtime[i] = Integer.parseInt(endtimestr[i]);
-                        //currenttime[i] = Integer.parseInt(currentDateTimeString);
+                        starttime[i] = Integer.valueOf(starttimestr[i].trim());
+                        endtime[i] = Integer.valueOf(endtimestr[i].trim());
+                        currenttime[i] = Integer.valueOf(currenttimestr[i].trim());
                     }
 
                     int minHour = starttime[0];
                     int maxHour = starttime[0];
                     int minMinutes = starttime[1];
                     int maxMinutes = starttime[1];
+
                     for(int i = 0; i < 15; i++ )
                     {
                         minMinutes--;
@@ -133,8 +134,11 @@ public class ClockIn extends AppCompatActivity {
                         }
                     }
 
-                    minimumTime = String.format("%s:%s:%s", String.valueOf(minHour), String.valueOf(minMinutes), starttimestr[2]);
-                    maximumTime = String.format("%s:%s:%s", String.valueOf(maxHour), String.valueOf(maxMinutes), starttimestr[2]);*/
+                    minimuminTime = String.format("%s:%s:%s", String.valueOf(minHour), String.valueOf(minMinutes), starttimestr[2]);
+                    maximuminTime = String.format("%s:%s:%s", String.valueOf(maxHour), String.valueOf(maxMinutes), starttimestr[2]);
+
+                    System.out.println(minimuminTime);
+                    System.out.println(maximuminTime);
 
 
                     clockin.setOnClickListener(new View.OnClickListener()
@@ -162,7 +166,7 @@ public class ClockIn extends AppCompatActivity {
 
                                 if (x.after(calendar1.getTime()) && x.before(calendar2.getTime())) {
                                     //checkes whether the current time is between 14:49:00 and 20:11:13.
-                                    System.out.println(true);
+
                                 }
                                 else
                                 {

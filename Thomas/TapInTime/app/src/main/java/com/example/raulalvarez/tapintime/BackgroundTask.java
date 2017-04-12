@@ -46,7 +46,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
     protected String doInBackground(String... params)
     {
         String getEmployeeInfoUrl = "http://tapin.comli.com/getEmployeeInfo.php";
-        String getCheckedIn = "http://tapin.comli.com/getCheckedIn.php";
+        String getCheckedIn = "http://tapin.comli.com/getCheckedIn2.php";
 
         String method = params[0];
 
