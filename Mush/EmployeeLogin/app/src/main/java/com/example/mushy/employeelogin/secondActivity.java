@@ -17,13 +17,14 @@ public class secondActivity extends Activity
     private ListView lvProduct;
     private ProductListAdapter adapter;
     private List<Product> mProductList;
+    private int[] days_working= new int[7];
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        setTitle("Schedule for week 1");
+        setTitle("Schedule for the current week");
         BackgroundTask backgroundTask = new BackgroundTask(
         new BackgroundTask.AsyncResponse()
         {
@@ -36,6 +37,18 @@ public class secondActivity extends Activity
                 lvProduct = (ListView) findViewById(R.id.listview_product);
                 mProductList = new ArrayList<>();
 
+                // Getting the index for the weeks Monday
+                Calendar calendar = Calendar.getInstance();
+                int monday_index = calendar.get(Calendar.DAY_OF_MONTH);
+                while(monday_index != Calendar.MONDAY && monday_index != (Calendar.MONDAY +7) && monday_index != (Calendar.MONDAY +14) && monday_index != (Calendar.MONDAY +21))
+                {
+                    monday_index--;
+                }
+
+                // Getting the current month
+
+                int month = calendar.get(Calendar.MONTH) +1;
+
                 // Getting the details from the DB
                 String[] tokens = output.split("-");
                 for (String t : tokens)
@@ -45,14 +58,11 @@ public class secondActivity extends Activity
                 for (int i = 0; i < days.size() -1; i++)
                 {
                     String day = days.get(i);
-
                     String[] splitInfo = day.split(",");
 
-                    System.out.println(splitInfo[0] + " " + splitInfo[1] + " " + splitInfo[2] + " " + splitInfo[3]);
                     SimpleDateFormat newDateFormat= new SimpleDateFormat("dd/MM/yyyy");
                     Date myDate=null;
                     Calendar c = Calendar.getInstance(); // used to get the year
-
                     try
                     {
                         myDate = newDateFormat.parse(splitInfo[0]+"/"+splitInfo[1]+"/"+c.get(Calendar.YEAR));
@@ -71,19 +81,25 @@ public class secondActivity extends Activity
                     sTimeSplit = splitInfo[3].split(":");
                     String nSTime2= sTimeSplit[0] +":"+ sTimeSplit[1];
 
-                    mProductList.add(new Product(Integer.valueOf(splitInfo[0]), nDate, nSTime1 + " - " +nSTime2));
-
+                    if(Integer.valueOf(splitInfo[0]) >= (monday_index +1) && Integer.valueOf(splitInfo[0]) <= (monday_index +8) && Integer.valueOf(splitInfo[1]) == month)
+                    {
+                        System.out.println(((Integer.valueOf(splitInfo[0]) - monday_index) % 7) + " " + 1);
+                        days_working[(Integer.valueOf(splitInfo[0]) - monday_index) % 7]=1;
+                        mProductList.add(new Product(Integer.valueOf(splitInfo[0]), nDate +" "+ splitInfo[0] + "/" + splitInfo[1], nSTime1 + " - " + nSTime2));
+                    }
                 }
-
-
-
-                // Add sample data for test
-
+                for(int index=0; index<7; index++)
+                {
+                    if(days_working[index] != 1)
+                    {
+                        String MyDate2= Day_Of_Week(index);
+                        mProductList.add(new Product(index, MyDate2 + " "+ (monday_index+index) + "/" + month, "Not Scheduled"));
+                    }
+                }
 
                 // init adapter
                 adapter = new ProductListAdapter(getApplicationContext(), mProductList);
                 lvProduct.setAdapter(adapter);
-
             }
         });
 
@@ -91,5 +107,56 @@ public class secondActivity extends Activity
         backgroundTask.execute("getTimetable", MainActivity.getId());
 
 
+    }
+
+    public String Day_Of_Week(int a)
+    {
+        String output_String;
+
+        switch(a)
+        {
+            case 0:
+            {
+                output_String = "Sunday";
+                break;
+            }
+            case 1:
+            {
+                output_String = "Monday";
+                break;
+            }
+            case 2:
+            {
+                output_String = "Tuesday";
+                break;
+            }
+            case 3:
+            {
+                output_String = "Wednesday";
+                break;
+            }
+            case 4:
+            {
+                output_String = "Thursday";
+                break;
+            }
+            case 5:
+            {
+                output_String = "Friday";
+                break;
+            }
+            case 6:
+            {
+                output_String = "Saturday";
+                break;
+            }
+
+            default:
+            {
+                output_String = "error";
+            }
+        }
+
+        return output_String;
     }
 }
