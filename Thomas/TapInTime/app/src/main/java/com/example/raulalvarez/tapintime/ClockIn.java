@@ -84,22 +84,10 @@ public class ClockIn extends AppCompatActivity {
                     String[] endtimestr;
                     String[] currenttimestr;
 
-
-
-
                     starttimestr = tokens[2].split(":");
                     endtimestr = tokens[3].split(":");
                     currenttimestr = currentDateTimeString.split(":");
 
-                    System.out.println(starttimestr[0]);
-                    System.out.println(starttimestr[1]);
-                    System.out.println(starttimestr[2]);
-                    System.out.println(endtimestr[0]);
-                    System.out.println(endtimestr[1]);
-                    System.out.println(endtimestr[2]);
-                    System.out.println(currenttimestr[0]);
-                    System.out.println(currenttimestr[1]);
-                    System.out.println(currenttimestr[2]);
 
                     int[] currenttime = new int[3];
                     int[] starttime = new int[3];
@@ -117,10 +105,17 @@ public class ClockIn extends AppCompatActivity {
                     int minMinutes = starttime[1];
                     int maxMinutes = starttime[1];
 
+                    int minHour2 = endtime[0];
+                    int maxHour2 = endtime[0];
+                    int minMinutes2 = endtime[1];
+                    int maxMinutes2 = endtime[1];
+
                     for(int i = 0; i < 15; i++ )
                     {
                         minMinutes--;
+                        minMinutes2--;
                         maxMinutes++;
+                        maxMinutes2++;
 
                         if(minMinutes == -1)
                         {
@@ -132,13 +127,26 @@ public class ClockIn extends AppCompatActivity {
                             maxMinutes = 1;
                             maxHour++;
                         }
+                        else if(minMinutes2 == -1)
+                        {
+                            minMinutes2 = 59;
+                            minHour2--;
+                        }
+                        else if (maxMinutes2 == 60)
+                        {
+                            maxMinutes2 = 1;
+                            maxHour2++;
+                        }
                     }
 
                     minimuminTime = String.format("%s:%s:%s", String.valueOf(minHour), String.valueOf(minMinutes), starttimestr[2]);
                     maximuminTime = String.format("%s:%s:%s", String.valueOf(maxHour), String.valueOf(maxMinutes), starttimestr[2]);
 
-                    System.out.println(minimuminTime);
-                    System.out.println(maximuminTime);
+                    minimumoutTime = String.format("%s:%s:%s", String.valueOf(minHour2), String.valueOf(minMinutes2), endtime[2]);
+                    maximumoutTime = String.format("%s:%s:%s", String.valueOf(maxHour2), String.valueOf(maxMinutes2), endtime[2]);
+
+                    System.out.println(minimumoutTime);
+                    System.out.println(maximumoutTime);
 
 
                     clockin.setOnClickListener(new View.OnClickListener()
@@ -148,11 +156,11 @@ public class ClockIn extends AppCompatActivity {
 
                             try {
 
-                                Date min = new SimpleDateFormat("HH:mm:ss").parse(minimumTime);
+                                Date min = new SimpleDateFormat("HH:mm:ss").parse(minimuminTime);
                                 Calendar calendar1 = Calendar.getInstance();
                                 calendar1.setTime(min);
 
-                                Date max = new SimpleDateFormat("HH:mm:ss").parse(maximumTime);
+                                Date max = new SimpleDateFormat("HH:mm:ss").parse(maximuminTime);
                                 Calendar calendar2 = Calendar.getInstance();
                                 calendar2.setTime(max);
                                 calendar2.add(Calendar.DATE, 1);
@@ -165,7 +173,7 @@ public class ClockIn extends AppCompatActivity {
                                 Date x = calendar3.getTime();
 
                                 if (x.after(calendar1.getTime()) && x.before(calendar2.getTime())) {
-                                    //checkes whether the current time is between 14:49:00 and 20:11:13.
+
 
                                 }
                                 else
@@ -180,13 +188,53 @@ public class ClockIn extends AppCompatActivity {
 
                         }
                     });
+
+                    clockout.setOnClickListener(new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick (View v) {
+
+                            try {
+
+                                Date min = new SimpleDateFormat("HH:mm:ss").parse(minimumoutTime);
+                                Calendar calendar1 = Calendar.getInstance();
+                                calendar1.setTime(min);
+
+                                Date max = new SimpleDateFormat("HH:mm:ss").parse(maximumoutTime);
+                                Calendar calendar2 = Calendar.getInstance();
+                                calendar2.setTime(max);
+                                calendar2.add(Calendar.DATE, 1);
+
+                                Date cur = new SimpleDateFormat("HH:mm:ss").parse(currentDateTimeString);
+                                Calendar calendar3 = Calendar.getInstance();
+                                calendar3.setTime(cur);
+                                calendar3.add(Calendar.DATE, 1);
+
+                                Date x = calendar3.getTime();
+
+                                if (x.after(calendar1.getTime()) && x.before(calendar2.getTime())) {
+
+
+                                }
+                                else
+                                {
+                                    Toast.makeText(ClockIn.this, "Sorry, You Can not Clock out Now", Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
+
                 }
             }
         });
 
 
         backgroundTask.execute(method, day, month, yeeid);
-        System.out.println(day);
 
 
     }
