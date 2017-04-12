@@ -1,6 +1,6 @@
 package com.example.raulalvarez.tapintime;
 
-import android.content.Intent;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
+
 import java.util.Locale;
 
 /**
@@ -46,11 +46,12 @@ public class ClockIn extends AppCompatActivity {
 
         disptime = (TextView)findViewById(R.id.clock);
         working = (TextView)findViewById(R.id.working);
+        clockin = (Button)findViewById(R.id.clockin);
+        clockout= (Button)findViewById(R.id.clockout);
         disptime.setText(currentDateTimeString);
 
-        Calendar cal = Calendar.getInstance(Locale.FRANCE);
+        Calendar cal = Calendar.getInstance(Locale.ITALY);
         cal.setTime(d);
-        cal.setFirstDayOfWeek(Calendar.MONDAY);
 
         String method = "ClockIn";
         String day = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
@@ -72,11 +73,9 @@ public class ClockIn extends AppCompatActivity {
                 {
                     working.setText("You are working today");
 
-                    clockin = (Button)findViewById(R.id.clockin);
-                    clockout= (Button)findViewById(R.id.clockout);
 
                     String[] tokens = output.split("-");
-
+                    System.out.println(output);
                     for (String t : tokens) {
                         info.add(t);
                     }
@@ -90,9 +89,18 @@ public class ClockIn extends AppCompatActivity {
                     {
                         String employee = info.get(i);
                         splitInfo = employee.split(",");
+                        System.out.print(employee);
                     }
-                    starttimestr = splitInfo[2].split(":");
-                    endtimestr = splitInfo[2].split(":");
+
+                    for (String s: splitInfo)
+                    {
+                        System.out.print(s);
+                    }
+
+
+
+                    /*starttimestr = splitInfo[0].split(":");
+                    endtimestr = splitInfo[0].split(":");
 
                     //final int[] currenttime = new int[0];
                     final int[] starttime = new int[0];
@@ -126,7 +134,7 @@ public class ClockIn extends AppCompatActivity {
                     }
 
                     minimumTime = String.format("%s:%s:%s", String.valueOf(minHour), String.valueOf(minMinutes), starttimestr[2]);
-                    maximumTime = String.format("%s:%s:%s", String.valueOf(maxHour), String.valueOf(maxMinutes), starttimestr[2]);
+                    maximumTime = String.format("%s:%s:%s", String.valueOf(maxHour), String.valueOf(maxMinutes), starttimestr[2]);*/
 
 
                     clockin.setOnClickListener(new View.OnClickListener()
@@ -174,6 +182,7 @@ public class ClockIn extends AppCompatActivity {
 
 
         backgroundTask.execute(method, day, month, yeeid);
+        System.out.println(day);
 
 
     }
