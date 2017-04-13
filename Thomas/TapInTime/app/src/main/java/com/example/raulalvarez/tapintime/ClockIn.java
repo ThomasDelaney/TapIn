@@ -1,6 +1,8 @@
 package com.example.raulalvarez.tapintime;
 
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -36,6 +38,8 @@ public class ClockIn extends AppCompatActivity {
     String maximuminTime;
     String minimumoutTime;
     String maximumoutTime;
+    String timetable;
+    boolean clockedin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +59,10 @@ public class ClockIn extends AppCompatActivity {
         Calendar cal = Calendar.getInstance();
         cal.setTime(d);
 
-        String method = "ClockIn";
+        String method = "ClockInCheck";
         String day = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
         String month = String.valueOf(cal.get(Calendar.MONTH) + 1);
+
 
 
         BackgroundTask backgroundTask = new BackgroundTask(new BackgroundTask.AsyncResponse()
@@ -65,7 +70,6 @@ public class ClockIn extends AppCompatActivity {
             @Override
             public void processFinish(final String output)
             {
-                final ArrayList<String> info = new ArrayList<String>();
 
                 if (output.equals("null "))
                 {
@@ -87,6 +91,7 @@ public class ClockIn extends AppCompatActivity {
                     starttimestr = tokens[2].split(":");
                     endtimestr = tokens[3].split(":");
                     currenttimestr = currentDateTimeString.split(":");
+                    timetable = tokens[1];
 
 
                     int[] currenttime = new int[3];
@@ -127,7 +132,8 @@ public class ClockIn extends AppCompatActivity {
                             maxMinutes = 1;
                             maxHour++;
                         }
-                        else if(minMinutes2 == -1)
+
+                        if(minMinutes2 == -1)
                         {
                             minMinutes2 = 59;
                             minHour2--;
@@ -139,11 +145,14 @@ public class ClockIn extends AppCompatActivity {
                         }
                     }
 
-                    minimuminTime = String.format("%s:%s:%s", String.valueOf(minHour), String.valueOf(minMinutes), starttimestr[2]);
-                    maximuminTime = String.format("%s:%s:%s", String.valueOf(maxHour), String.valueOf(maxMinutes), starttimestr[2]);
+                    minimuminTime = String.format("%s:%s:%s", String.valueOf(minHour), String.valueOf(minMinutes), "00");
+                    maximuminTime = String.format("%s:%s:%s", String.valueOf(maxHour), String.valueOf(maxMinutes), "00");
 
-                    minimumoutTime = String.format("%s:%s:%s", String.valueOf(minHour2), String.valueOf(minMinutes2), endtime[2]);
-                    maximumoutTime = String.format("%s:%s:%s", String.valueOf(maxHour2), String.valueOf(maxMinutes2), endtime[2]);
+                    minimumoutTime = String.format("%s:%s:%s", String.valueOf(minHour2), String.valueOf(minMinutes2), "00");
+                    maximumoutTime = String.format("%s:%s:%s", String.valueOf(maxHour2), String.valueOf(maxMinutes2), "00");
+
+                    System.out.println(minimuminTime);
+                    System.out.println(maximuminTime);
 
                     System.out.println(minimumoutTime);
                     System.out.println(maximumoutTime);
@@ -156,25 +165,54 @@ public class ClockIn extends AppCompatActivity {
 
                             try {
 
-                                Date min = new SimpleDateFormat("HH:mm:ss").parse(minimuminTime);
+                                Date min2 = new SimpleDateFormat("HH:mm:ss").parse(minimuminTime);
                                 Calendar calendar1 = Calendar.getInstance();
-                                calendar1.setTime(min);
+                                calendar1.setTime(min2);
 
-                                Date max = new SimpleDateFormat("HH:mm:ss").parse(maximuminTime);
+                                Date max2 = new SimpleDateFormat("HH:mm:ss").parse(maximuminTime);
                                 Calendar calendar2 = Calendar.getInstance();
-                                calendar2.setTime(max);
+                                calendar2.setTime(max2);
                                 calendar2.add(Calendar.DATE, 1);
 
-                                Date cur = new SimpleDateFormat("HH:mm:ss").parse(currentDateTimeString);
+                                Date cur2 = new SimpleDateFormat("HH:mm:ss").parse(currentDateTimeString);
                                 Calendar calendar3 = Calendar.getInstance();
-                                calendar3.setTime(cur);
+                                calendar3.setTime(cur2);
                                 calendar3.add(Calendar.DATE, 1);
 
                                 Date x = calendar3.getTime();
 
-                                if (x.after(calendar1.getTime()) && x.before(calendar2.getTime())) {
+                                if (x.after(calendar1.getTime()) && x.before(calendar2.getTime()))
+                                {
+                                    String method = "ClockIn";
 
+                                    BackgroundTask backgroundTask = new BackgroundTask(new BackgroundTask.AsyncResponse()
+                                    {
 
+                                        @Override
+                                        public void processFinish(String output)
+                                        {
+                                            System.out.println(output);
+
+                                            if(clockedin)
+                                            {
+                                                working.setTextColor(Color.RED);
+                                                working.setText("You Are Already Clocked In!");
+                                            }
+                                            else if(output == "Success")
+                                            {
+                                                working.setTextColor(Color.GREEN);
+                                                working.setText("Clocked in Succesfully");
+                                                clockedin = true;
+                                            }
+                                            else
+                                            {
+                                                working.setTextColor(Color.RED);
+                                                working.setText("Please try again");
+                                            }
+                                        }
+                                    });
+
+                                    backgroundTask.execute(method,timetable,currentDateTimeString);
                                 }
                                 else
                                 {
@@ -212,9 +250,37 @@ public class ClockIn extends AppCompatActivity {
 
                                 Date x = calendar3.getTime();
 
-                                if (x.after(calendar1.getTime()) && x.before(calendar2.getTime())) {
+                                if (x.after(calendar1.getTime()) && x.before(calendar2.getTime()))
+                                {
+                                    String method = "ClockOut";
 
+                                    BackgroundTask backgroundTask = new BackgroundTask(new BackgroundTask.AsyncResponse()
+                                    {
 
+                                        @Override
+                                        public void processFinish(String output)
+                                        {
+                                            System.out.println(output);
+
+                                            if(!clockedin)
+                                            {
+                                                working.setTextColor(Color.RED);
+                                                working.setText("You Are Already Clocked Out!");
+                                            }
+                                            else if(output == "Success")
+                                            {
+                                                working.setTextColor(Color.GREEN);
+                                                working.setText("Clocked out Succesfully");
+                                                clockedin = false;
+                                            }
+                                            else
+                                            {
+                                                working.setTextColor(Color.RED);
+                                                working.setText("Please try again");
+                                            }
+                                        }
+                                    });
+                                    backgroundTask.execute(method,timetable,currentDateTimeString);
                                 }
                                 else
                                 {

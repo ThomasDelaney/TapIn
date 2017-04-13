@@ -47,6 +47,8 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
     {
         String getEmployeeInfoUrl = "http://tapin.comli.com/getEmployeeInfo.php";
         String getCheckedIn = "http://tapin.comli.com/getCheckedIn2.php";
+        String Clockin = "http://tapin.comli.com/Clockin.php";
+        String Clockout = "http://tapin.comli.com/Clockout.php";
 
         String method = params[0];
 
@@ -105,7 +107,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
             }
         }
 
-        else if(method.equals("ClockIn"))
+        else if(method.equals("ClockInCheck"))
         {
             String day = params[1];
             String month = params[2];
@@ -160,6 +162,114 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
                 e.printStackTrace();
             }
         }
+        else if(method.equals("ClockIn"))
+        {
+            String timetable = params[1];
+            String time = params[2];
+
+            try
+            {
+                URL url = new URL(Clockin);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                //encode data and write to php file on server
+                String data =   URLEncoder.encode("timetable", "UTF-8")+"="+URLEncoder.encode(timetable, "UTF-8")+"&"+
+                        URLEncoder.encode("time", "UTF-8")+"="+URLEncoder.encode(time, "UTF-8");
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+
+                String response = "";
+
+                String line = "";
+
+                while((line = bufferedReader.readLine()) != null)
+                {
+                    response += line;
+                    response += " ";
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return response;
+            }
+            catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        else if(method.equals("ClockOut"))
+        {
+            String timetable = params[1];
+            String time = params[2];
+
+            try
+            {
+                URL url = new URL(Clockout);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                //encode data and write to php file on server
+                String data =   URLEncoder.encode("timetable", "UTF-8")+"="+URLEncoder.encode(timetable, "UTF-8")+"&"+
+                                URLEncoder.encode("time", "UTF-8")+"="+URLEncoder.encode(time, "UTF-8");
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+
+                String response = "";
+
+                String line = "";
+
+                while((line = bufferedReader.readLine()) != null)
+                {
+                    response += line;
+                    response += " ";
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return response;
+            }
+            catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
         return null;
 
     }
