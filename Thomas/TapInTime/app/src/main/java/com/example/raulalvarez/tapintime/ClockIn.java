@@ -164,6 +164,9 @@ public class ClockIn extends AppCompatActivity {
                         public void onClick (View v) {
 
                             try {
+                                Date d = new Date();
+                                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                                currentDateTimeString = sdf.format(d);
 
                                 Date min2 = new SimpleDateFormat("HH:mm:ss").parse(minimuminTime);
                                 Calendar calendar1 = Calendar.getInstance();
@@ -193,21 +196,20 @@ public class ClockIn extends AppCompatActivity {
                                         {
                                             System.out.println(output);
 
-                                            if(clockedin)
+                                            if(output.equals("Success "))
                                             {
-                                                working.setTextColor(Color.RED);
-                                                working.setText("You Are Already Clocked In!");
+                                            working.setTextColor(Color.GREEN);
+                                            working.setText("Clocked in Succesfully");
                                             }
-                                            else if(output == "Success")
-                                            {
-                                                working.setTextColor(Color.GREEN);
-                                                working.setText("Clocked in Succesfully");
-                                                clockedin = true;
-                                            }
-                                            else
+                                            else if(output.equals("null "))
                                             {
                                                 working.setTextColor(Color.RED);
                                                 working.setText("Please try again");
+                                            }
+                                            else if(output.equals("Failure "))
+                                            {
+                                                working.setTextColor(Color.RED);
+                                                working.setText("You Are Already Clocked In!");
                                             }
                                         }
                                     });
@@ -233,15 +235,18 @@ public class ClockIn extends AppCompatActivity {
                         public void onClick (View v) {
 
                             try {
+                                Date d = new Date();
+                                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                                currentDateTimeString = sdf.format(d);
 
                                 Date min = new SimpleDateFormat("HH:mm:ss").parse(minimumoutTime);
-                                Calendar calendar1 = Calendar.getInstance();
-                                calendar1.setTime(min);
+                                Calendar calendarmin = Calendar.getInstance();
+                                calendarmin.setTime(min);
 
                                 Date max = new SimpleDateFormat("HH:mm:ss").parse(maximumoutTime);
-                                Calendar calendar2 = Calendar.getInstance();
-                                calendar2.setTime(max);
-                                calendar2.add(Calendar.DATE, 1);
+                                Calendar calendarmax = Calendar.getInstance();
+                                calendarmax.setTime(max);
+                                calendarmax.add(Calendar.DATE, 1);
 
                                 Date cur = new SimpleDateFormat("HH:mm:ss").parse(currentDateTimeString);
                                 Calendar calendar3 = Calendar.getInstance();
@@ -250,7 +255,7 @@ public class ClockIn extends AppCompatActivity {
 
                                 Date x = calendar3.getTime();
 
-                                if (x.after(calendar1.getTime()) && x.before(calendar2.getTime()))
+                                if (x.after(calendarmin.getTime()) && x.before(calendarmax.getTime()))
                                 {
                                     String method = "ClockOut";
 
@@ -262,21 +267,20 @@ public class ClockIn extends AppCompatActivity {
                                         {
                                             System.out.println(output);
 
-                                            if(!clockedin)
-                                            {
-                                                working.setTextColor(Color.RED);
-                                                working.setText("You Are Already Clocked Out!");
-                                            }
-                                            else if(output == "Success")
+                                            if(output.equals("Success "))
                                             {
                                                 working.setTextColor(Color.GREEN);
                                                 working.setText("Clocked out Succesfully");
-                                                clockedin = false;
                                             }
-                                            else
+                                            else if(output.equals("null "))
                                             {
                                                 working.setTextColor(Color.RED);
                                                 working.setText("Please try again");
+                                            }
+                                            else if(output.equals("Failure "))
+                                            {
+                                                working.setTextColor(Color.RED);
+                                                working.setText("You Are Already Clocked Out!");
                                             }
                                         }
                                     });
