@@ -55,7 +55,7 @@ public class timetableForm extends AppCompatActivity
             etime = getIntent().getExtras().getString("etime");
         }
 
-        setTitle(name);
+        setTitle("Schedule For: "+name);
 
         clock = (TimePicker)findViewById(R.id.timeSelect);
         next = (Button)findViewById(R.id.nbutton);
@@ -94,6 +94,7 @@ public class timetableForm extends AppCompatActivity
                     intent2.putExtra("day", day);
                     intent2.putExtra("month", month);
                     intent2.putExtra("eid", eid);
+                    intent2.putExtra("name", name);
 
                     if (Build.VERSION.SDK_INT >= 23)
                     {
@@ -132,6 +133,7 @@ public class timetableForm extends AppCompatActivity
                    intent2.putExtra("eid", eid);
                    intent2.putExtra("type", type);
                    intent2.putExtra("etime", nETime);
+                   intent2.putExtra("name", name);
 
                    if (Build.VERSION.SDK_INT >= 23)
                    {

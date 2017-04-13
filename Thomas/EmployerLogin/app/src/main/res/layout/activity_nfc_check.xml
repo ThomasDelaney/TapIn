@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.emloyeelogin.nfcCheck">
+    tools:context="com.example.user.emloyeelogin.nfcCheck"
+    android:background="#c6ceff">
 
     <TextView
         android:id="@+id/message"
@@ -13,16 +14,19 @@
         android:text="Please Turn on NFC"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
-        android:layout_marginBottom="21dp"
-        android:layout_above="@+id/textView4"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="180dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="this will be needed to load Employee info on TapIn Card"
-        android:textColor="@android:color/background_dark" />
+        android:layout_marginTop="19dp"
+        android:text="this will be needed to load\nEmployee info on TapIn Card"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:layout_below="@+id/message"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

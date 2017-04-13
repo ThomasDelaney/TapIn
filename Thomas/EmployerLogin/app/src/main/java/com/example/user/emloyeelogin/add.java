@@ -33,6 +33,8 @@ public class add extends AppCompatActivity
         parttime = (CheckBox)findViewById(R.id.parttime);
         next = (Button) findViewById(R.id.next);
 
+        setTitle("Add Employee");
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)

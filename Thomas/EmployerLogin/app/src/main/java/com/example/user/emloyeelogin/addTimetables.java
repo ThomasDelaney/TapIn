@@ -24,6 +24,8 @@ public class addTimetables extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_date);
 
+        setTitle("Schedules");
+
         cid = getIntent().getExtras().getString("cid");
 
         calendar = (CalendarView)findViewById(R.id.calendar);
@@ -33,7 +35,10 @@ public class addTimetables extends AppCompatActivity
 
         //next view lines will only allow the Employer to add timetimes to employees for the current month and next 2 months but not past the current day
         Calendar firstDay = Calendar.getInstance();
-        firstDay.set(firstDay.get(Calendar.YEAR), firstDay.get(Calendar.MONTH), Calendar.DAY_OF_WEEK+3, 0, 0, 0);
+        //get current day
+        int day = firstDay.get(Calendar.DAY_OF_MONTH);
+        //set first day allowed to be selected to be current day plus 1
+        firstDay.set(firstDay.get(Calendar.YEAR), firstDay.get(Calendar.MONTH), day+1, 0, 0, 0);
         calendar.setMinDate(firstDay.getTimeInMillis());
 
         //do same for the last day of the month, set to max

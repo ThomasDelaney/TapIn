@@ -64,6 +64,8 @@ public class add3 extends AppCompatActivity
         username = getIntent().getExtras().getString("username");
         password = getIntent().getExtras().getString("password");
 
+        setTitle("Add Employee");
+
         header = (TextView)findViewById(R.id.nfctext);
 
         gifImageView = (GifImageView) findViewById(R.id.gifImageView);

@@ -20,6 +20,7 @@ public class timetableForm2 extends AppCompatActivity
     String day;
     String month;
     String eid;
+    String name;
 
     int sTimeHour;
     int sTimeMinute;
@@ -50,6 +51,9 @@ public class timetableForm2 extends AppCompatActivity
         sTimeHour = getIntent().getExtras().getInt("sTimeHour");
         sTimeMinute = getIntent().getExtras().getInt("sTimeMinute");
         type = getIntent().getExtras().getInt("type");
+        name = getIntent().getExtras().getString("name");
+
+        setTitle("Schedule For: "+name);
 
         if (type == 1)
         {

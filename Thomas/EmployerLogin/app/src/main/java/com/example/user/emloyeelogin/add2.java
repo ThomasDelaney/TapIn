@@ -29,6 +29,8 @@ public class add2 extends AppCompatActivity
         password2 = (EditText)findViewById(R.id.password2);
         next = (Button)findViewById(R.id.next2);
 
+        setTitle("Add Employee");
+
         final String eName = getIntent().getExtras().getString("name");
         final String eEmail = getIntent().getExtras().getString("email");
         final String ePhone = getIntent().getExtras().getString("phone");

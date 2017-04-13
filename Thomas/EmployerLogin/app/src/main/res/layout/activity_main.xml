@@ -5,37 +5,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.emloyeelogin.MainActivity">
+    tools:context="com.example.user.emloyeelogin.MainActivity"
+    android:background="#c6ceff">
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="29dp"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="#000000"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="16dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/checkStaff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:background="#e8e8e8"
+        android:paddingBottom="5dp"
+        android:paddingLeft="11dp"
+        android:paddingRight="11dp"
+        android:paddingTop="5dp"
+        android:text="Check Staff"
+        android:textColor="#6098f2"
         android:layout_below="@+id/name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="71dp"
-        android:text="Check Staff" />
+        android:layout_alignLeft="@+id/add"
+        android:layout_alignStart="@+id/add" />
 
     <Button
         android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Employee"
         android:layout_below="@+id/checkStaff"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="43dp" />
+        android:layout_marginTop="43dp"
+        android:background="#e8e8e8"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:text="Add Employee"
+        android:textColor="#6098f2" />
 
     <Button
         android:id="@+id/timetable"
@@ -44,13 +59,26 @@
         android:layout_below="@+id/add"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="54dp"
-        android:text="Schedules" />
+        android:background="#e8e8e8"
+        android:paddingBottom="5dp"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp"
+        android:paddingTop="5dp"
+        android:text="Schedules"
+        android:textColor="#6098f2" />
 
     <Button
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log Out"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="21dp"
+        android:background="#e8e8e8"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:text="Log Out"
+        android:textColor="@color/colorAccent" />
 </RelativeLayout>

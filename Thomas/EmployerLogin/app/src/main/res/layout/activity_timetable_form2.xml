@@ -69,13 +69,16 @@
         android:id="@+id/sbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="19dp"
-        android:text="Submit Schedule"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textColor="#6098f2"
+        android:layout_marginBottom="19dp"
         android:background="#e8e8e8"
-        />
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:text="Submit Schedule"
+        android:textColor="#6098f2" />
 
     <ProgressBar
         android:id="@+id/sProgressBar"

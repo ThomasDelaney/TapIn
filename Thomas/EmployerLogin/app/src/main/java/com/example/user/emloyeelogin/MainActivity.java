@@ -1,6 +1,8 @@
 package com.example.user.emloyeelogin;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setTitle("Tap In Employer Mode");
 
         session = new SessionManager(getApplicationContext());
 
@@ -56,8 +60,28 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                session.logOut();
-                finish();
+                final AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                alertDialog.setTitle("Log Out");
+                alertDialog.setMessage("Are You Sure You Want to Log out?");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                session.logOut();
+                                finish();
+                            }
+                        });
+
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                alertDialog.cancel();
+                            }
+                        });
+                alertDialog.show();
             }
         });
 

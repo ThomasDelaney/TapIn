@@ -19,15 +19,15 @@
         tools:layout_editor_absoluteX="141dp" />
 
     <EditText
+        android:id="@+id/eName1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:ems="10"
-        android:hint="Enter Name"
-        android:inputType="textPersonName"
         android:layout_below="@+id/TextView25"
         android:layout_centerHorizontal="true"
-        android:id="@+id/eName1" />
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:hint="Enter Full Name"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/email"

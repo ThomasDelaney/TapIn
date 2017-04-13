@@ -12,7 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class view extends AppCompatActivity
 {
@@ -35,6 +37,10 @@ public class view extends AppCompatActivity
         cid = getIntent().getExtras().getString("cid");
 
         listView = (ListView)findViewById(R.id.employeeList);
+
+        Date currentDate = new Date();
+
+        setTitle("Schedule for Today: "+new SimpleDateFormat("dd/MM/yyy").format(currentDate));
 
         currentEmployees = new ArrayList<Employee>();
         getCurrentEmployees();

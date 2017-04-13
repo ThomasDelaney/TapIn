@@ -28,6 +28,8 @@ public class loginPage extends AppCompatActivity
 
         login = (Button)findViewById(R.id.login);
 
+        setTitle("Tap In Employer Mode");
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v)

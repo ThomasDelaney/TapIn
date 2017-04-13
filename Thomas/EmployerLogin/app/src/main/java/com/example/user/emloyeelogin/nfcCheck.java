@@ -17,6 +17,8 @@ public class nfcCheck extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc_check);
 
+        setTitle("Add Employee");
+
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
         String cid = getIntent().getExtras().getString("cid");
