@@ -10,12 +10,13 @@ import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 
-import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     NfcAdapter nfcAdapter;
     TextView yeeid;
     public static String employee;
+    private ProgressBar spinner;
 
 
 
@@ -32,7 +34,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        setTitle("HUB");
+
         yeeid = (TextView)findViewById(R.id.yeeid);
+        spinner = (ProgressBar)findViewById(R.id.progressBar);
+        spinner.setVisibility(View.INVISIBLE);
 
     }
 
@@ -77,12 +83,12 @@ public class MainActivity extends AppCompatActivity {
 
                     String method = "getEmployeeInfo";
 
+                    spinner.setVisibility(View.VISIBLE);
                     BackgroundTask backgroundTask = new BackgroundTask(new BackgroundTask.AsyncResponse()
                     {
                         @Override
                         public void processFinish(String output)
                         {
-                            ArrayList<String> info = new ArrayList<String>();
 
                             if (output.equals("null "))
                             {
@@ -90,10 +96,8 @@ public class MainActivity extends AppCompatActivity {
                             }
                             else
                             {
-                                yeeid.setText("");
                                 Intent myIntent = new Intent(getApplicationContext(), ClockIn.class);
                                 startActivity(myIntent);
-
                             }
                         }
                     });

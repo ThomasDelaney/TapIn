@@ -39,7 +39,7 @@ public class ClockIn extends AppCompatActivity {
     String minimumoutTime;
     String maximumoutTime;
     String timetable;
-    boolean clockedin;
+    boolean clockedin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,15 +196,15 @@ public class ClockIn extends AppCompatActivity {
                                         {
                                             System.out.println(output);
 
-                                            if(output.equals("Success "))
+                                            if(output.equals("Success ") && !clockedin)
                                             {
-                                            working.setTextColor(Color.GREEN);
-                                            working.setText("Clocked in Succesfully");
+                                                working.setTextColor(Color.GREEN);
+                                                working.setText("Clocked in Succesfully");
                                             }
-                                            else if(output.equals("null "))
+                                            else if(output.equals("Success ") && clockedin)
                                             {
                                                 working.setTextColor(Color.RED);
-                                                working.setText("Please try again");
+                                                working.setText("You can't clock in again, go home");
                                             }
                                             else if(output.equals("Failure "))
                                             {
@@ -271,6 +271,7 @@ public class ClockIn extends AppCompatActivity {
                                             {
                                                 working.setTextColor(Color.GREEN);
                                                 working.setText("Clocked out Succesfully");
+                                                clockedin = true;
                                             }
                                             else if(output.equals("null "))
                                             {
