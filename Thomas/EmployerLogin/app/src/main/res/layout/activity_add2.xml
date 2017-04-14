@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.emloyeelogin.add2">
+    tools:context="com.example.user.emloyeelogin.add2"
+    android:background="#c6ceff">
 
     <TextView
         android:id="@+id/textView3"
@@ -17,7 +18,8 @@
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="30dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/TextView15"
@@ -28,7 +30,8 @@
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
         android:layout_below="@+id/eName2"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/eName2"
@@ -38,8 +41,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="23dp"
         android:text="TextView"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="18sp" />
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 
     <EditText
         android:id="@+id/username"
@@ -51,7 +55,10 @@
         android:layout_marginTop="45dp"
         android:ems="10"
         android:hint="Enter Username"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="@color/colorAccent"
+        app:backgroundTint="@color/colorAccent"/>
 
     <EditText
         android:id="@+id/password"
@@ -63,7 +70,10 @@
         android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Enter Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColor="#000000"
+        android:textColorHint="@color/colorAccent"
+        app:backgroundTint="@color/colorAccent"/>
 
     <EditText
         android:id="@+id/password2"
@@ -75,16 +85,20 @@
         android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="Re-Enter Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColor="#000000"
+        android:textColorHint="@color/colorAccent"
+        app:backgroundTint="@color/colorAccent"/>
 
     <Button
         android:id="@+id/next2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/eName2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/eName2"
         android:layout_marginBottom="38dp"
-        android:text="Next" />
+        android:text="Next"
+        android:textColor="#6098f2"
+        android:background="#e8e8e8"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.emloyeelogin.add3">
+    tools:context="com.example.user.emloyeelogin.add3"
+    android:background="#c6ceff">
 
     <ProgressBar
         android:id="@+id/progressBar1"
@@ -27,7 +28,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="21dp"
-        android:text="Place Card on Phone"
+        android:text="Place and Hold Card on Phone"
+        android:textAlignment="center"
         android:textColor="@android:color/background_dark"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textStyle="bold"/>
 </RelativeLayout>

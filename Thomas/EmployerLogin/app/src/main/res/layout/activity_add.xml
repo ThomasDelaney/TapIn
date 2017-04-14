@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.emloyeelogin.add">
+    tools:context="com.example.user.emloyeelogin.add"
+    android:background="#c6ceff">
 
     <TextView
         android:id="@+id/TextView25"
@@ -16,7 +17,8 @@
         android:text="Enter Employee"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="141dp" />
+        tools:layout_editor_absoluteX="141dp"
+        android:textStyle="bold"/>
 
     <EditText
         android:id="@+id/eName1"
@@ -27,7 +29,10 @@
         android:layout_marginTop="14dp"
         android:ems="10"
         android:hint="Enter Full Name"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="@color/colorAccent"
+        app:backgroundTint="@color/colorAccent"/>
 
     <EditText
         android:id="@+id/email"
@@ -39,7 +44,10 @@
         android:inputType="textEmailAddress"
         android:layout_below="@+id/eName1"
         android:layout_alignLeft="@+id/eName1"
-        android:layout_alignStart="@+id/eName1" />
+        android:layout_alignStart="@+id/eName1"
+        android:textColor="#000000"
+        android:textColorHint="@color/colorAccent"
+        app:backgroundTint="@color/colorAccent"/>
 
     <EditText
         android:id="@+id/phone"
@@ -51,7 +59,10 @@
         android:layout_marginTop="29dp"
         android:ems="10"
         android:hint="Enter Phone"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:textColor="#000000"
+        android:textColorHint="@color/colorAccent"
+        app:backgroundTint="@color/colorAccent"/>
 
     <EditText
         android:id="@+id/job"
@@ -63,7 +74,10 @@
         android:layout_marginTop="22dp"
         android:ems="10"
         android:hint="Enter Occupation"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="@color/colorAccent"
+        app:backgroundTint="@color/colorAccent"/>
 
     <EditText
         android:id="@+id/wage"
@@ -75,7 +89,10 @@
         android:layout_marginTop="22dp"
         android:ems="10"
         android:hint="Enter Wage"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:textColor="#000000"
+        android:textColorHint="@color/colorAccent"
+        app:backgroundTint="@color/colorAccent"/>
 
     <CheckBox
         android:id="@+id/parttime"
@@ -93,8 +110,11 @@
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Next"
+        android:textColor="#6098f2"
+        android:background="#e8e8e8"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Next" />
+        android:layout_marginBottom="12dp" />
 
 </RelativeLayout>
