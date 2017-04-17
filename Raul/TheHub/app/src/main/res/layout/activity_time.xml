@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#c6ceff"
+    tools:context="com.example.raulalvarez.thehub.MainActivity">
+
+    <TextView
+        android:id="@+id/clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="67dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/working"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:layout_below="@+id/clock"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/clockin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Clock In"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/clock"
+        android:layout_marginBottom="104dp"
+        android:layout_toLeftOf="@+id/clock" />
+
+    <Button
+        android:id="@+id/clockout"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/clockin"
+        android:layout_alignBottom="@+id/clockin"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/clock"
+        android:background="@android:color/background_light"
+        android:text="Clock out" />
+
+</RelativeLayout>
