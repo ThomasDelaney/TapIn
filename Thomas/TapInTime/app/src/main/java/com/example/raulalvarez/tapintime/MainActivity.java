@@ -15,6 +15,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.felipecsl.gifimageview.library.GifImageView;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
 
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     TextView yeeid;
     public static String employee;
     private ProgressBar spinner;
+    private GifImageView gifImageView;
 
 
 
@@ -38,6 +43,19 @@ public class MainActivity extends AppCompatActivity {
 
         yeeid = (TextView)findViewById(R.id.yeeid);
         spinner = (ProgressBar)findViewById(R.id.progressBar);
+        gifImageView = (GifImageView)findViewById(R.id.gifImageView);
+
+        try
+        {
+            InputStream inputStream = getAssets().open("nfc.gif");
+
+            byte[] bytes = IOUtils.toByteArray(inputStream);
+            gifImageView.setBytes(bytes);
+            gifImageView.startAnimation();
+        }
+        catch (IOException e)
+        {}
+        gifImageView.setVisibility(View.VISIBLE);
         spinner.setVisibility(View.INVISIBLE);
 
     }
@@ -49,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
         if(intent.hasExtra(NfcAdapter.EXTRA_TAG))
         {
+            gifImageView.setVisibility(View.INVISIBLE);
+            spinner.setVisibility(View.VISIBLE);
             Toast.makeText(this, "Reading from Tag", Toast.LENGTH_SHORT).show();
             Parcelable[] parcelables = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 

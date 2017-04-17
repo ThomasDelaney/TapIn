@@ -23,25 +23,25 @@
         android:id="@+id/yeeid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="123dp"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="26sp"
-        android:layout_below="@+id/textview"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView"
-        android:layout_marginLeft="54dp"
-        android:layout_marginStart="54dp" />
+        android:layout_marginLeft="31dp"
+        android:layout_marginStart="31dp"
+        android:layout_above="@+id/progressBar"
+        android:layout_toRightOf="@+id/progressBar"
+        android:layout_toEndOf="@+id/progressBar" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/yeeid"
-        android:layout_alignLeft="@+id/textview"
-        android:layout_alignStart="@+id/textview"
         android:text="Employee ID:"
         android:textColor="@color/colorAccent"
-        android:textSize="26sp" />
+        android:textSize="26sp"
+        android:layout_below="@+id/textview"
+        android:layout_alignLeft="@+id/textview"
+        android:layout_alignStart="@+id/textview"
+        android:layout_marginTop="58dp" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -50,6 +50,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="112dp" />
+        android:layout_marginTop="145dp" />
+
+    <com.felipecsl.gifimageview.library.GifImageView
+        android:id="@+id/gifImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter" />
 
 </RelativeLayout>

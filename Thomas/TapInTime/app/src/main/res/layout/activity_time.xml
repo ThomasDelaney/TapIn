@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#c6ceff"
     tools:context="com.example.raulalvarez.tapintime.MainActivity">
 
     <TextView
@@ -41,13 +42,15 @@
 
     <Button
         android:id="@+id/clockout"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Clock out"
         android:layout_alignBaseline="@+id/clockin"
         android:layout_alignBottom="@+id/clockin"
-        android:layout_toRightOf="@+id/clock"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toRightOf="@+id/clock"
+        android:background="@android:color/background_light"
+        android:text="Clock out" />
 
 </RelativeLayout>
