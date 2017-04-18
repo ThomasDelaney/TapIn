@@ -2,6 +2,7 @@ package com.example.mushy.employeelogin;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -62,11 +63,12 @@ public class ProductListAdapter extends BaseAdapter
         if(mProductList.get(position).getDescription().equals("Not Scheduled"))
         {
             tvDescription.setTextColor(Color.RED);
-            //tvDescription.setTextSize(10);
+            tvDescription.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 22);
         }
         else
         {
             tvDescription.setTextColor(Color.BLACK);
+            tvDescription.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
         }
         // save product id to tag
         v.setTag(mProductList.get(position).getId());

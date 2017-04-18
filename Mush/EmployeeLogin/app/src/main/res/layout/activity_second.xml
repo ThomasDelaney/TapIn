@@ -9,14 +9,38 @@
     android:orientation="vertical"
     tools:context="com.example.mushy.employeelogin.secondActivity">
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/listview_product"
-        android:dividerHeight="15dp"
-        android:divider="#c7ceff">
 
-    </ListView>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/total_hours"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:text="Test"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_alignParentTop="true"
+            />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listview_product"
+            android:dividerHeight="15dp"
+            android:layout_alignParentBottom="true"
+            android:divider="#c7ceff"
+            android:layout_below="@id/total_hours">
+
+        </ListView>
+>
+    </RelativeLayout>
+
+
+
 
 
 </android.support.constraint.ConstraintLayout>

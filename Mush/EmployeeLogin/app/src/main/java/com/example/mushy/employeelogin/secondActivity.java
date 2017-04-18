@@ -2,8 +2,6 @@ package com.example.mushy.employeelogin;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 
+
 public class secondActivity extends Activity
 {
     private ListView lvProduct;
@@ -24,7 +23,9 @@ public class secondActivity extends Activity
 
     // Temp Product used for sorting the arraylist
     Product temp= new Product(1000, "Temp","Temp");
-
+    public TextView Total_Hours_tv;
+    float Total_Hours;
+    int  Hours, Halves;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,6 +33,8 @@ public class secondActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
+
+        Total_Hours_tv = (TextView) findViewById(R.id.total_hours);
         final ArrayList<String> days = new ArrayList<>();
         lvProduct = (ListView) findViewById(R.id.listview_product);
         mProductList = new ArrayList<>();
@@ -95,12 +98,20 @@ public class secondActivity extends Activity
                     sTimeSplit = splitInfo[3].split(":");
                     String nSTime2= sTimeSplit[0] +":"+ sTimeSplit[1];
 
+
                     // If the months changes in the middle of the week that we are displaying
                     if( monday_index + 7 < last_day_of_Month )
                     {
                         if(Integer.valueOf(splitInfo[0]) >= (monday_index) && Integer.valueOf(splitInfo[0]) <= (monday_index +7) && Integer.valueOf(splitInfo[1]) == month)
                         {
                             days_working[(Integer.valueOf(splitInfo[0]) - monday_index + 1 ) % 7]=1;
+
+                            String[] Start = splitInfo[2].split(":");
+                            String[] Stop = splitInfo[3].split(":");
+                            Hours += ( Integer.valueOf(Stop[0]) - Integer.valueOf(Start[0]) );
+                            System.out.println(Integer.valueOf(Stop[0]) - Integer.valueOf(Start[0]));
+                            Halves += ( Integer.valueOf(Stop[1]) + Integer.valueOf(Start[1]) );
+                            Total_Hours+= Hours + Halves/60 ;
 
                             if(Integer.valueOf(splitInfo[1]) < 10)
                             {
@@ -117,6 +128,13 @@ public class secondActivity extends Activity
                     {
                         if( (Integer.valueOf(splitInfo[0]) >= (monday_index) && Integer.valueOf(splitInfo[0]) <= last_day_of_Month && Integer.valueOf(splitInfo[1]) == month) || ((Integer.valueOf(splitInfo[1]) == month+1) && Integer.valueOf(splitInfo[0]) <= (monday_index + 7 - last_day_of_Month)) )
                         {
+                            String[] Start = splitInfo[2].split(":");
+                            String[] Stop = splitInfo[3].split(":");
+                            Hours += ( Integer.valueOf(Stop[0]) - Integer.valueOf(Start[0]) );
+                            System.out.println(Integer.valueOf(Stop[0]) - Integer.valueOf(Start[0]));
+                            Halves += ( Integer.valueOf(Stop[1]) + Integer.valueOf(Start[1]) );
+                            Total_Hours+= Hours + Halves/60 ;
+
                             days_working[(Integer.valueOf(splitInfo[0]) - monday_index + 1 ) % 7]=1;
                             if(Integer.valueOf(splitInfo[1]) < 10)
                             {
@@ -125,12 +143,11 @@ public class secondActivity extends Activity
                             else
                             {
                                 mProductList.add(new Product(Integer.valueOf(splitInfo[0]) , nDate +" "+ splitInfo[0] + "/" + splitInfo[1], nSTime1 + " - " + nSTime2));
+
                             }
 
                         }
                     }
-
-
 
                 }
                 for(int index=0; index<7; index++)
@@ -176,6 +193,7 @@ public class secondActivity extends Activity
                     } // end inner for
                 } // end outer for
 
+                Total_Hours_tv.setText("Total Hours This Week: " + String.valueOf(Total_Hours));
                 // init adapter
                 adapter = new ProductListAdapter(getApplicationContext(), mProductList);
                 lvProduct.setAdapter(adapter);
