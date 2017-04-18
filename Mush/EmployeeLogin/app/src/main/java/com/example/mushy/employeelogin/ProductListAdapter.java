@@ -1,6 +1,7 @@
 package com.example.mushy.employeelogin;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,6 +20,7 @@ public class ProductListAdapter extends BaseAdapter
     private List<Product> mProductList;
 
     // Constructor
+
 
 
     public ProductListAdapter(Context mContext, List<Product> mProductList)
@@ -56,6 +58,16 @@ public class ProductListAdapter extends BaseAdapter
         tvName.setText(mProductList.get(position).getName());
         tvDescription.setText(mProductList.get(position).getDescription());
 
+        // Depending if working the text will be either BLACK or RED
+        if(mProductList.get(position).getDescription().equals("Not Scheduled"))
+        {
+            tvDescription.setTextColor(Color.RED);
+            //tvDescription.setTextSize(10);
+        }
+        else
+        {
+            tvDescription.setTextColor(Color.BLACK);
+        }
         // save product id to tag
         v.setTag(mProductList.get(position).getId());
 

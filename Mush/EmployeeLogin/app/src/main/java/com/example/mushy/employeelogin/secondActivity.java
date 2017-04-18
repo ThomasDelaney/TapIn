@@ -2,7 +2,11 @@ package com.example.mushy.employeelogin;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,7 +31,13 @@ public class secondActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
+        final ArrayList<String> days = new ArrayList<>();
+        lvProduct = (ListView) findViewById(R.id.listview_product);
+        mProductList = new ArrayList<>();
         setTitle("Schedule for the current week");
+
+
         BackgroundTask backgroundTask = new BackgroundTask(
         new BackgroundTask.AsyncResponse()
         {
@@ -35,9 +45,6 @@ public class secondActivity extends Activity
             public void processFinish(String output)
             {
 
-                final ArrayList<String> days = new ArrayList<>();
-                lvProduct = (ListView) findViewById(R.id.listview_product);
-                mProductList = new ArrayList<>();
 
 
                 // Getting the index for the weeks Monday
@@ -52,7 +59,6 @@ public class secondActivity extends Activity
                 // Because everything starts at 0 and we are starting everything at 1
                 monday_index+=2;
 
-                System.out.println(monday_index + "MONDAY CICA");
                 // Getting the current month
 
                 int month = calendar.get(Calendar.MONTH) +1;
@@ -133,9 +139,6 @@ public class secondActivity extends Activity
                     {
                         String MyDate2= Day_Of_Week(index);
 
-                        //TextView test;
-                        //test = (TextView) findViewById(R.id.tv_description);
-                        //test.setTextColor(Color.parseColor("#bdbdbd"));
                         if(month <10)
                         {
                             mProductList.add(new Product(index + monday_index - 1, MyDate2 + " " + (monday_index + index - 1) + "/0" + month, "Not Scheduled"));
@@ -146,7 +149,6 @@ public class secondActivity extends Activity
                         }
                     }
                 }
-
 
 
                 /*
@@ -185,6 +187,8 @@ public class secondActivity extends Activity
 
 
     }
+
+
 
     public String Day_Of_Week(int a)
     {
