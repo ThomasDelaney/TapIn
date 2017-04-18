@@ -50,7 +50,7 @@ public class secondActivity extends Activity
                     monday_index--;
                 }
                 // Because everything starts at 0 and we are starting everything at 1
-                monday_index++;
+                monday_index+=2;
 
                 System.out.println(monday_index + "MONDAY CICA");
                 // Getting the current month
@@ -190,13 +190,8 @@ public class secondActivity extends Activity
     {
         String output_String;
 
-        switch(a)
+        switch(a + 1)
         {
-            case 0:
-            {
-                output_String = "Sunday";
-                break;
-            }
             case 1:
             {
                 output_String = "Monday";
@@ -227,7 +222,11 @@ public class secondActivity extends Activity
                 output_String = "Saturday";
                 break;
             }
-
+            case 7:
+            {
+                output_String = "Sunday";
+                break;
+            }
             default:
             {
                 output_String = "error";
