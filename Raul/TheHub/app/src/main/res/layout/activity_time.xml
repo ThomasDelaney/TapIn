@@ -32,25 +32,24 @@
 
     <Button
         android:id="@+id/clockin"
-        android:layout_width="match_parent"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Clock In"
-        android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/clock"
-        android:layout_marginBottom="104dp"
-        android:layout_toLeftOf="@+id/clock" />
+        android:layout_below="@+id/working"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="149dp" />
 
     <Button
         android:id="@+id/clockout"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/clockin"
-        android:layout_alignBottom="@+id/clockin"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/clock"
         android:background="@android:color/background_light"
-        android:text="Clock out" />
+        android:text="Clock out"
+        android:layout_alignTop="@+id/clockin"
+        android:layout_alignLeft="@+id/clockin"
+        android:layout_alignStart="@+id/clockin"
+        android:layout_marginTop="74dp" />
 
 </RelativeLayout>

@@ -54,13 +54,11 @@
 
     <com.felipecsl.gifimageview.library.GifImageView
         android:id="@+id/gifImageView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginLeft="35dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:scaleType="fitCenter"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/yeeid"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="98dp" />
 
 </RelativeLayout>

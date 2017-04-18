@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         setTitle("HUB");
 
+
         yeeid = (TextView)findViewById(R.id.yeeid);
         spinner = (ProgressBar)findViewById(R.id.progressBar);
         gifImageView = (GifImageView)findViewById(R.id.gifImageView);
