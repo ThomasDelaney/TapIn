@@ -51,7 +51,10 @@ public class secondActivity extends Activity
                 {
                     monday_index--;
                 }
+                // Because everything starts at 0 and we are starting everything at 1
+                monday_index++;
 
+                System.out.println(monday_index + "MONDAY CICA");
                 // Getting the current month
 
                 int month = calendar.get(Calendar.MONTH) +1;
@@ -88,11 +91,21 @@ public class secondActivity extends Activity
                     sTimeSplit = splitInfo[3].split(":");
                     String nSTime2= sTimeSplit[0] +":"+ sTimeSplit[1];
 
-                    if(Integer.valueOf(splitInfo[0]) >= (monday_index +1) && Integer.valueOf(splitInfo[0]) <= (monday_index +8) && Integer.valueOf(splitInfo[1]) == month)
+                    if(Integer.valueOf(splitInfo[0]) >= (monday_index) && Integer.valueOf(splitInfo[0]) <= (monday_index +7) && Integer.valueOf(splitInfo[1]) == month)
                     {
                         System.out.println(((Integer.valueOf(splitInfo[0]) - monday_index) % 7) + " " + 1);
-                        days_working[(Integer.valueOf(splitInfo[0]) - monday_index) % 7]=1;
-                        mProductList.add(new Product(Integer.valueOf(splitInfo[0]), nDate +" "+ splitInfo[0] + "/" + splitInfo[1], nSTime1 + " - " + nSTime2));
+                        days_working[(Integer.valueOf(splitInfo[0]) - monday_index + 1 ) % 7]=1;
+
+                        if(Integer.valueOf(splitInfo[1]) < 10)
+                        {
+                            mProductList.add(new Product(Integer.valueOf(splitInfo[0]) , nDate +" "+ splitInfo[0] + "/0" + splitInfo[1], nSTime1 + " - " + nSTime2));
+                        }
+                        else
+                        {
+                            mProductList.add(new Product(Integer.valueOf(splitInfo[0]) , nDate +" "+ splitInfo[0] + "/" + splitInfo[1], nSTime1 + " - " + nSTime2));
+                        }
+
+
                     }
                 }
                 for(int index=0; index<7; index++)
@@ -104,7 +117,14 @@ public class secondActivity extends Activity
                         //TextView test;
                         //test = (TextView) findViewById(R.id.tv_description);
                         //test.setTextColor(Color.parseColor("#bdbdbd"));
-                        mProductList.add(new Product(index + monday_index, MyDate2 + " "+ (monday_index+index) + "/" + month, "Not Scheduled"));
+                        if(month <10)
+                        {
+                            mProductList.add(new Product(index + monday_index - 1, MyDate2 + " " + (monday_index + index - 1) + "/0" + month, "Not Scheduled"));
+                        }
+                        else
+                        {
+                            mProductList.add(new Product(index + monday_index - 1, MyDate2 + " " + (monday_index + index - 1) + "/" + month, "Not Scheduled"));
+                        }
                     }
                 }
 
