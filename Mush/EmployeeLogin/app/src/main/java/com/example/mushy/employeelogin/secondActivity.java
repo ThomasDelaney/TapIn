@@ -1,9 +1,11 @@
 package com.example.mushy.employeelogin;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ListView;
-
+import android.widget.TextView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,12 +14,17 @@ import java.util.Date;
 import java.util.List;
 
 
+
 public class secondActivity extends Activity
 {
     private ListView lvProduct;
     private ProductListAdapter adapter;
     private List<Product> mProductList;
     private int[] days_working= new int[7];
+
+    // Temp Product used for sorting the arraylist
+    Product temp= new Product(1000, "Temp","Temp");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -51,7 +58,7 @@ public class secondActivity extends Activity
 
                 // Getting the details from the DB
                 String[] tokens = output.split("-");
-                for (String t : tokens)
+                for(String t : tokens)
                 {
                     days.add(t);
                 }
@@ -93,9 +100,40 @@ public class secondActivity extends Activity
                     if(days_working[index] != 1)
                     {
                         String MyDate2= Day_Of_Week(index);
-                        mProductList.add(new Product(index, MyDate2 + " "+ (monday_index+index) + "/" + month, "Not Scheduled"));
+
+                        //TextView test;
+                        //test = (TextView) findViewById(R.id.tv_description);
+                        //test.setTextColor(Color.parseColor("#bdbdbd"));
+                        mProductList.add(new Product(index + monday_index, MyDate2 + " "+ (monday_index+index) + "/" + month, "Not Scheduled"));
                     }
                 }
+
+
+
+                /*
+                    Ordering the Arralist with a bubble sort algorithm
+                */
+                for (int i = 0; i < mProductList.size(); i++)
+                {
+                    for (int j = 1; j < (mProductList.size() - i); j++)
+                    {
+                        if (mProductList.get(j-1).id > mProductList.get(j).id)
+                        {
+                            // id, name, desc
+                            temp.id = mProductList.get(j-1).id;
+                            temp.name = mProductList.get(j-1).name;
+                            temp.description = mProductList.get(j-1).description;
+
+                            mProductList.get(j-1).id = mProductList.get(j).id;
+                            mProductList.get(j-1).name = mProductList.get(j).name;
+                            mProductList.get(j-1).description= mProductList.get(j).description;
+
+                            mProductList.get(j).id = temp.id;
+                            mProductList.get(j).name = temp.name;
+                            mProductList.get(j).description = temp.description;
+                        }
+                    } // end inner for
+                } // end outer for
 
                 // init adapter
                 adapter = new ProductListAdapter(getApplicationContext(), mProductList);
@@ -159,4 +197,6 @@ public class secondActivity extends Activity
 
         return output_String;
     }
+
+
 }

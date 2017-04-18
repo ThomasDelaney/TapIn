@@ -7,9 +7,9 @@ package com.example.mushy.employeelogin;
 
 public class Product
 {
-    private int id;
-    private String name;
-    private String description;
+    public int id;
+    public String name;
+    public String description;
 
     // Constructor
     public Product(int id, String name, String description)
