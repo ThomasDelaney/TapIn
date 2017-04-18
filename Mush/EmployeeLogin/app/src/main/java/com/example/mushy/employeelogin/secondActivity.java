@@ -1,18 +1,14 @@
 package com.example.mushy.employeelogin;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.TextView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 
 
 public class secondActivity extends Activity
@@ -40,13 +36,15 @@ public class secondActivity extends Activity
             {
 
                 final ArrayList<String> days = new ArrayList<>();
-
                 lvProduct = (ListView) findViewById(R.id.listview_product);
                 mProductList = new ArrayList<>();
+
 
                 // Getting the index for the weeks Monday
                 Calendar calendar = Calendar.getInstance();
                 int monday_index = calendar.get(Calendar.DAY_OF_MONTH);
+                int last_day_of_Month = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+
                 while(monday_index != Calendar.MONDAY && monday_index != (Calendar.MONDAY +7) && monday_index != (Calendar.MONDAY +14) && monday_index != (Calendar.MONDAY +21))
                 {
                     monday_index--;
@@ -91,22 +89,43 @@ public class secondActivity extends Activity
                     sTimeSplit = splitInfo[3].split(":");
                     String nSTime2= sTimeSplit[0] +":"+ sTimeSplit[1];
 
-                    if(Integer.valueOf(splitInfo[0]) >= (monday_index) && Integer.valueOf(splitInfo[0]) <= (monday_index +7) && Integer.valueOf(splitInfo[1]) == month)
+                    // If the months changes in the middle of the week that we are displaying
+                    if( monday_index + 7 < last_day_of_Month )
                     {
-                        System.out.println(((Integer.valueOf(splitInfo[0]) - monday_index) % 7) + " " + 1);
-                        days_working[(Integer.valueOf(splitInfo[0]) - monday_index + 1 ) % 7]=1;
-
-                        if(Integer.valueOf(splitInfo[1]) < 10)
+                        if(Integer.valueOf(splitInfo[0]) >= (monday_index) && Integer.valueOf(splitInfo[0]) <= (monday_index +7) && Integer.valueOf(splitInfo[1]) == month)
                         {
-                            mProductList.add(new Product(Integer.valueOf(splitInfo[0]) , nDate +" "+ splitInfo[0] + "/0" + splitInfo[1], nSTime1 + " - " + nSTime2));
-                        }
-                        else
-                        {
-                            mProductList.add(new Product(Integer.valueOf(splitInfo[0]) , nDate +" "+ splitInfo[0] + "/" + splitInfo[1], nSTime1 + " - " + nSTime2));
-                        }
+                            days_working[(Integer.valueOf(splitInfo[0]) - monday_index + 1 ) % 7]=1;
 
+                            if(Integer.valueOf(splitInfo[1]) < 10)
+                            {
+                                mProductList.add(new Product(Integer.valueOf(splitInfo[0]) , nDate +" "+ splitInfo[0] + "/0" + splitInfo[1], nSTime1 + " - " + nSTime2));
+                            }
+                            else
+                            {
+                                mProductList.add(new Product(Integer.valueOf(splitInfo[0]) , nDate +" "+ splitInfo[0] + "/" + splitInfo[1], nSTime1 + " - " + nSTime2));
+                            }
+                        }
 
                     }
+                    else  // The week goes over two months
+                    {
+                        if( (Integer.valueOf(splitInfo[0]) >= (monday_index) && Integer.valueOf(splitInfo[0]) <= last_day_of_Month && Integer.valueOf(splitInfo[1]) == month) || ((Integer.valueOf(splitInfo[1]) == month+1) && Integer.valueOf(splitInfo[0]) <= (monday_index + 7 - last_day_of_Month)) )
+                        {
+                            days_working[(Integer.valueOf(splitInfo[0]) - monday_index + 1 ) % 7]=1;
+                            if(Integer.valueOf(splitInfo[1]) < 10)
+                            {
+                                mProductList.add(new Product(Integer.valueOf(splitInfo[0]) , nDate +" "+ splitInfo[0] + "/0" + splitInfo[1], nSTime1 + " - " + nSTime2));
+                            }
+                            else
+                            {
+                                mProductList.add(new Product(Integer.valueOf(splitInfo[0]) , nDate +" "+ splitInfo[0] + "/" + splitInfo[1], nSTime1 + " - " + nSTime2));
+                            }
+
+                        }
+                    }
+
+
+
                 }
                 for(int index=0; index<7; index++)
                 {
