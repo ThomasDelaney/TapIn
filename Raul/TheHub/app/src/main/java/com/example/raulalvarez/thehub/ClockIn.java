@@ -6,15 +6,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import java.util.concurrent.TimeUnit;
+
+import static java.lang.Math.round;
 
 
 /**
@@ -26,9 +30,12 @@ public class ClockIn extends AppCompatActivity {
 
     TextView disptime;
     TextView working;
+    TextView pay;
 
     Button clockin;
     Button clockout;
+
+    private ProgressBar spinner;
 
     String yeeid = com.example.raulalvarez.thehub.MainActivity.employee;
 
@@ -51,6 +58,10 @@ public class ClockIn extends AppCompatActivity {
 
         disptime = (TextView)findViewById(R.id.clock);
         working = (TextView)findViewById(R.id.working);
+        pay = (TextView)findViewById(R.id.payment);
+
+        spinner = (ProgressBar)findViewById(R.id.spinner2);
+
         clockin = (Button)findViewById(R.id.clockin);
         clockout= (Button)findViewById(R.id.clockout);
         disptime.setText(currentDateTimeString);
@@ -61,6 +72,7 @@ public class ClockIn extends AppCompatActivity {
         String method = "ClockInCheck";
         String day = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
         String month = String.valueOf(cal.get(Calendar.MONTH) + 1);
+        spinner.setVisibility(View.VISIBLE);
 
 
 
@@ -72,10 +84,12 @@ public class ClockIn extends AppCompatActivity {
 
                 if (output.equals("null "))
                 {
+                    spinner.setVisibility(View.INVISIBLE);
                     working.setText("You are not working today");
                 }
                 else
                 {
+                    spinner.setVisibility(View.INVISIBLE);
                     working.setText("You are working today");
 
 
@@ -86,7 +100,7 @@ public class ClockIn extends AppCompatActivity {
                     final String[] starttimestr;
                     final String[] endtimestr;
                     String[] currenttimestr;
-                    final int wage = Integer.parseInt(tokens[4]);
+                    final float wage = Float.parseFloat(tokens[4].trim());
 
                     starttimestr = tokens[2].split(":");
                     endtimestr = tokens[3].split(":");
@@ -211,6 +225,7 @@ public class ClockIn extends AppCompatActivity {
                                                 working.setTextColor(Color.RED);
                                                 working.setText("You Are Already Clocked In!");
                                             }
+                                            clockedin = true;
                                         }
                                     });
 
@@ -276,9 +291,14 @@ public class ClockIn extends AppCompatActivity {
 
                                 long difference = date2.getTime() - date1.getTime();
 
-                                int hours = (int) TimeUnit.MILLISECONDS.toHours(difference);
+                                int minutes = (int) TimeUnit.MILLISECONDS.toMinutes(difference);
+                                System.out.println(minutes);
+                                DecimalFormat df = new DecimalFormat("0.00");
+                                float hours =  (float) minutes / 60;
                                 System.out.println(hours);
-                                String payment = String.valueOf(hours * wage);
+                                float total = hours * wage;
+                                final String totalstr = String.format("%.2f", total);
+                                System.out.println(totalstr);
 
                                 if (x.after(calendarmin.getTime()) && x.before(calendarmax.getTime()))
                                 {
@@ -292,25 +312,27 @@ public class ClockIn extends AppCompatActivity {
                                         {
                                             System.out.println(output);
 
-                                            if(output.equals("Success "))
+                                            if(output.equals("Success ") && clockedin)
                                             {
                                                 working.setTextColor(Color.GREEN);
                                                 working.setText("Clocked out Succesfully");
-                                                clockedin = true;
+                                                pay.setText("Payment: €" + totalstr);
+
                                             }
-                                            else if(output.equals("null "))
+                                            else if(output.equals("Failure ") )
                                             {
                                                 working.setTextColor(Color.RED);
                                                 working.setText("Please try again");
                                             }
-                                            else if(output.equals("Failure "))
+                                            else if(output.equals("Success ") && !clockedin)
                                             {
                                                 working.setTextColor(Color.RED);
-                                                working.setText("You Are Already Clocked Out!");
+                                                working.setText("You Have Already Clocked Out!");
                                             }
+                                            clockedin = false;
                                         }
                                     });
-                                    backgroundTask.execute(method,timetable,currentDateTimeString,payment);
+                                    backgroundTask.execute(method,timetable,currentDateTimeString,totalstr);
                                 }
                                 else
                                 {
