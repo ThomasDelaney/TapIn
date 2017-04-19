@@ -25,7 +25,7 @@ public class secondActivity extends Activity
     Product temp= new Product(1000, "Temp","Temp");
     public TextView Total_Hours_tv;
     float Total_Hours;
-    int  Hours, Halves;
+    int  Hours=0, Halves=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -104,14 +104,15 @@ public class secondActivity extends Activity
                     {
                         if(Integer.valueOf(splitInfo[0]) >= (monday_index) && Integer.valueOf(splitInfo[0]) <= (monday_index +7) && Integer.valueOf(splitInfo[1]) == month)
                         {
-                            days_working[(Integer.valueOf(splitInfo[0]) - monday_index + 1 ) % 7]=1;
-
+                            // Split the start time and end time and get the ammount to be spent at work
                             String[] Start = splitInfo[2].split(":");
                             String[] Stop = splitInfo[3].split(":");
-                            Hours += ( Integer.valueOf(Stop[0]) - Integer.valueOf(Start[0]) );
-                            System.out.println(Integer.valueOf(Stop[0]) - Integer.valueOf(Start[0]));
-                            Halves += ( Integer.valueOf(Stop[1]) + Integer.valueOf(Start[1]) );
-                            Total_Hours+= Hours + Halves/60 ;
+                            Hours = ( Integer.valueOf(Stop[0]) - Integer.valueOf(Start[0]) );
+                            Halves = ( Integer.valueOf(Stop[1]) + Integer.valueOf(Start[1]) );
+                            Total_Hours+= Hours + ((float)Halves/60) ;
+
+                            days_working[(Integer.valueOf(splitInfo[0]) - monday_index + 1 ) % 7]=1;
+
 
                             if(Integer.valueOf(splitInfo[1]) < 10)
                             {
@@ -128,12 +129,12 @@ public class secondActivity extends Activity
                     {
                         if( (Integer.valueOf(splitInfo[0]) >= (monday_index) && Integer.valueOf(splitInfo[0]) <= last_day_of_Month && Integer.valueOf(splitInfo[1]) == month) || ((Integer.valueOf(splitInfo[1]) == month+1) && Integer.valueOf(splitInfo[0]) <= (monday_index + 7 - last_day_of_Month)) )
                         {
+                            // Split the start time and end time and get the ammount to be spent at work
                             String[] Start = splitInfo[2].split(":");
                             String[] Stop = splitInfo[3].split(":");
-                            Hours += ( Integer.valueOf(Stop[0]) - Integer.valueOf(Start[0]) );
-                            System.out.println(Integer.valueOf(Stop[0]) - Integer.valueOf(Start[0]));
-                            Halves += ( Integer.valueOf(Stop[1]) + Integer.valueOf(Start[1]) );
-                            Total_Hours+= Hours + Halves/60 ;
+                            Hours = ( Integer.valueOf(Stop[0]) - Integer.valueOf(Start[0]) );
+                            Halves = ( Integer.valueOf(Stop[1]) + Integer.valueOf(Start[1]) );
+                            Total_Hours+= Hours + ((float)Halves/60) ;
 
                             days_working[(Integer.valueOf(splitInfo[0]) - monday_index + 1 ) % 7]=1;
                             if(Integer.valueOf(splitInfo[1]) < 10)
@@ -143,12 +144,9 @@ public class secondActivity extends Activity
                             else
                             {
                                 mProductList.add(new Product(Integer.valueOf(splitInfo[0]) , nDate +" "+ splitInfo[0] + "/" + splitInfo[1], nSTime1 + " - " + nSTime2));
-
                             }
-
                         }
                     }
-
                 }
                 for(int index=0; index<7; index++)
                 {
@@ -193,7 +191,8 @@ public class secondActivity extends Activity
                     } // end inner for
                 } // end outer for
 
-                Total_Hours_tv.setText("Total Hours This Week: " + String.valueOf(Total_Hours));
+                String total_text="Total Hours This Week: " + String.valueOf(Total_Hours);
+                Total_Hours_tv.setText(total_text);
                 // init adapter
                 adapter = new ProductListAdapter(getApplicationContext(), mProductList);
                 lvProduct.setAdapter(adapter);
@@ -202,8 +201,6 @@ public class secondActivity extends Activity
 
         // getId gets the id of the employee
         backgroundTask.execute("getTimetable", MainActivity.getId());
-
-
     }
 
 
