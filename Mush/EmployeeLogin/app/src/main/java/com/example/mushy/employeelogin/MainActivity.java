@@ -1,6 +1,7 @@
 package com.example.mushy.employeelogin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -17,18 +18,54 @@ public class MainActivity extends AppCompatActivity
     public EditText user2;
     public EditText pass2;
     public static String id;
+    public static String Uname, Upass, Uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
+        SharedPreferences.Editor edit = userDetails.edit();
+
+        Uname = userDetails.getString("username", "");
+        Upass = userDetails.getString("password", "");
+        Uid = userDetails.getString("id", "");
+
+
+        BackgroundTask backgroundTask = new BackgroundTask(
+        new BackgroundTask.AsyncResponse()
+        {
+            @Override
+            public void processFinish(String output)
+            {
+
+                if(!output.equals("false"))
+                {
+                    System.out.println(output);
+                    // This returns the id of the employee based on the username and password
+                    Intent intent = new Intent(getApplicationContext(), secondActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        backgroundTask.execute("read", Uname, Upass);
+
         setContentView(R.layout.activity_main);
 
         loginbutton = (Button) findViewById(R.id.loginButton);
         user2 = (EditText) findViewById(R.id.user);
         pass2 = (EditText) findViewById(R.id.pass);
 
-
+        /*
+        if( !Uname.equals("") && !Upass.equals(""))
+        {
+            System.out.println("FOUND EM" + Uname + Upass);
+            Intent intent = new Intent(getApplicationContext(), secondActivity.class);
+            startActivity(intent);
+        }
+           */
         loginbutton.setOnClickListener(new View.OnClickListener()
         {
             @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
@@ -63,12 +100,23 @@ public class MainActivity extends AppCompatActivity
                             // This returns the id of the employee based on the username and password
                             id = output.replaceAll("[^0-9]", "");
 
+                            SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
+                            SharedPreferences.Editor edit = userDetails.edit();
+                            edit.clear();
+                            edit.putString("username", user2.getText().toString().trim());
+                            edit.putString("password", pass2.getText().toString().trim());
+                            edit.putString("id", getId());
+                            edit.commit();
+
                             Intent intent = new Intent(getApplicationContext(), secondActivity.class);
                             startActivity(intent);
                         }
                     }
                 });
+
+
                 backgroundTask.execute(method, user, pass);
+
             }
 
             }
@@ -80,5 +128,7 @@ public class MainActivity extends AppCompatActivity
     {
         return id;
     }
-
+    public static String getUname() { return Uname;}
+    public static String getUpass() { return Upass;}
+    public static String getUid() {return Uid;}
 }

@@ -1,6 +1,8 @@
 package com.example.mushy.employeelogin;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,6 +36,7 @@ public class secondActivity extends Activity
         setContentView(R.layout.activity_second);
 
 
+
         Total_Hours_tv = (TextView) findViewById(R.id.total_hours);
         final ArrayList<String> days = new ArrayList<>();
         lvProduct = (ListView) findViewById(R.id.listview_product);
@@ -47,9 +50,6 @@ public class secondActivity extends Activity
             @Override
             public void processFinish(String output)
             {
-
-
-
                 // Getting the index for the weeks Monday
                 Calendar calendar = Calendar.getInstance();
                 int monday_index = calendar.get(Calendar.DAY_OF_MONTH);
@@ -200,7 +200,15 @@ public class secondActivity extends Activity
         });
 
         // getId gets the id of the employee
-        backgroundTask.execute("getTimetable", MainActivity.getId());
+        if( !MainActivity.getUname().equals(""))
+        {
+            backgroundTask.execute("getTimetable", MainActivity.getUid());
+        }
+        else
+        {
+            System.out.println(MainActivity.getUname()+" Have ID");
+            backgroundTask.execute("getTimetable", MainActivity.getId()); // change the last part
+        }
     }
 
 

@@ -109,8 +109,6 @@ class BackgroundTask extends AsyncTask<String, Void, String>
         else if (method.equals("getTimetable"))
         {
             String YeeID = params[1];
-
-
             try
             {
                 URL url = new URL(get_timetable);
