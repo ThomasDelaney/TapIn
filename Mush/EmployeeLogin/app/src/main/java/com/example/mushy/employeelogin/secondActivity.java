@@ -1,9 +1,13 @@
 package com.example.mushy.employeelogin;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +26,7 @@ public class secondActivity extends Activity
     private ProductListAdapter adapter;
     private List<Product> mProductList;
     private int[] days_working= new int[7];
+    public Button logout;
 
     // Temp Product used for sorting the arraylist
     Product temp= new Product(1000, "Temp","Temp");
@@ -35,14 +40,31 @@ public class secondActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-
-
+        logout= (Button) findViewById(R.id.logout);
         Total_Hours_tv = (TextView) findViewById(R.id.total_hours);
         final ArrayList<String> days = new ArrayList<>();
         lvProduct = (ListView) findViewById(R.id.listview_product);
         mProductList = new ArrayList<>();
         setTitle("Schedule for the current week");
 
+
+
+        logout.setOnClickListener(new View.OnClickListener()
+        {
+            @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
+            @Override
+            public void onClick(View v)
+            {
+                SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
+                SharedPreferences.Editor edit = userDetails.edit();
+                edit.clear();
+                edit.commit();
+
+                finish();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         BackgroundTask backgroundTask = new BackgroundTask(
         new BackgroundTask.AsyncResponse()
@@ -206,7 +228,6 @@ public class secondActivity extends Activity
         }
         else
         {
-            System.out.println(MainActivity.getUname()+" Have ID");
             backgroundTask.execute("getTimetable", MainActivity.getId()); // change the last part
         }
     }

@@ -26,12 +26,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
-        SharedPreferences.Editor edit = userDetails.edit();
-
         Uname = userDetails.getString("username", "");
         Upass = userDetails.getString("password", "");
         Uid = userDetails.getString("id", "");
-
 
         BackgroundTask backgroundTask = new BackgroundTask(
         new BackgroundTask.AsyncResponse()
@@ -42,7 +39,6 @@ public class MainActivity extends AppCompatActivity
 
                 if(!output.equals("false"))
                 {
-                    System.out.println(output);
                     // This returns the id of the employee based on the username and password
                     Intent intent = new Intent(getApplicationContext(), secondActivity.class);
                     startActivity(intent);
@@ -58,14 +54,7 @@ public class MainActivity extends AppCompatActivity
         user2 = (EditText) findViewById(R.id.user);
         pass2 = (EditText) findViewById(R.id.pass);
 
-        /*
-        if( !Uname.equals("") && !Upass.equals(""))
-        {
-            System.out.println("FOUND EM" + Uname + Upass);
-            Intent intent = new Intent(getApplicationContext(), secondActivity.class);
-            startActivity(intent);
-        }
-           */
+
         loginbutton.setOnClickListener(new View.OnClickListener()
         {
             @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
