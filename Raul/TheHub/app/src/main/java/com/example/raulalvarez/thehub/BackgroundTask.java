@@ -219,6 +219,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
         {
             String timetable = params[1];
             String time = params[2];
+            String payment = params[3];
 
             try
             {
@@ -234,7 +235,8 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
 
                 //encode data and write to php file on server
                 String data =   URLEncoder.encode("timetable", "UTF-8")+"="+URLEncoder.encode(timetable, "UTF-8")+"&"+
-                        URLEncoder.encode("time", "UTF-8")+"="+URLEncoder.encode(time, "UTF-8");
+                                URLEncoder.encode("time", "UTF-8")+"="+URLEncoder.encode(time, "UTF-8")+"&"+
+                                URLEncoder.encode("time", "UTF-8")+"="+URLEncoder.encode(time, "UTF-8");
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
                 bufferedWriter.close();

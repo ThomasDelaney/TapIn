@@ -14,6 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import java.util.concurrent.TimeUnit;
+
 
 /**
  * Created by raulalvarez on 3/4/17.
@@ -77,13 +79,14 @@ public class ClockIn extends AppCompatActivity {
                     working.setText("You are working today");
 
 
-                    String[] tokens = output.split(",");
+                    final String[] tokens = output.split(",");
                     System.out.println(output);
 
 
-                    String[] starttimestr;
-                    String[] endtimestr;
+                    final String[] starttimestr;
+                    final String[] endtimestr;
                     String[] currenttimestr;
+                    final int wage = Integer.parseInt(tokens[4]);
 
                     starttimestr = tokens[2].split(":");
                     endtimestr = tokens[3].split(":");
@@ -252,6 +255,31 @@ public class ClockIn extends AppCompatActivity {
 
                                 Date x = calendar3.getTime();
 
+                                String start = tokens[2];
+                                String end = tokens[3];
+
+                                SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+
+                                Date date1 = new Date();
+                                Date date2 = new Date();
+
+                                try
+                                {
+                                    date1 = format.parse(start);
+                                    date2 = format.parse(end);
+
+                                }
+                                catch (ParseException e)
+                                {
+                                    e.printStackTrace();
+                                }
+
+                                long difference = date2.getTime() - date1.getTime();
+
+                                int hours = (int) TimeUnit.MILLISECONDS.toHours(difference);
+                                System.out.println(hours);
+                                String payment = String.valueOf(hours * wage);
+
                                 if (x.after(calendarmin.getTime()) && x.before(calendarmax.getTime()))
                                 {
                                     String method = "ClockOut";
@@ -282,7 +310,7 @@ public class ClockIn extends AppCompatActivity {
                                             }
                                         }
                                     });
-                                    backgroundTask.execute(method,timetable,currentDateTimeString);
+                                    backgroundTask.execute(method,timetable,currentDateTimeString,payment);
                                 }
                                 else
                                 {
