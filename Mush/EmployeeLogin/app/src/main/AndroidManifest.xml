@@ -22,6 +22,8 @@
             >
 
         </activity>
+        <activity android:name=".Choose_week">
+        </activity>
     </application>
 
 </manifest>

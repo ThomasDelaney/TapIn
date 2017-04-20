@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     // This returns the id of the employee based on the username and password
                     finish();
-                    Intent intent = new Intent(getApplicationContext(), secondActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), Choose_week.class);
                     startActivity(intent);
                 }
             }
@@ -98,7 +98,11 @@ public class MainActivity extends AppCompatActivity
                             edit.putString("id", getId());
                             edit.commit();
 
-                            Intent intent = new Intent(getApplicationContext(), secondActivity.class);
+                            // clearing the edit text fields in case they go back to this activity
+                            user2.getText().clear();
+                            pass2.getText().clear();
+
+                            Intent intent = new Intent(getApplicationContext(), Choose_week.class);
                             startActivity(intent);
                         }
                     }

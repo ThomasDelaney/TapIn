@@ -55,11 +55,13 @@ public class secondActivity extends Activity
             @Override
             public void onClick(View v)
             {
+                // Clearing the saved data
                 SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
                 SharedPreferences.Editor edit = userDetails.edit();
                 edit.clear();
                 edit.commit();
 
+                Choose_week.fa.finish(); // This finishes the choose week activity when we log out
                 finish();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
