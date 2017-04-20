@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Locale;
 
 
 public class secondActivity extends Activity
@@ -29,10 +29,12 @@ public class secondActivity extends Activity
     public Button logout;
 
     // Temp Product used for sorting the arraylist
-    Product temp= new Product(1000, "Temp","Temp");
+    private Product temp= new Product(1000, "Temp","Temp");
     public TextView Total_Hours_tv;
-    float Total_Hours;
-    int  Hours=0, Halves=0;
+    private float Total_Hours;
+    private int  Hours=0, Halves=0;
+    public String selected;
+    private long total_to_work;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,13 +42,13 @@ public class secondActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
+        total_to_work=0;
         logout= (Button) findViewById(R.id.logout);
         Total_Hours_tv = (TextView) findViewById(R.id.total_hours);
         final ArrayList<String> days = new ArrayList<>();
         lvProduct = (ListView) findViewById(R.id.listview_product);
         mProductList = new ArrayList<>();
         setTitle("Schedule for the current week");
-
 
 
         logout.setOnClickListener(new View.OnClickListener()
@@ -128,12 +130,23 @@ public class secondActivity extends Activity
                     {
                         if(Integer.valueOf(splitInfo[0]) >= (monday_index) && Integer.valueOf(splitInfo[0]) <= (monday_index +7) && Integer.valueOf(splitInfo[1]) == month)
                         {
-                            // Split the start time and end time and get the ammount to be spent at work
-                            String[] Start = splitInfo[2].split(":");
-                            String[] Stop = splitInfo[3].split(":");
-                            Hours = ( Integer.valueOf(Stop[0]) - Integer.valueOf(Start[0]) );
-                            Halves = ( Integer.valueOf(Stop[1]) + Integer.valueOf(Start[1]) );
-                            Total_Hours+= Hours + ((float)Halves/60) ;
+                            String start = splitInfo[2];
+                            String end = splitInfo[3];
+                            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+                            Date date1 = new Date();
+                            Date date2 = new Date();
+                            try
+                            {
+                                date1 = format.parse(start);
+                                date2 = format.parse(end);
+                            }
+                            catch (ParseException e)
+                            {
+                                e.printStackTrace();
+                            }
+                            long difference = date2.getTime() - date1.getTime();
+                            // Adding to the total
+                            total_to_work +=difference;
 
                             days_working[(Integer.valueOf(splitInfo[0]) - monday_index + 1 ) % 7]=1;
 
@@ -153,12 +166,26 @@ public class secondActivity extends Activity
                     {
                         if( (Integer.valueOf(splitInfo[0]) >= (monday_index) && Integer.valueOf(splitInfo[0]) <= last_day_of_Month && Integer.valueOf(splitInfo[1]) == month) || ((Integer.valueOf(splitInfo[1]) == month+1) && Integer.valueOf(splitInfo[0]) <= (monday_index + 7 - last_day_of_Month)) )
                         {
-                            // Split the start time and end time and get the ammount to be spent at work
-                            String[] Start = splitInfo[2].split(":");
-                            String[] Stop = splitInfo[3].split(":");
-                            Hours = ( Integer.valueOf(Stop[0]) - Integer.valueOf(Start[0]) );
-                            Halves = ( Integer.valueOf(Stop[1]) + Integer.valueOf(Start[1]) );
-                            Total_Hours+= Hours + ((float)Halves/60) ;
+                            // Get the ammount of time to be spent at work
+                            String start = splitInfo[2];
+                            String end = splitInfo[3];
+                            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+
+                            Date date1 = new Date();
+                            Date date2 = new Date();
+
+                            try
+                            {
+                                date1 = format.parse(start);
+                                date2 = format.parse(end);
+                            }
+                            catch (ParseException e)
+                            {
+                                e.printStackTrace();
+                            }
+                            long difference = date2.getTime() - date1.getTime();
+                            // Adding to the total
+                            total_to_work +=difference;
 
                             days_working[(Integer.valueOf(splitInfo[0]) - monday_index + 1 ) % 7]=1;
                             if(Integer.valueOf(splitInfo[1]) < 10)
@@ -215,13 +242,31 @@ public class secondActivity extends Activity
                     } // end inner for
                 } // end outer for
 
-                String total_text="Hours This Week: " + String.valueOf(String.format("%.2f", Total_Hours));
+                int minutes = (int) ((total_to_work / (1000*60)) % 60);
+                int hours   = (int) ((total_to_work / (1000*60*60)) % 24);
+
+                String total_text;
+                if(hours == 1)
+                {
+                    total_text="This Week: " + String.valueOf(String.format(Locale.UK,"%d hr & %d mins", hours, minutes));
+                }
+                else
+                {
+                    total_text="This Week: " + String.valueOf(String.format(Locale.UK,"%d hrs & %d mins", hours, minutes));
+                }
                 Total_Hours_tv.setText(total_text);
                 // init adapter
                 adapter = new ProductListAdapter(getApplicationContext(), mProductList);
                 lvProduct.setAdapter(adapter);
             }
         });
+
+        // get the selected week
+        selected = Choose_week.spinner.getSelectedItem().toString();
+        if(selected.equals("what ever the option was"))
+        {
+
+        }
 
         // getId gets the id of the employee
         if( !MainActivity.getUname().equals(""))

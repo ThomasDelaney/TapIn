@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -23,10 +24,12 @@ import java.util.List;
 public class Choose_week extends AppCompatActivity
 {
     public TextView tv_choose;
-    public Spinner spinner;
+    public static Spinner spinner;
     public Button button_choose;
     public static Activity fa;
-
+    private Calendar calendar;
+    private int monday_index, month, last_day_of_month, end;
+    private boolean condition = false;
     List<String> spinnerArray =  new ArrayList<String>();
 
 
@@ -43,15 +46,78 @@ public class Choose_week extends AppCompatActivity
         button_choose = (Button) findViewById(R.id.button_choose);
 
         // Populating the spinner
-        spinnerArray.add("item1");
-        spinnerArray.add("item2");
-        spinnerArray.add("item3");
-        spinnerArray.add("item4");
+
+        calendar = Calendar.getInstance();
+        monday_index = calendar.get(Calendar.DAY_OF_MONTH);
+
+        while(monday_index != Calendar.MONDAY && monday_index != (Calendar.MONDAY +7) && monday_index != (Calendar.MONDAY +14) && monday_index != (Calendar.MONDAY +21))
+        {
+            monday_index--;
+        }
+        /*
+            Because everything starts at 0 and we are starting everything at 1
+            This is the first monday of the month
+        */
+        monday_index+=2;
+
+        month = calendar.get(Calendar.MONTH) +1;
+        last_day_of_month = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+        end= monday_index +6;
+        if( end > last_day_of_month)
+        {
+            month++;
+            end -= last_day_of_month;
+            last_day_of_month = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+            condition=true;
+        }
+        if(  month< 10)
+        {
+            int index=0;
+            do
+            {
+                if(condition == false)
+                {
+                    spinnerArray.add(monday_index + "/0" + String.valueOf(month) + " - " + end + "/0" + String.valueOf(month));
+                }
+                else
+                {
+                    spinnerArray.add(monday_index + "/0" + String.valueOf(month-1) + " - " + end + "/0" + String.valueOf(month));
+                    condition=false;
+                }
+                monday_index = end +1;
+                end+=7;
+                if( end > last_day_of_month)
+                {
+                    month++;
+                    end -= last_day_of_month;
+                    last_day_of_month = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+                    condition=true;
+                }
+                index++;
+            }while(index <4);
+
+        }
+        else
+        {
+            int index=0;
+            do
+            {
+                spinnerArray.add(monday_index + "/" + String.valueOf(month) + " - " + end + "/" + String.valueOf(month));
+                monday_index = end + 1;
+                end += 7;
+                if (end > last_day_of_month)
+                {
+                    month++;
+                    end -= last_day_of_month;
+                    last_day_of_month = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+                }
+                index++;
+            }while(index<4);
+
+        }
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerArray);
-
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Spinner sItems = (Spinner) findViewById(R.id.spinner);
         spinner.setAdapter(adapter2);
 
 
