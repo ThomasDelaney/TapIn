@@ -26,9 +26,7 @@ public class Choose_week extends AppCompatActivity
     public TextView tv_choose;
     public static Spinner spinner;
     public Button button_choose;
-    public static Activity fa;
-    private Calendar calendar;
-    private int monday_index, month, last_day_of_month, end;
+    public static Activity fa;  // Do not fix this warning
     private boolean condition = false;
     List<String> spinnerArray =  new ArrayList<String>();
 
@@ -40,13 +38,14 @@ public class Choose_week extends AppCompatActivity
         setContentView(R.layout.choose_week);
         fa = this; // Used so we can finish this activity when we log out
 
+        Calendar calendar;
+        int monday_index, month, last_day_of_month, end;
 
         tv_choose = (TextView) findViewById(R.id.tv_choose);
         spinner = (Spinner) findViewById(R.id.spinner);
         button_choose = (Button) findViewById(R.id.button_choose);
 
         // Populating the spinner
-
         calendar = Calendar.getInstance();
         monday_index = calendar.get(Calendar.DAY_OF_MONTH);
 
@@ -58,11 +57,11 @@ public class Choose_week extends AppCompatActivity
             Because everything starts at 0 and we are starting everything at 1
             This is the first monday of the month
         */
-        monday_index+=2;
+        monday_index+=1;
 
         month = calendar.get(Calendar.MONTH) +1;
         last_day_of_month = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
-        end= monday_index +6;
+        end= monday_index +7;
         if( end > last_day_of_month)
         {
             month++;
@@ -75,16 +74,17 @@ public class Choose_week extends AppCompatActivity
             int index=0;
             do
             {
-                if(condition == false)
+                if(!condition)
                 {
-                    spinnerArray.add(monday_index + "/0" + String.valueOf(month) + " - " + end + "/0" + String.valueOf(month));
+                    spinnerArray.add(monday_index + "/0" + String.valueOf(month) + " - " + (end-1) + "/0" + String.valueOf(month));
                 }
                 else
                 {
-                    spinnerArray.add(monday_index + "/0" + String.valueOf(month-1) + " - " + end + "/0" + String.valueOf(month));
+                    spinnerArray.add(monday_index + "/0" + String.valueOf(month-1) + " - " + (monday_index+6) + "/0" + String.valueOf(month));
                     condition=false;
                 }
-                monday_index = end +1;
+                // monday of next week
+                monday_index = end;
                 end+=7;
                 if( end > last_day_of_month)
                 {

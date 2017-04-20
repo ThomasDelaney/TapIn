@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity
                             edit.putString("username", user2.getText().toString().trim());
                             edit.putString("password", pass2.getText().toString().trim());
                             edit.putString("id", getId());
-                            edit.commit();
+                            edit.apply();
 
                             // clearing the edit text fields in case they go back to this activity
                             user2.getText().clear();

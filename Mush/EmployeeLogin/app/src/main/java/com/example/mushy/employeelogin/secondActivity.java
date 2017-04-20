@@ -31,9 +31,7 @@ public class secondActivity extends Activity
     // Temp Product used for sorting the arraylist
     private Product temp= new Product(1000, "Temp","Temp");
     public TextView Total_Hours_tv;
-    private float Total_Hours;
-    private int  Hours=0, Halves=0;
-    public String selected;
+    public int selected;
     private long total_to_work;
 
     @Override
@@ -61,7 +59,7 @@ public class secondActivity extends Activity
                 SharedPreferences userDetails = getSharedPreferences("userdetails", MODE_PRIVATE);
                 SharedPreferences.Editor edit = userDetails.edit();
                 edit.clear();
-                edit.commit();
+                edit.apply();
 
                 Choose_week.fa.finish(); // This finishes the choose week activity when we log out
                 finish();
@@ -88,6 +86,10 @@ public class secondActivity extends Activity
                 // Because everything starts at 0 and we are starting everything at 1
                 monday_index+=2;
 
+                // Test to display other weeks
+                monday_index= monday_index +  (7 * selected);
+
+
                 // Getting the current month
 
                 int month = calendar.get(Calendar.MONTH) +1;
@@ -98,6 +100,19 @@ public class secondActivity extends Activity
                 {
                     days.add(t);
                 }
+
+
+                int last_day_of_months = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+                int ends= monday_index;
+
+                if( monday_index > last_day_of_months)
+                {
+                    month++;
+                    monday_index -= last_day_of_months;
+                    last_day_of_months = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+                }
+                ends-=7;
+
                 for (int i = 0; i < days.size() -1; i++)
                 {
                     String day = days.get(i);
@@ -126,9 +141,9 @@ public class secondActivity extends Activity
 
 
                     // If the months changes in the middle of the week that we are displaying
-                    if( monday_index + 7 < last_day_of_Month )
+                    if( monday_index  + 7 < last_day_of_Month )
                     {
-                        if(Integer.valueOf(splitInfo[0]) >= (monday_index) && Integer.valueOf(splitInfo[0]) <= (monday_index +7) && Integer.valueOf(splitInfo[1]) == month)
+                        if(Integer.valueOf(splitInfo[0]) >= (monday_index ) && Integer.valueOf(splitInfo[0]) <= (monday_index  +7) && Integer.valueOf(splitInfo[1]) == month)
                         {
                             String start = splitInfo[2];
                             String end = splitInfo[3];
@@ -148,9 +163,8 @@ public class secondActivity extends Activity
                             // Adding to the total
                             total_to_work +=difference;
 
-                            days_working[(Integer.valueOf(splitInfo[0]) - monday_index + 1 ) % 7]=1;
 
-
+                            days_working[(Integer.valueOf(splitInfo[0]) - (monday_index - 1) ) % 7]=1;
                             if(Integer.valueOf(splitInfo[1]) < 10)
                             {
                                 mProductList.add(new Product(Integer.valueOf(splitInfo[0]) , nDate +" "+ splitInfo[0] + "/0" + splitInfo[1], nSTime1 + " - " + nSTime2));
@@ -166,7 +180,7 @@ public class secondActivity extends Activity
                     {
                         if( (Integer.valueOf(splitInfo[0]) >= (monday_index) && Integer.valueOf(splitInfo[0]) <= last_day_of_Month && Integer.valueOf(splitInfo[1]) == month) || ((Integer.valueOf(splitInfo[1]) == month+1) && Integer.valueOf(splitInfo[0]) <= (monday_index + 7 - last_day_of_Month)) )
                         {
-                            // Get the ammount of time to be spent at work
+                            // Get the amount of time to be spent at work
                             String start = splitInfo[2];
                             String end = splitInfo[3];
                             SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
@@ -187,7 +201,9 @@ public class secondActivity extends Activity
                             // Adding to the total
                             total_to_work +=difference;
 
-                            days_working[(Integer.valueOf(splitInfo[0]) - monday_index + 1 ) % 7]=1;
+
+
+                            days_working[(Integer.valueOf(splitInfo[0]) - (monday_index -1) ) % 7]=1;
                             if(Integer.valueOf(splitInfo[1]) < 10)
                             {
                                 mProductList.add(new Product(Integer.valueOf(splitInfo[0]) , nDate +" "+ splitInfo[0] + "/0" + splitInfo[1], nSTime1 + " - " + nSTime2));
@@ -199,6 +215,7 @@ public class secondActivity extends Activity
                         }
                     }
                 }
+                // Making the objects for the days when the employee doesn't work
                 for(int index=0; index<7; index++)
                 {
                     if(days_working[index] != 1)
@@ -207,10 +224,13 @@ public class secondActivity extends Activity
 
                         if(month <10)
                         {
+                            //mProductList.add(new Product(index + end -2 , MyDate2 + " " + (end   + index  ) + "/0" + month, "Not Scheduled"));
                             mProductList.add(new Product(index + monday_index - 1, MyDate2 + " " + (monday_index + index - 1) + "/0" + month, "Not Scheduled"));
+
                         }
                         else
                         {
+                            //mProductList.add(new Product(index + end -2 , MyDate2 + " " + (end  + index ) + "/" + month, "Not Scheduled"));
                             mProductList.add(new Product(index + monday_index - 1, MyDate2 + " " + (monday_index + index - 1) + "/" + month, "Not Scheduled"));
                         }
                     }
@@ -218,7 +238,7 @@ public class secondActivity extends Activity
 
 
                 /*
-                    Ordering the Arralist with a bubble sort algorithm
+                    Ordering the ArrayList with a bubble sort algorithm
                 */
                 for (int i = 0; i < mProductList.size(); i++)
                 {
@@ -262,11 +282,8 @@ public class secondActivity extends Activity
         });
 
         // get the selected week
-        selected = Choose_week.spinner.getSelectedItem().toString();
-        if(selected.equals("what ever the option was"))
-        {
+        selected = Choose_week.spinner.getSelectedItemPosition();
 
-        }
 
         // getId gets the id of the employee
         if( !MainActivity.getUname().equals(""))

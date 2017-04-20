@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by Mushy on 4/10/2017.
+ * Created by Mushy on 4/10/2017
  */
 
 public class ProductListAdapter extends BaseAdapter
