@@ -213,7 +213,7 @@ public class secondActivity extends Activity
                     } // end inner for
                 } // end outer for
 
-                String total_text="Total Hours This Week: " + String.valueOf(Total_Hours);
+                String total_text="Hours This Week: " + String.valueOf(String.format("%.2f", Total_Hours));
                 Total_Hours_tv.setText(total_text);
                 // init adapter
                 adapter = new ProductListAdapter(getApplicationContext(), mProductList);

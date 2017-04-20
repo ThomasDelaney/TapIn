@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity
                 if(!output.equals("false"))
                 {
                     // This returns the id of the employee based on the username and password
+                    finish();
                     Intent intent = new Intent(getApplicationContext(), secondActivity.class);
                     startActivity(intent);
                 }
