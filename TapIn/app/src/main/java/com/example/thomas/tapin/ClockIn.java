@@ -39,7 +39,6 @@ public class ClockIn extends AppCompatActivity
     String minimumoutTime;
     String maximumoutTime;
     String timetable;
-    boolean clockedin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,22 +206,16 @@ public class ClockIn extends AppCompatActivity
                                         {
                                             System.out.println(output);
 
-                                            if(output.equals("Success ") && !clockedin)
+                                            if(output.equals("Success "))
                                             {
                                                 working.setTextColor(Color.GREEN);
                                                 working.setText("Clocked in Succesfully");
                                             }
-                                            else if(output.equals("Success ") && clockedin)
+                                            else if(output.equals("Failuire "))
                                             {
                                                 working.setTextColor(Color.RED);
                                                 working.setText("You can't clock in again, go home");
                                             }
-                                            else if(output.equals("Failure "))
-                                            {
-                                                working.setTextColor(Color.RED);
-                                                working.setText("You Are Already Clocked In!");
-                                            }
-                                            clockedin = true;
                                         }
                                     });
 
@@ -309,7 +302,7 @@ public class ClockIn extends AppCompatActivity
                                         {
                                             System.out.println(output);
 
-                                            if(output.equals("Success ") && clockedin)
+                                            if(output.equals("Success "))
                                             {
                                                 working.setTextColor(Color.GREEN);
                                                 working.setText("Clocked out Succesfully");
@@ -321,12 +314,6 @@ public class ClockIn extends AppCompatActivity
                                                 working.setTextColor(Color.RED);
                                                 working.setText("Please try again");
                                             }
-                                            else if(output.equals("Success ") && !clockedin)
-                                            {
-                                                working.setTextColor(Color.RED);
-                                                working.setText("You Have Already Clocked Out!");
-                                            }
-                                            clockedin = false;
                                         }
                                     });
                                     backgroundTask.execute(method, timetable, currentDateTimeString, totalstr);

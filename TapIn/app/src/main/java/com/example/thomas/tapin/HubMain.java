@@ -73,7 +73,6 @@ public class HubMain  extends AppCompatActivity {
         {
             gifImageView.setVisibility(View.INVISIBLE);
             spinner.setVisibility(View.VISIBLE);
-            Toast.makeText(this, "Reading from Tag", Toast.LENGTH_SHORT).show();
             Parcelable[] parcelables = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 
             if(parcelables != null && parcelables.length > 0)
@@ -173,7 +172,7 @@ public class HubMain  extends AppCompatActivity {
 
     private void enableForegroundDispatchSystem()
     {
-        Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
+        Intent intent = new Intent(this, HubMain.class).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 

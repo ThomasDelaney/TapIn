@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#c6ceff"
     tools:context="com.example.thomas.tapin.MainActivity">
 
     <Button
         android:id="@+id/employerLoginButton"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -19,7 +21,8 @@
 
     <Button
         android:id="@+id/employeeLoginButton"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/employerLoginButton"
         android:layout_alignRight="@+id/employerLoginButton"
@@ -29,10 +32,15 @@
 
     <Button
         android:id="@+id/hubButton"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
-        android:text="Clock In Hub"
+        android:layout_alignLeft="@+id/employeeLoginButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@+id/employeeLoginButton"
+        android:layout_marginBottom="45dp"
+        android:background="@color/colorAccent"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:elevation="0dp"
+        android:text="Clock In Hub" />
 </RelativeLayout>
