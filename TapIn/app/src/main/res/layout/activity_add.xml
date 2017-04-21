@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.thomas.tapin.add"
+    android:background="#c6ceff">
+
+    <TextView
+        android:id="@+id/TextView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="Enter Employee"
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="141dp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/eName1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextView25"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:hint="Enter Full Name"
+        android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="@color/colorAccent"
+        app:backgroundTint="@color/colorAccent"/>
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:ems="10"
+        android:hint="Enter Email"
+        android:inputType="textEmailAddress"
+        android:layout_below="@+id/eName1"
+        android:layout_alignLeft="@+id/eName1"
+        android:layout_alignStart="@+id/eName1"
+        android:textColor="#000000"
+        android:textColorHint="@color/colorAccent"
+        app:backgroundTint="@color/colorAccent"/>
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/email"
+        android:layout_alignStart="@+id/email"
+        android:layout_below="@+id/email"
+        android:layout_marginTop="29dp"
+        android:ems="10"
+        android:hint="Enter Phone"
+        android:inputType="phone"
+        android:textColor="#000000"
+        android:textColorHint="@color/colorAccent"
+        app:backgroundTint="@color/colorAccent"/>
+
+    <EditText
+        android:id="@+id/job"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/phone"
+        android:layout_alignStart="@+id/phone"
+        android:layout_below="@+id/phone"
+        android:layout_marginTop="22dp"
+        android:ems="10"
+        android:hint="Enter Occupation"
+        android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="@color/colorAccent"
+        app:backgroundTint="@color/colorAccent"/>
+
+    <EditText
+        android:id="@+id/wage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/job"
+        android:layout_alignRight="@+id/job"
+        android:layout_below="@+id/job"
+        android:layout_marginTop="22dp"
+        android:ems="10"
+        android:hint="Enter Wage"
+        android:inputType="numberDecimal"
+        android:textColor="#000000"
+        android:textColorHint="@color/colorAccent"
+        app:backgroundTint="@color/colorAccent"/>
+
+    <CheckBox
+        android:id="@+id/parttime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/wage"
+        android:layout_alignLeft="@+id/wage"
+        android:layout_alignRight="@+id/wage"
+        android:layout_alignStart="@+id/wage"
+        android:layout_below="@+id/wage"
+        android:layout_marginTop="34dp"
+        android:text="Is this Employee Part time?" />
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:textColor="#6098f2"
+        android:background="#e8e8e8"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp" />
+
+</RelativeLayout>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.thomas.tapin.timetableForm2"
+    android:background="#c6ceff">
+
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#e8e8e8"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:text="Confirm Edit"
+        android:textColor="#6098f2"
+        android:layout_alignBaseline="@+id/sbutton"
+        android:layout_alignBottom="@+id/sbutton"
+        android:layout_toRightOf="@+id/sProgressBar"
+        android:layout_toEndOf="@+id/sProgressBar" />
+
+    <Button
+        android:id="@+id/dButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#e8e8e8"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:text="Delete Schedule"
+        android:textColor="#6098f2"
+        android:layout_alignBaseline="@+id/sbutton"
+        android:layout_alignBottom="@+id/sbutton"
+        android:layout_toLeftOf="@+id/confirmButton"
+        android:layout_toStartOf="@+id/confirmButton"
+        android:layout_marginRight="47dp"
+        android:layout_marginEnd="47dp" />
+
+    <TextView
+        android:id="@+id/eTimeHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick End Time"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp" />
+
+    <TimePicker
+        android:id="@+id/etimeSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:headerBackground="#3a4cbc"
+        android:numbersSelectorColor="#3a4cbc"
+        android:layout_below="@+id/eTimeHeader"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/sbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp"
+        android:background="#e8e8e8"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:text="Submit Schedule"
+        android:textColor="#6098f2" />
+
+    <ProgressBar
+        android:id="@+id/sProgressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/etimeSelect"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="119dp" />
+
+</RelativeLayout>

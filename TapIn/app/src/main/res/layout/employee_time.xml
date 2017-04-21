@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e8e8e8"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp">
+
+    <TextView
+        android:id="@+id/employeeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textColor="#3a4cbc"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/ejob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/employeeName"
+        android:text="Job"
+        android:textColor="@android:color/background_dark"
+        android:textSize="14sp"
+        android:textStyle="italic" />
+
+    <Button
+        android:id="@+id/ebutton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#e8e8e8"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:text="Add Schedule"
+        android:textColor="#6098f2"
+        android:layout_alignBaseline="@+id/ejob"
+        android:layout_alignBottom="@+id/ejob"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp" />
+
+    <TextView
+        android:id="@+id/isWorking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ejob"
+        android:text="is Working?"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/sTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@android:color/background_dark"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/editDelete"
+        android:layout_toLeftOf="@+id/ebutton"
+        android:layout_toStartOf="@+id/ebutton" />
+
+    <TextView
+        android:id="@+id/eTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@android:color/background_dark"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_alignBaseline="@+id/isWorking"
+        android:layout_alignBottom="@+id/isWorking"
+        android:layout_alignLeft="@+id/sTimeText"
+        android:layout_alignStart="@+id/sTimeText" />
+
+    <Button
+        android:id="@+id/editDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#e8e8e8"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:scaleX="1.1"
+        android:text="Edit/Delete"
+        android:textColor="#6098f2"
+        android:layout_alignBaseline="@+id/ebutton"
+        android:layout_alignBottom="@+id/ebutton"
+        android:layout_alignRight="@+id/ebutton"
+        android:layout_alignEnd="@+id/ebutton" />
+
+</RelativeLayout>
