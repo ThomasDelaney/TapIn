@@ -146,7 +146,7 @@ public class add3 extends AppCompatActivity
                             {
                                 public void onClick(DialogInterface dialog, int which)
                                 {
-                                    Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+                                    Intent intent2 = new Intent(getApplicationContext(), EmployerMain.class);
                                     intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent2);
                                     finish();

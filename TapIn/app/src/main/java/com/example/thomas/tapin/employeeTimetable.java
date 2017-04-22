@@ -66,14 +66,14 @@ public class employeeTimetable extends AppCompatActivity
                     spinner.setVisibility(View.INVISIBLE);
 
                     AlertDialog alertDialog = new AlertDialog.Builder(employeeTimetable.this).create();
-                    alertDialog.setTitle("Alert");
+                    alertDialog.setTitle("Sorry");
                     alertDialog.setMessage("Some has gone wrong. Please Try Again Later");
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Okay",
                             new DialogInterface.OnClickListener()
                             {
                                 public void onClick(DialogInterface dialog, int which)
                                 {
-                                    Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+                                    Intent intent2 = new Intent(getApplicationContext(), EmployerMain.class);
                                     intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent2);
                                     finish();

@@ -50,17 +50,17 @@
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:layout_marginTop="19dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp" />
+        android:layout_centerHorizontal="true" />
 
     <TimePicker
         android:id="@+id/etimeSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
         android:headerBackground="#3a4cbc"
         android:numbersSelectorColor="#3a4cbc"
+        android:layout_marginTop="25dp"
         android:layout_below="@+id/eTimeHeader"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />

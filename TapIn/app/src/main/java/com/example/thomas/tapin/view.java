@@ -65,14 +65,14 @@ public class view extends AppCompatActivity
                     spinner.setVisibility(View.INVISIBLE);
 
                     AlertDialog alertDialog = new AlertDialog.Builder(view.this).create();
-                    alertDialog.setTitle("Alert");
+                    alertDialog.setTitle("Sorry");
                     alertDialog.setMessage("There are No Employees Working Today");
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Okay",
                             new DialogInterface.OnClickListener()
                             {
                                 public void onClick(DialogInterface dialog, int which)
                                 {
-                                    Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+                                    Intent intent2 = new Intent(getApplicationContext(), EmployerMain.class);
                                     intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent2);
                                     finish();

@@ -45,7 +45,7 @@ public class nfcCheck extends AppCompatActivity
     @Override
     public void onResume()
     {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, EmployerMain.class);
         intent.addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
