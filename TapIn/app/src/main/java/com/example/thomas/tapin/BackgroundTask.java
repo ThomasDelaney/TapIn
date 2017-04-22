@@ -59,6 +59,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
         //employee php files
         String read_url = "http://tapin.comli.com/employee.php";
         String get_timetable= "http://tapin.comli.com/yeeTimetableGet.php";
+        String get_details = "https://tapin.000webhostapp.com/yeeGetDetails.php";
 
         String method = params[0];
 
@@ -548,8 +549,6 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
                     response += " ";
                 }
 
-                System.out.println(response);
-
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
@@ -845,6 +844,59 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
             {
                 e.printStackTrace();
             }
+        }else if( method.equals("getDetails"))
+        {
+            String YeeID = params[1];
+            try
+            {
+                URL url = new URL(get_details);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                //encode data and write to php file on server
+                String data = URLEncoder.encode("yeeid", "UTF-8")+"="+URLEncoder.encode(YeeID, "UTF-8");
+
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+
+                String response = "";
+
+                String line = "";
+
+                while((line = bufferedReader.readLine()) != null)
+                {
+                    response += line;
+                    response += " ";
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return response;
+            }
+            catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
         }
         return null;
     }

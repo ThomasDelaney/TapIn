@@ -10,9 +10,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -24,7 +28,9 @@ public class Choose_week extends AppCompatActivity
     public TextView tv_choose;
     public Spinner spinner;
     public Button button_choose;
+    public TextView eName, ePos, eComp;
     private boolean condition = false;
+    private String eid;
     List<String> spinnerArray = new ArrayList<String>();
 
     EmployeeSessionManager session;
@@ -47,9 +53,40 @@ public class Choose_week extends AppCompatActivity
         Calendar calendar;
         int monday_index, month, last_day_of_month, end;
 
+        eName = (TextView) findViewById(R.id.welcomeName);
+        ePos = (TextView) findViewById(R.id.positionName);
+        eComp = (TextView) findViewById(R.id.companyName);
         tv_choose = (TextView) findViewById(R.id.tv_choose);
         spinner = (Spinner) findViewById(R.id.spinner);
         button_choose = (Button) findViewById(R.id.button_choose);
+        HashMap<String, String> user = session.getUserDetails();
+
+        eid = user.get(EmployeeSessionManager.KEY_ID);
+
+        // Getting the data about the employee through the php file (Name, position title and company name)
+
+        BackgroundTask backgroundTask = new BackgroundTask(
+                new BackgroundTask.AsyncResponse()
+                {
+                    @Override
+                    public void processFinish(String output)
+                    {
+
+                        if(output.equals("null"))
+                        {
+                            Toast.makeText(Choose_week.this, "No data in database", Toast.LENGTH_LONG).show();
+                        }
+                        else //if (output.equals("true"))
+                        {
+                            String[] splitInfo = output.split(",");
+                            eName.setText(splitInfo[0]);
+                            ePos.setText(splitInfo[1]);
+                            eComp.setText(splitInfo[2]);
+                        }
+                    }
+                }
+        );
+        backgroundTask.execute("getDetails", eid);
 
         // Populating the spinner
         calendar = Calendar.getInstance();
