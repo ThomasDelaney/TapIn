@@ -29,6 +29,8 @@ public class EmployeeLogin extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_login);
 
+        setTitle("Tap In Employee");
+        
         session = new EmployeeSessionManager(getApplicationContext());
 
         loginbutton = (Button) findViewById(R.id.loginButton);

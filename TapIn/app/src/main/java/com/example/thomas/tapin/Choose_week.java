@@ -1,18 +1,19 @@
 package com.example.thomas.tapin;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,13 +26,18 @@ import java.util.List;
 
 public class Choose_week extends AppCompatActivity
 {
+    TextView welcome;
+    TextView company;
+    TextView pos;
     public TextView tv_choose;
     public Spinner spinner;
     public Button button_choose;
+    public Button logout;
     public TextView eName, ePos, eComp;
     private boolean condition = false;
     private String eid;
     List<String> spinnerArray = new ArrayList<String>();
+    private ProgressBar progressBar;
 
     EmployeeSessionManager session;
 
@@ -43,6 +49,8 @@ public class Choose_week extends AppCompatActivity
 
         session = new EmployeeSessionManager(getApplicationContext());
 
+        setTitle("Tap In Employee");
+
         //check if the user is already logged in
         if (session.checkLogin())
         {
@@ -50,16 +58,66 @@ public class Choose_week extends AppCompatActivity
             finish();
         }
 
+        logout = (Button)findViewById(R.id.button_logout);
+
+
+        logout.setOnClickListener(new View.OnClickListener()
+        {
+            @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
+            @Override
+            public void onClick(View v)
+            {
+                final AlertDialog alertDialog = new AlertDialog.Builder(Choose_week.this).create();
+                alertDialog.setTitle("Log Out");
+                alertDialog.setMessage("Are You Sure You Want to Log out?");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                session.logOut();
+                                finish();
+                            }
+                        });
+
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                alertDialog.cancel();
+                            }
+                        });
+                alertDialog.show();
+            }
+        });
+
         Calendar calendar;
         int monday_index, month, last_day_of_month, end;
 
+        welcome = (TextView)findViewById(R.id.welcome);
+        company = (TextView)findViewById(R.id.company);
+        pos = (TextView)findViewById(R.id.position);
         eName = (TextView) findViewById(R.id.welcomeName);
         ePos = (TextView) findViewById(R.id.positionName);
         eComp = (TextView) findViewById(R.id.companyName);
         tv_choose = (TextView) findViewById(R.id.tv_choose);
         spinner = (Spinner) findViewById(R.id.spinner);
         button_choose = (Button) findViewById(R.id.button_choose);
+        progressBar = (ProgressBar)findViewById(R.id.progressBar3);
         HashMap<String, String> user = session.getUserDetails();
+
+        welcome.setVisibility(View.INVISIBLE);
+        company.setVisibility(View.INVISIBLE);
+        pos.setVisibility(View.INVISIBLE);
+        logout.setVisibility(View.INVISIBLE);
+        eName.setVisibility(View.INVISIBLE);
+        ePos.setVisibility(View.INVISIBLE);
+        eComp.setVisibility(View.INVISIBLE);
+        tv_choose.setVisibility(View.INVISIBLE);
+        spinner.setVisibility(View.INVISIBLE);
+        button_choose.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
 
         eid = user.get(EmployeeSessionManager.KEY_ID);
 
@@ -83,6 +141,18 @@ public class Choose_week extends AppCompatActivity
                             ePos.setText(splitInfo[1]);
                             eComp.setText(splitInfo[2]);
                         }
+
+                        eName.setVisibility(View.VISIBLE);
+                        ePos.setVisibility(View.VISIBLE);
+                        eComp.setVisibility(View.VISIBLE);
+                        tv_choose.setVisibility(View.VISIBLE);
+                        spinner.setVisibility(View.VISIBLE);
+                        button_choose.setVisibility(View.VISIBLE);
+                        welcome.setVisibility(View.VISIBLE);
+                        company.setVisibility(View.VISIBLE);
+                        pos.setVisibility(View.VISIBLE);
+                        logout.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                 }
         );
@@ -176,6 +246,7 @@ public class Choose_week extends AppCompatActivity
             {
                 Intent intent = new Intent(getApplicationContext(), EmployeeMain.class);
                 intent.putExtra("week", spinner.getSelectedItemPosition());
+                intent.putExtra("weekString", spinner.getSelectedItem().toString());
                 startActivity(intent);
             }
         });

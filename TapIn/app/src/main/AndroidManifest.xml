@@ -8,12 +8,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/tapinicon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,22 +23,22 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".EmployerMain" />
-        <activity android:name=".EmployerLogin" />
-        <activity android:name=".add" />
-        <activity android:name=".add2" />
-        <activity android:name=".add3" />
-        <activity android:name=".nfcCheck" />
-        <activity android:name=".view" />
-        <activity android:name=".addTimetables" />
-        <activity android:name=".timetableForm" />
-        <activity android:name=".employeeTimetable" />
-        <activity android:name=".HubMain" />
-        <activity android:name=".ClockIn" />
-        <activity android:name=".EmployeeLogin" />
-        <activity android:name=".EmployeeMain" />
-        <activity android:name=".Choose_week" />
-        <activity android:name=".timetableForm2"></activity>
+        <activity android:name=".EmployerMain" android:screenOrientation="portrait"/>
+        <activity android:name=".EmployerLogin" android:screenOrientation="portrait"/>
+        <activity android:name=".add" android:screenOrientation="portrait"/>
+        <activity android:name=".add2" android:screenOrientation="portrait"/>
+        <activity android:name=".add3" android:screenOrientation="portrait"/>
+        <activity android:name=".nfcCheck" android:screenOrientation="portrait"/>
+        <activity android:name=".view" android:screenOrientation="portrait"/>
+        <activity android:name=".addTimetables" android:screenOrientation="portrait"/>
+        <activity android:name=".timetableForm" android:screenOrientation="portrait"/>
+        <activity android:name=".employeeTimetable" android:screenOrientation="portrait"/>
+        <activity android:name=".HubMain" android:screenOrientation="portrait"/>
+        <activity android:name=".ClockIn" android:screenOrientation="portrait"/>
+        <activity android:name=".EmployeeLogin" android:screenOrientation="portrait"/>
+        <activity android:name=".EmployeeMain" android:screenOrientation="portrait"/>
+        <activity android:name=".Choose_week" android:screenOrientation="portrait"/>
+        <activity android:name=".timetableForm2" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

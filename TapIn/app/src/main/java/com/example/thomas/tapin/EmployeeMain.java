@@ -1,13 +1,7 @@
 package com.example.thomas.tapin;
 
-import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,7 +24,6 @@ public class EmployeeMain extends AppCompatActivity
     private EmployeeListAdapter adapter;
     private List<Employee> employeeList;
     private int[] days_working= new int[7];
-    public Button logout;
 
     // Temp Product used for sorting the arraylist
     private Employee temp = new Employee(1000, "Temp","Temp");
@@ -39,6 +32,8 @@ public class EmployeeMain extends AppCompatActivity
     private long total_to_work;
 
     private String eid;
+
+    private String selectedWeek;
 
     EmployeeSessionManager session;
 
@@ -55,43 +50,17 @@ public class EmployeeMain extends AppCompatActivity
         eid = user.get(EmployeeSessionManager.KEY_ID);
 
         total_to_work=0;
-        logout= (Button) findViewById(R.id.logout);
         Total_Hours_tv = (TextView) findViewById(R.id.total_hours);
         final ArrayList<String> days = new ArrayList<>();
         lvProduct = (ListView) findViewById(R.id.listview_product);
         employeeList = new ArrayList<Employee>();
-        setTitle("Schedule for the current week");
 
-        logout.setOnClickListener(new View.OnClickListener()
-        {
-            @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
-            @Override
-            public void onClick(View v)
-            {
-                final AlertDialog alertDialog = new AlertDialog.Builder(EmployeeMain.this).create();
-                alertDialog.setTitle("Log Out");
-                alertDialog.setMessage("Are You Sure You Want to Log out?");
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
-                        new DialogInterface.OnClickListener()
-                        {
-                            public void onClick(DialogInterface dialog, int which)
-                            {
-                                session.logOut();
-                                finish();
-                            }
-                        });
+        // get the selected week
+        selected = getIntent().getExtras().getInt("week");
+        selectedWeek = getIntent().getExtras().getString("weekString");
 
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
-                        new DialogInterface.OnClickListener()
-                        {
-                            public void onClick(DialogInterface dialog, int which)
-                            {
-                                alertDialog.cancel();
-                            }
-                        });
-                alertDialog.show();
-            }
-        });
+
+        setTitle("Week "+selectedWeek + " Schedule");
 
         BackgroundTask backgroundTask = new BackgroundTask(
                 new BackgroundTask.AsyncResponse()
@@ -305,10 +274,6 @@ public class EmployeeMain extends AppCompatActivity
                         lvProduct.setAdapter(adapter);
                     }
                 });
-
-        // get the selected week
-        selected = getIntent().getExtras().getInt("week");
-
         backgroundTask.execute("getTimetable", eid);
     }
 

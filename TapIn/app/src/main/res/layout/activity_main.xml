@@ -12,9 +12,9 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/employeeLoginButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="137dp"
+        android:layout_marginBottom="88dp"
         android:text="Employer"
         tools:layout_editor_absoluteX="147dp"
         tools:layout_editor_absoluteY="53dp" />
@@ -24,10 +24,10 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/employerLoginButton"
-        android:layout_alignRight="@+id/employerLoginButton"
-        android:layout_below="@+id/employerLoginButton"
-        android:layout_marginTop="59dp"
+        android:layout_above="@+id/hubButton"
+        android:layout_alignLeft="@+id/employerLoginButton"
+        android:layout_alignStart="@+id/employerLoginButton"
+        android:layout_marginBottom="68dp"
         android:text="Employee" />
 
     <Button
@@ -36,11 +36,19 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/employeeLoginButton"
-        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/employeeLoginButton"
-        android:layout_marginBottom="45dp"
+        android:layout_centerVertical="true"
         android:background="@color/colorAccent"
         android:backgroundTint="@color/colorPrimaryDark"
         android:elevation="0dp"
         android:text="Clock In Hub" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hubButton"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="30dp"
+        app:srcCompat="@drawable/tapin" />
 </RelativeLayout>
