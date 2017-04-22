@@ -120,6 +120,7 @@
             android:layout_marginBottom="20dp"
             android:duplicateParentState="false"
             android:text="Done"
+            android:background="#dfdfdf"
             android:textSize="23sp"
             android:layout_weight="0.09"/>
     </LinearLayout>

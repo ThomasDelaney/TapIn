@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#c6ceff"
     tools:context="com.example.thomas.tapin.EmployeeLogin">
 
     <Button
@@ -13,8 +14,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="164dp"
+        android:padding="20dp"
         android:text="Login"
-        android:textSize="24sp"/>
+        android:textSize="28sp"/>
 
     <EditText
         android:id="@+id/user"
