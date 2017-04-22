@@ -108,13 +108,14 @@
 
     <Button
         android:id="@+id/next"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Next"
-        android:textColor="#6098f2"
-        android:background="#e8e8e8"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="12dp" />
+        android:layout_marginBottom="12dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="Next"
+        android:textColor="@android:color/background_light" />
 
 </RelativeLayout>

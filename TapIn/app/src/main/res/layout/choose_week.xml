@@ -125,33 +125,35 @@
 
         <Button
             android:id="@+id/button_choose"
-            android:layout_width="110dp"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="40dp"
             android:layout_weight="0.09"
-            android:background="#e8e8e8"
+            android:background="@color/colorAccent"
             android:duplicateParentState="false"
             android:text="Done"
-            android:textColor="#6098f2"
+            android:textColor="@android:color/background_light"
             android:textSize="23sp" />
 
     </LinearLayout>
 
     <Button
         android:id="@+id/button_logout"
-        android:layout_width="110dp"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         android:layout_weight="0.09"
-        android:background="#e8e8e8"
+        android:background="@android:color/background_light"
         android:duplicateParentState="false"
         android:text="Log Out"
-        android:textColor="#6098f2"
+        android:textColor="@color/colorAccent"
         android:textSize="23sp" />
 
 </LinearLayout>
