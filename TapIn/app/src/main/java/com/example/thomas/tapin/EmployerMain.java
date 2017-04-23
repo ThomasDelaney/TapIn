@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import java.util.HashMap;
 
 /**
@@ -51,13 +53,40 @@ public class EmployerMain extends AppCompatActivity
             //finish will end the current activity, this will ensure that if the user clicks back the app will just close
             finish();
         }
+        else
+        {
 
-        //get user data from current session and store in HashMap
-        HashMap<String, String> user = session.getUserDetails();
+            if ( messageTokenManager.getInstance(this).getDeviceToken() == null)
+            {
+                String newToken = FirebaseInstanceId.getInstance().getToken();
+                messageTokenManager.getInstance(this).saveDeviceToken(newToken);
+            }
 
-        username = user.get(EmployerSessionManager.KEY_USER);
-        cid = user.get(EmployerSessionManager.KEY_CID);
-        name = user.get(EmployerSessionManager.KEY_NAME);
+            //get user data from current session and store in HashMap
+            HashMap<String, String> user = session.getUserDetails();
+
+            username = user.get(EmployerSessionManager.KEY_USER);
+            cid = user.get(EmployerSessionManager.KEY_CID);
+            name = user.get(EmployerSessionManager.KEY_NAME);
+            String token = messageTokenManager.getInstance(this).getDeviceToken();
+
+            BackgroundTask backgroundTask = new BackgroundTask(new BackgroundTask.AsyncResponse()
+            {
+                @Override
+                public void processFinish(String output)
+                {
+                    if (output.equals("true"))
+                    {
+                        System.out.println("Token Written Successfully");
+                    }
+                    else if (output.equals("false"))
+                    {
+                        System.out.println("Token NOT Written Successfully");
+                    }
+                }
+            });
+            backgroundTask.execute("setToken", cid, name, username, token);
+        }
 
         nameDisplay.setText(name);
 

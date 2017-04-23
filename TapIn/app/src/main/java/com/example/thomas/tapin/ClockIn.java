@@ -40,6 +40,9 @@ public class ClockIn extends AppCompatActivity
     String maximumoutTime;
     String timetable;
 
+    String day;
+    String month;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,11 +70,9 @@ public class ClockIn extends AppCompatActivity
         cal.setTime(d);
 
         String method = "ClockInCheck";
-        String day = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
-        String month = String.valueOf(cal.get(Calendar.MONTH) + 1);
+        day = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
+        month = String.valueOf(cal.get(Calendar.MONTH) + 1);
         spinner.setVisibility(View.VISIBLE);
-
-
 
         BackgroundTask backgroundTask = new BackgroundTask(new BackgroundTask.AsyncResponse()
         {
@@ -93,7 +94,6 @@ public class ClockIn extends AppCompatActivity
                     final String[] tokens = output.split(",");
                     System.out.println(output);
 
-
                     final String[] starttimestr;
                     final String[] endtimestr;
                     String[] currenttimestr;
@@ -103,7 +103,6 @@ public class ClockIn extends AppCompatActivity
                     endtimestr = tokens[3].split(":");
                     currenttimestr = currentDateTimeString.split(":");
                     timetable = tokens[1];
-
 
                     int[] currenttime = new int[3];
                     int[] starttime = new int[3];
@@ -210,6 +209,7 @@ public class ClockIn extends AppCompatActivity
                                             {
                                                 working.setTextColor(Color.GREEN);
                                                 working.setText("Clocked in Succesfully");
+                                                sendNotification();
                                             }
                                             else if(output.equals("Failuire "))
                                             {
@@ -337,6 +337,26 @@ public class ClockIn extends AppCompatActivity
 
 
         backgroundTask.execute(method, day, month, yeeid);
+    }
+
+    void sendNotification()
+    {
+        BackgroundTask backgroundTask = new BackgroundTask(new BackgroundTask.AsyncResponse()
+        {
+            @Override
+            public void processFinish(String output)
+            {
+                BackgroundTask backgroundTask2 = new BackgroundTask(new BackgroundTask.AsyncResponse()
+                {
+                    @Override
+                    public void processFinish(String output)
+                    {
+                    }
+                });
+                backgroundTask2.execute("sendNotification", output, yeeid, day, month);
+            }
+        });
+        backgroundTask.execute("getCIDfromYEEID", yeeid);
     }
 }
 

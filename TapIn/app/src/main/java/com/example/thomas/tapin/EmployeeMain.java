@@ -59,7 +59,6 @@ public class EmployeeMain extends AppCompatActivity
         selected = getIntent().getExtras().getInt("week");
         selectedWeek = getIntent().getExtras().getString("weekString");
 
-
         setTitle("Week "+selectedWeek + " Schedule");
 
         BackgroundTask backgroundTask = new BackgroundTask(

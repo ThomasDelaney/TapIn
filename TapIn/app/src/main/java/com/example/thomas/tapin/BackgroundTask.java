@@ -50,6 +50,10 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
         String deleteTimetableUrl = "http://tapin.comli.com/deleteTimetable.php";
         String editTimetableUrl = "http://tapin.comli.com/editTimetable.php";
 
+        String setTokenUrl = "http://tapin.comli.com/setToken.php";
+        String sendNotificationUrl = "http://tapin.comli.com/sendNotification.php";
+        String getCIDfromYEEIDUrl = "http://tapin.comli.com/getCIDfromYEEID.php";
+
         //hub php file links
         String getEmployeeInfoUrl = "http://tapin.comli.com/getEmployeeInfo.php";
         String getCheckedInUrl2 = "http://tapin.comli.com/getCheckedIn2.php";
@@ -658,6 +662,8 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
                     response += " ";
                 }
 
+                System.out.println(response);
+
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
@@ -896,7 +902,166 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
             {
                 e.printStackTrace();
             }
+        }
+        else if (method.equals("setToken"))
+        {
+            String cid = params[1];
+            String name = params[2];
+            String username = params[3];
+            String token = params[4];
 
+            try
+            {
+                URL url = new URL(setTokenUrl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                //encode data and write to php file on server
+                String data = URLEncoder.encode("name", "UTF-8")+"="+URLEncoder.encode(name, "UTF-8")
+                        +"&"+URLEncoder.encode("cid", "UTF-8")+"="+URLEncoder.encode(cid, "UTF-8")+"&"+URLEncoder.encode("username", "UTF-8")+"="+URLEncoder.encode(username, "UTF-8")
+                        +"&"+URLEncoder.encode("token", "UTF-8")+"="+URLEncoder.encode(token, "UTF-8");
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+
+                String response = "";
+
+                String line = "";
+
+                while((line = bufferedReader.readLine()) != null)
+                {
+                    response += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return response;
+            }
+            catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        if (method.equals("sendNotification"))
+        {
+            String cid = params[1];
+            String eid = params[2];
+            String day = params[3];
+            String month = params[4];
+
+            try
+            {
+                URL url = new URL(sendNotificationUrl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                //encode data and write to php file on server
+                String data = URLEncoder.encode("cid", "UTF-8")+"="+URLEncoder.encode(cid, "UTF-8")+"&"+URLEncoder.encode("eid", "UTF-8")+"="+URLEncoder.encode(eid, "UTF-8")
+                        +"&"+URLEncoder.encode("day", "UTF-8")+"="+URLEncoder.encode(day, "UTF-8")+"&"+URLEncoder.encode("month", "UTF-8")+"="+URLEncoder.encode(month, "UTF-8");
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+
+                String response = "";
+
+                String line = "";
+
+                while((line = bufferedReader.readLine()) != null)
+                {
+                    response += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return response;
+            }
+            catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else if (method.equals("getCIDfromYEEID"))
+        {
+
+            String eid = params[1];
+
+            try
+            {
+                URL url = new URL(getCIDfromYEEIDUrl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                //encode data and write to php file on server
+                String data = URLEncoder.encode("eid", "UTF-8")+"="+URLEncoder.encode(eid, "UTF-8");
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+
+                String response = "";
+
+                String line = "";
+
+                while((line = bufferedReader.readLine()) != null)
+                {
+                    response += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return response;
+            }
+            catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
         return null;
     }

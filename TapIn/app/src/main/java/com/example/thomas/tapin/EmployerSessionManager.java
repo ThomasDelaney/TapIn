@@ -80,6 +80,8 @@ public class EmployerSessionManager
 
     public void logOut()
     {
+        messageTokenManager.getInstance(context).deleteToken();
+
         //clear shared preferences
         editor.clear();
         editor.commit();

@@ -81,4 +81,5 @@
         android:paddingTop="5dp"
         android:text="Log Out"
         android:textColor="@android:color/background_light" />
+
 </RelativeLayout>
