@@ -34,7 +34,7 @@ public class Choose_week extends AppCompatActivity
     public Button button_choose;
     public Button logout;
     public TextView eName, ePos, eComp;
-    private boolean condition = false;
+    private boolean condition = false, condition2 = false;
     private String eid;
     List<String> spinnerArray = new ArrayList<String>();
     private ProgressBar progressBar;
@@ -178,6 +178,7 @@ public class Choose_week extends AppCompatActivity
 
         if (end > last_day_of_month)
         {
+            if(end-1 == last_day_of_month) condition2 = true;
             month++;
             end -= last_day_of_month;
             last_day_of_month = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -195,7 +196,15 @@ public class Choose_week extends AppCompatActivity
                 }
                 else
                 {
-                    spinnerArray.add(monday_index + "/0" + String.valueOf(month - 1) + " - " + (monday_index + 6) + "/0" + String.valueOf(month));
+
+                    if(condition2)
+                    {
+                        spinnerArray.add(monday_index + "/0" + String.valueOf(month - 1) + " - " + (monday_index + 6) + "/0" + String.valueOf(month-1));
+                    }
+                    else
+                    {
+                        spinnerArray.add(monday_index + "/0" + String.valueOf(month - 1) + " - " + (monday_index + 6) + "/0" + String.valueOf(month));
+                    }
                     condition = false;
                 }
                 // monday of next week
