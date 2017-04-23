@@ -214,7 +214,7 @@ public class ClockIn extends AppCompatActivity
                                             else if(output.equals("Failuire "))
                                             {
                                                 working.setTextColor(Color.RED);
-                                                working.setText("You can't clock in again, go home");
+                                                working.setText("You can't clock in again, go work");
                                             }
                                         }
                                     });
