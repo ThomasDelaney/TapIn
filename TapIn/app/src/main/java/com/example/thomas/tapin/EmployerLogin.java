@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -16,9 +18,12 @@ import java.util.ArrayList;
 
 public class EmployerLogin extends AppCompatActivity
 {
+    TextView hText;
     EditText user;
     EditText pass;
     Button login;
+
+    ProgressBar progressBar;
 
     int type;
     int nfc_chk = 1;
@@ -36,6 +41,15 @@ public class EmployerLogin extends AppCompatActivity
         type = getIntent().getExtras().getInt("employerLoginType");
 
         login = (Button)findViewById(R.id.login);
+        user = (EditText)findViewById(R.id.user);
+        pass = (EditText)findViewById(R.id.pass);
+
+
+
+        progressBar = (ProgressBar)findViewById(R.id.progressBar6);
+        progressBar.setVisibility(View.INVISIBLE);
+
+        hText = (TextView)findViewById(R.id.textView);
 
         setTitle("Tap In Employer Mode");
 
@@ -43,11 +57,16 @@ public class EmployerLogin extends AppCompatActivity
             @Override
             public void onClick (View v)
             {
-                user = (EditText)findViewById(R.id.user);
-                pass = (EditText)findViewById(R.id.pass);
 
                 if (!String.valueOf(user.getText()).equals("") && !String.valueOf(pass.getText()).equals(""))
                 {
+                    login.setVisibility(View.INVISIBLE);
+                    user.setVisibility(View.INVISIBLE);
+                    pass.setVisibility(View.INVISIBLE);
+                    hText.setVisibility(View.INVISIBLE);
+
+                    progressBar.setVisibility(View.VISIBLE);
+
                     String username = user.getText().toString();
                     String password = pass.getText().toString();
 
@@ -59,6 +78,8 @@ public class EmployerLogin extends AppCompatActivity
                         public void processFinish(String output)
                         {
                             ArrayList<String> info = new ArrayList<String>();
+
+                            progressBar.setVisibility(View.INVISIBLE);
 
                             if (output.equals("null "))
                             {
@@ -88,14 +109,11 @@ public class EmployerLogin extends AppCompatActivity
                                 {
 
                                     Intent intent = new Intent(getApplicationContext(), nfcCheck.class);
-                                    intent.putExtra("nfc_chk", nfc_chk);
-                                    startActivity(intent);
-
-                                    /*Intent intent = new Intent(getApplicationContext(), HubMain.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    intent.putExtra("nfc_chk", nfc_chk);
                                     startActivity(intent);
-                                    finish();*/
+                                    finish();
                                 }
                             }
                         }

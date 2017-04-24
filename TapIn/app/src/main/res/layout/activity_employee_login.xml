@@ -58,6 +58,15 @@
         android:textColor="@color/colorAccent"
         android:textColorHint="@color/colorAccent"
         app:backgroundTint="@color/colorAccent" />
-        />
+
+    <ProgressBar
+        android:id="@+id/progressBar4"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/user"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp" />
+    />
 
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 /**
  * Created by Thomas on 21/04/2017.
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 public class nfcCheck extends AppCompatActivity
 {
     private NfcAdapter nfcAdapter;
+    TextView desc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -21,12 +23,22 @@ public class nfcCheck extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc_check);
 
-        setTitle("Add Employee");
-
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        desc = (TextView)findViewById(R.id.textView4);
 
         String cid = getIntent().getExtras().getString("cid");
         int nfc_chk = getIntent().getExtras().getInt("nfc_chk");
+
+        if (nfc_chk == 0)
+        {
+            desc.setText("this will be needed to load\nEmployee info on TapIn Card");
+            setTitle("Add Employee");
+        }
+        else
+        {
+            desc.setText("this will be needed to get\nEmployee info from TapIn Card");
+            setTitle("Tap In Hub");
+        }
 
         if (nfcAdapter != null && nfcAdapter.isEnabled() && nfc_chk == 0)
         {

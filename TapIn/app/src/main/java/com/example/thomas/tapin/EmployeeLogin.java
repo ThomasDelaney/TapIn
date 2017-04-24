@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -16,12 +18,15 @@ import android.widget.Toast;
 
 public class EmployeeLogin extends AppCompatActivity
 {
+    TextView tv;
     public Button loginbutton;
     public EditText user2;
     public EditText pass2;
     public static String id;
     public static String Uname, Upass, Uid;
     EmployeeSessionManager session;
+
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,9 +38,13 @@ public class EmployeeLogin extends AppCompatActivity
         
         session = new EmployeeSessionManager(getApplicationContext());
 
+        tv = (TextView)findViewById(R.id.textView55);
         loginbutton = (Button) findViewById(R.id.loginButton);
         user2 = (EditText) findViewById(R.id.user);
         pass2 = (EditText) findViewById(R.id.pass);
+
+        progressBar = (ProgressBar)findViewById(R.id.progressBar4);
+        progressBar.setVisibility(View.INVISIBLE);
 
         loginbutton.setOnClickListener(new View.OnClickListener()
         {
@@ -50,6 +59,11 @@ public class EmployeeLogin extends AppCompatActivity
                 }
                 else
                 {
+                    progressBar.setVisibility(View.VISIBLE);
+                    tv.setVisibility(View.INVISIBLE);
+                    loginbutton.setVisibility(View.INVISIBLE);
+                    pass2.setVisibility(View.INVISIBLE);
+                    user2.setVisibility(View.INVISIBLE);
 
                     String user = user2.getText().toString();
                     String method = "read";
@@ -61,6 +75,8 @@ public class EmployeeLogin extends AppCompatActivity
                                 @Override
                                 public void processFinish(String output)
                                 {
+
+                                    progressBar.setVisibility(View.INVISIBLE);
 
                                     if(output.equals("false"))
                                     {
