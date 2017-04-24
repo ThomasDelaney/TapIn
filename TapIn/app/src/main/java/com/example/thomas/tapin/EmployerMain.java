@@ -29,6 +29,8 @@ public class EmployerMain extends AppCompatActivity
     String cid = "";
     String name = "";
 
+    int nfc_chk = 0;
+
     EmployerSessionManager session;
 
     @Override
@@ -125,6 +127,7 @@ public class EmployerMain extends AppCompatActivity
             {
                 Intent intent = new Intent(getApplicationContext(), nfcCheck.class);
                 intent.putExtra("cid", cid);
+                intent.putExtra("nfc_chk", nfc_chk);
                 startActivity(intent);
             }
         });

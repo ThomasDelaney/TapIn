@@ -185,14 +185,16 @@ public class ClockIn extends AppCompatActivity
                                 Date max2 = new SimpleDateFormat("HH:mm:ss").parse(maximuminTime);
                                 Calendar calendar2 = Calendar.getInstance();
                                 calendar2.setTime(max2);
-                                calendar2.add(Calendar.DATE, 1);
 
                                 Date cur2 = new SimpleDateFormat("HH:mm:ss").parse(currentDateTimeString);
                                 Calendar calendar3 = Calendar.getInstance();
                                 calendar3.setTime(cur2);
-                                calendar3.add(Calendar.DATE, 1);
 
                                 Date x = calendar3.getTime();
+                                System.out.println(calendar1.getTime());
+                                System.out.println(calendar2.getTime());
+                                System.out.println(calendar3.getTime());
+
 
                                 if (x.after(calendar1.getTime()) && x.before(calendar2.getTime()))
                                 {
@@ -211,10 +213,10 @@ public class ClockIn extends AppCompatActivity
                                                 working.setText("Clocked in Succesfully");
                                                 sendNotification();
                                             }
-                                            else if(output.equals("Failuire "))
+                                            else if(output.equals("Failure "))
                                             {
                                                 working.setTextColor(Color.RED);
-                                                working.setText("You can't clock in again, go work");
+                                                working.setText("You can't clock in again");
                                             }
                                         }
                                     });
@@ -251,49 +253,18 @@ public class ClockIn extends AppCompatActivity
                                 Date max = new SimpleDateFormat("HH:mm:ss").parse(maximumoutTime);
                                 Calendar calendarmax = Calendar.getInstance();
                                 calendarmax.setTime(max);
-                                calendarmax.add(Calendar.DATE, 1);
 
                                 Date cur = new SimpleDateFormat("HH:mm:ss").parse(currentDateTimeString);
                                 Calendar calendar3 = Calendar.getInstance();
                                 calendar3.setTime(cur);
-                                calendar3.add(Calendar.DATE, 1);
-
                                 Date x = calendar3.getTime();
 
                                 String start = tokens[2];
                                 String end = tokens[3];
-
-                                SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-
-                                Date date1 = new Date();
-                                Date date2 = new Date();
-
-                                try
-                                {
-                                    date1 = format.parse(start);
-                                    date2 = format.parse(end);
-
-                                }
-                                catch (ParseException e)
-                                {
-                                    e.printStackTrace();
-                                }
-
-                                long difference = date2.getTime() - date1.getTime();
-
-                                int minutes = (int) TimeUnit.MILLISECONDS.toMinutes(difference);
-                                System.out.println(minutes);
-                                DecimalFormat df = new DecimalFormat("0.00");
-                                float hours =  (float) minutes / 60;
-                                System.out.println(hours);
-                                float total = hours * wage;
-                                final String totalstr = String.format("%.2f", total);
-                                System.out.println(totalstr);
-
                                 if (x.after(calendarmin.getTime()) && x.before(calendarmax.getTime()))
                                 {
                                     String method = "ClockOut";
-
+                                    final String totalstr = String.format("%.2f", getPayment(start, end, wage));
                                     BackgroundTask backgroundTask = new BackgroundTask(new BackgroundTask.AsyncResponse()
                                     {
 
@@ -358,5 +329,35 @@ public class ClockIn extends AppCompatActivity
         });
         backgroundTask.execute("getCIDfromYEEID", yeeid);
     }
+
+    float getPayment(String start, String end, float wage)
+    {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        Date date1 = new Date();
+        Date date2 = new Date();
+
+        try
+        {
+            date1 = format.parse(start);
+            date2 = format.parse(end);
+
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+
+        long difference = date2.getTime() - date1.getTime();
+
+        int minutes = (int) TimeUnit.MILLISECONDS.toMinutes(difference);
+        System.out.println(minutes);
+        DecimalFormat df = new DecimalFormat("0.00");
+        float hours =  (float) minutes / 60;
+        System.out.println(hours);
+        float total = hours * wage;
+
+        return total;
+    }
+
 }
 

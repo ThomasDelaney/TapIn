@@ -21,6 +21,7 @@ public class EmployerLogin extends AppCompatActivity
     Button login;
 
     int type;
+    int nfc_chk = 1;
 
     EmployerSessionManager session;
 
@@ -85,11 +86,16 @@ public class EmployerLogin extends AppCompatActivity
                                 }
                                 else
                                 {
-                                    Intent intent = new Intent(getApplicationContext(), HubMain.class);
+
+                                    Intent intent = new Intent(getApplicationContext(), nfcCheck.class);
+                                    intent.putExtra("nfc_chk", nfc_chk);
+                                    startActivity(intent);
+
+                                    /*Intent intent = new Intent(getApplicationContext(), HubMain.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
-                                    finish();
+                                    finish();*/
                                 }
                             }
                         }

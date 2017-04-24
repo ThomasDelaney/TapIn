@@ -26,11 +26,18 @@ public class nfcCheck extends AppCompatActivity
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
         String cid = getIntent().getExtras().getString("cid");
+        int nfc_chk = getIntent().getExtras().getInt("nfc_chk");
 
-        if (nfcAdapter != null && nfcAdapter.isEnabled())
+        if (nfcAdapter != null && nfcAdapter.isEnabled() && nfc_chk == 0)
         {
             Intent intent = new Intent(getApplicationContext(), add.class);
             intent.putExtra("cid", cid);
+            startActivity(intent);
+            finish();
+        }
+        else if (nfcAdapter != null && nfcAdapter.isEnabled() && nfc_chk == 1)
+        {
+            Intent intent = new Intent(getApplicationContext(), HubMain.class);
             startActivity(intent);
             finish();
         }
