@@ -109,7 +109,6 @@ public class EmployeeLogin extends AppCompatActivity
                     }
                     else
                     {
-                        System.out.println(BackgroundTask.var);
                         finish();
                         Toast.makeText(EmployeeLogin.this,"No internet connection", Toast.LENGTH_LONG ).show();
                     }

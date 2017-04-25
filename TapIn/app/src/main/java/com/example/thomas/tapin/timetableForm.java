@@ -220,7 +220,6 @@ public class timetableForm extends AppCompatActivity
                                     }
                                     else
                                     {
-                                        System.out.println(BackgroundTask.var);
                                         finish();
                                         Toast.makeText(timetableForm.this,"No internet connection", Toast.LENGTH_LONG ).show();
                                     }

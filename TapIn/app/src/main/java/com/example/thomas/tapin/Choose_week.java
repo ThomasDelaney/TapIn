@@ -162,7 +162,6 @@ public class Choose_week extends AppCompatActivity
         }
         else
         {
-            System.out.println(BackgroundTask.var);
             finish();
             Toast.makeText(Choose_week.this,"No internet connection", Toast.LENGTH_LONG ).show();
         }

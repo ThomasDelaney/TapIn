@@ -69,10 +69,13 @@ public class HubMain  extends AppCompatActivity {
     {
         super.onNewIntent(intent);
 
-        if(intent.hasExtra(NfcAdapter.EXTRA_TAG))
+        if(intent.hasExtra(NfcAdapter.EXTRA_TAG ))
         {
-            gifImageView.setVisibility(View.INVISIBLE);
-            spinner.setVisibility(View.VISIBLE);
+            if(BackgroundTask.isNetworkAvailable(HubMain.this))
+            {
+                gifImageView.setVisibility(View.INVISIBLE);
+                spinner.setVisibility(View.VISIBLE);
+            }
             Parcelable[] parcelables = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 
             if(parcelables != null && parcelables.length > 0)
@@ -106,8 +109,11 @@ public class HubMain  extends AppCompatActivity {
 
                     String method = "getEmployeeInfo";
 
-                    gifImageView.setVisibility(View.INVISIBLE);
-                    spinner.setVisibility(View.VISIBLE);
+                    if(BackgroundTask.isNetworkAvailable(HubMain.this))
+                    {
+                        gifImageView.setVisibility(View.INVISIBLE);
+                        spinner.setVisibility(View.VISIBLE);
+                    }
                     BackgroundTask backgroundTask = new BackgroundTask(new BackgroundTask.AsyncResponse()
                     {
                         @Override
@@ -117,6 +123,8 @@ public class HubMain  extends AppCompatActivity {
                             if (output.equals("null "))
                             {
                                 Toast.makeText(HubMain.this, "Employee Does Not Exists", Toast.LENGTH_SHORT).show();
+                                gifImageView.setVisibility(View.VISIBLE);
+                                spinner.setVisibility(View.INVISIBLE);
                             }
                             else
                             {
@@ -134,8 +142,6 @@ public class HubMain  extends AppCompatActivity {
                     }
                     else
                     {
-                        System.out.println(BackgroundTask.var);
-                        finish();
                         Toast.makeText(HubMain.this,"No internet connection", Toast.LENGTH_LONG ).show();
                     }
 

@@ -122,7 +122,6 @@ public class add3 extends AppCompatActivity
             }
             else
             {
-                System.out.println(BackgroundTask.var);
                 finish();
                 Toast.makeText(add3.this,"No internet connection", Toast.LENGTH_LONG ).show();
             }
@@ -173,7 +172,6 @@ public class add3 extends AppCompatActivity
             }
             else
             {
-                System.out.println(BackgroundTask.var);
                 finish();
                 Toast.makeText(add3.this,"No internet connection", Toast.LENGTH_LONG ).show();
             }

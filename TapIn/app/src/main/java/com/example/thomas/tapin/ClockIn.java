@@ -227,7 +227,6 @@ public class ClockIn extends AppCompatActivity
                                     }
                                     else
                                     {
-                                        System.out.println(BackgroundTask.var);
                                         finish();
                                         Toast.makeText(ClockIn.this,"No internet connection", Toast.LENGTH_LONG ).show();
                                     }
@@ -302,7 +301,6 @@ public class ClockIn extends AppCompatActivity
                                     }
                                     else
                                     {
-                                        System.out.println(BackgroundTask.var);
                                         finish();
                                         Toast.makeText(ClockIn.this,"No internet connection", Toast.LENGTH_LONG ).show();
                                     }
@@ -349,7 +347,6 @@ public class ClockIn extends AppCompatActivity
                 }
                 else
                 {
-                    System.out.println(BackgroundTask.var);
                     finish();
                     Toast.makeText(ClockIn.this,"No internet connection", Toast.LENGTH_LONG ).show();
                 }
@@ -362,7 +359,6 @@ public class ClockIn extends AppCompatActivity
         }
         else
         {
-            System.out.println(BackgroundTask.var);
             finish();
             Toast.makeText(ClockIn.this,"No internet connection", Toast.LENGTH_LONG ).show();
         }

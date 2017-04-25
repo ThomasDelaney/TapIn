@@ -94,7 +94,6 @@ public class EmployerMain extends AppCompatActivity
             }
             else
             {
-                System.out.println(BackgroundTask.var);
                 finish();
                 Toast.makeText(EmployerMain.this,"No internet connection", Toast.LENGTH_LONG ).show();
             }

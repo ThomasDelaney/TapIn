@@ -141,7 +141,6 @@ public class view extends AppCompatActivity
         }
         else
         {
-            System.out.println(BackgroundTask.var);
             finish();
             Toast.makeText(view.this,"No internet connection", Toast.LENGTH_LONG ).show();
         }
