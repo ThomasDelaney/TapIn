@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -134,7 +135,17 @@ public class view extends AppCompatActivity
                 }
             }
         });
-        backgroundTask.execute("getCheckedIn", cid, new SimpleDateFormat("d").format(currentDate), new SimpleDateFormat("M").format(currentDate));
+        if( BackgroundTask.isNetworkAvailable(view.this))
+        {
+            backgroundTask.execute("getCheckedIn", cid, new SimpleDateFormat("d").format(currentDate), new SimpleDateFormat("M").format(currentDate));
+        }
+        else
+        {
+            System.out.println(BackgroundTask.var);
+            finish();
+            Toast.makeText(view.this,"No internet connection", Toast.LENGTH_LONG ).show();
+        }
+
     }
 }
 

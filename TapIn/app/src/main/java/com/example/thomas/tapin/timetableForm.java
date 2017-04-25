@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 /**
  * Created by Thomas on 21/04/2017.
@@ -213,7 +214,17 @@ public class timetableForm extends AppCompatActivity
                                             }
                                         }
                                     });
-                                    backgroundTask.execute("deleteTimetable", eid, day, month);
+                                    if( BackgroundTask.isNetworkAvailable(timetableForm.this))
+                                    {
+                                        backgroundTask.execute("deleteTimetable", eid, day, month);
+                                    }
+                                    else
+                                    {
+                                        System.out.println(BackgroundTask.var);
+                                        finish();
+                                        Toast.makeText(timetableForm.this,"No internet connection", Toast.LENGTH_LONG ).show();
+                                    }
+
                                 }
                             });
 

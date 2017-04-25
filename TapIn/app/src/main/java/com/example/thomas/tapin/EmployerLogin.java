@@ -118,8 +118,17 @@ public class EmployerLogin extends AppCompatActivity
                             }
                         }
                     });
+                    if( BackgroundTask.isNetworkAvailable(EmployerLogin.this))
+                    {
+                        backgroundTask.execute(method, username, password);
+                    }
+                    else
+                    {
+                        System.out.println(BackgroundTask.var);
+                        finish();
+                        Toast.makeText(EmployerLogin.this,"No internet connection", Toast.LENGTH_LONG ).show();
+                    }
 
-                    backgroundTask.execute(method, username, password);
                 }
                 else
                 {

@@ -179,7 +179,17 @@ public class timetableForm2 extends AppCompatActivity
                                                 }
                                             }
                                         });
-                                        backgroundTask.execute("writeEmployeeSchedule", eid, day, month, sTime, eTime);
+                                        if( BackgroundTask.isNetworkAvailable(timetableForm2.this))
+                                        {
+                                            backgroundTask.execute("writeEmployeeSchedule", eid, day, month, sTime, eTime);
+                                        }
+                                        else
+                                        {
+                                            System.out.println(BackgroundTask.var);
+                                            finish();
+                                            Toast.makeText(timetableForm2.this,"No internet connection", Toast.LENGTH_LONG ).show();
+                                        }
+
                                     }
                                 }
                             });
@@ -272,7 +282,17 @@ public class timetableForm2 extends AppCompatActivity
                                             }
                                         }
                                     });
-                                    backgroundTask.execute("deleteTimetable", eid, day, month);
+                                    if( BackgroundTask.isNetworkAvailable(timetableForm2.this))
+                                    {
+                                        backgroundTask.execute("deleteTimetable", eid, day, month);
+                                    }
+                                    else
+                                    {
+                                        System.out.println(BackgroundTask.var);
+                                        finish();
+                                        Toast.makeText(timetableForm2.this,"No internet connection", Toast.LENGTH_LONG ).show();
+                                    }
+
                                 }
                             });
 
@@ -365,7 +385,17 @@ public class timetableForm2 extends AppCompatActivity
                                                 }
                                             }
                                         });
-                                        backgroundTask.execute("editTimetable", eid, day, month, sTime, eTime);
+                                        if( BackgroundTask.isNetworkAvailable(timetableForm2.this))
+                                        {
+                                            backgroundTask.execute("editTimetable", eid, day, month, sTime, eTime);
+                                        }
+                                        else
+                                        {
+                                            System.out.println(BackgroundTask.var);
+                                            finish();
+                                            Toast.makeText(timetableForm2.this,"No internet connection", Toast.LENGTH_LONG ).show();
+                                        }
+
                                     }
                                 }
                             });

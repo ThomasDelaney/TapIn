@@ -128,8 +128,17 @@ public class HubMain  extends AppCompatActivity {
                             }
                         }
                     });
+                    if( BackgroundTask.isNetworkAvailable(HubMain.this))
+                    {
+                        backgroundTask.execute(method,employee);
+                    }
+                    else
+                    {
+                        System.out.println(BackgroundTask.var);
+                        finish();
+                        Toast.makeText(HubMain.this,"No internet connection", Toast.LENGTH_LONG ).show();
+                    }
 
-                    backgroundTask.execute(method,employee);
                 }
             }
         }

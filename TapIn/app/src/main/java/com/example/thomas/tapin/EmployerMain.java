@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -87,7 +88,17 @@ public class EmployerMain extends AppCompatActivity
                     }
                 }
             });
-            backgroundTask.execute("setToken", cid, name, username, token);
+            if( BackgroundTask.isNetworkAvailable(EmployerMain.this))
+            {
+                backgroundTask.execute("setToken", cid, name, username, token);
+            }
+            else
+            {
+                System.out.println(BackgroundTask.var);
+                finish();
+                Toast.makeText(EmployerMain.this,"No internet connection", Toast.LENGTH_LONG ).show();
+            }
+
         }
 
         nameDisplay.setText(name);

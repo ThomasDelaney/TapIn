@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -109,7 +110,17 @@ public class employeeTimetable extends AppCompatActivity
                 }
             }
         });
-        backgroundTask.execute("eWorkingCheck", cid, day, month);
+        if( BackgroundTask.isNetworkAvailable(employeeTimetable.this))
+        {
+            backgroundTask.execute("eWorkingCheck", cid, day, month);
+        }
+        else
+        {
+            System.out.println(BackgroundTask.var);
+            finish();
+            Toast.makeText(employeeTimetable.this,"No internet connection", Toast.LENGTH_LONG ).show();
+        }
+
     }
 }
 
