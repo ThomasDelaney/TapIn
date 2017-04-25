@@ -27,13 +27,13 @@ The database is hosted on a free hosting site called 000webhost.com, the connect
 There are 4 tables, COMPANY, EMPLOYER, EMPLOYEE and TIMETABLES
 * SOMEONE WRITE ABOUT THE TABLES LIKE WHAT THEY INCLUDE *
 
-#Main Menu Summary
+# Main Menu Summary
 3 Buttons and an Image, the first Button brings the user to the Employer Main Home Page, it will checked SharedPreferences to see if the Employer is already logged in, if so then the page loads, else then the Employer Login page is shown, which prompts the Employer to login, when they do the Home Page is loaded. This workins in hand for the second button for Employee Mode; the Hub however does not save the Employer's details into SharedPreferences.
 
-#How BackgroundTask gets information from the Database
+# How BackgroundTask gets information from the Database
 There is a class called BackgroundTask which extends AsyncTask which is used to access the internet. The class opens a named PHP file and POST specific info to that file, the PHP file will execute on the server and whatever is echoed by the file is converted to a String in the Android App, it is then passed back to the class through an AsyncResponse method which then overrides a ProcessFinish method which a String is passed (the echo from the php file) to the method. This is how all information from the database is retrieved.
 
-#Employer Mode
+# Employer Mode
 Employer mode has 3 core functions, Check Staff, Add Employee and Add Schedules.
 These are accessed through buttons which bring the user to the respective activity. 
   * Check Staff 
@@ -45,7 +45,7 @@ These are accessed through buttons which bring the user to the respective activi
    * Add Schedules
      This displays a CalendarView to the Employer, where he can select any day from the current month + 2 months ahead and also that isn't today or previous days of that month. When the user taps on the day it the asks them are they sure, if so then another ListView, similar to Check Staff except it displays the the Employee name, their job title and if they have a schedule for that day or not. If not, a button will appear on the very left side of the ListViewAdapter which will allow the Employer to add a schedule for that day for that employee, if they do then the times they are working for that day is displayed and a button called which allows the employer to edit or delete that schedule. The times are chosed by TimePickers, which allows the user to chose an hour and a minute in the 24 hour format, the end/clock out time has to be at least 1 hour more than the start/clock in time. 
 
-#Key Notes
+# Key Notes
 * Use of Android Studio's vast libraries.
 
 * Usage of Online Database (000webhost.com for hosting) which involved created many PHP files and SQL queries.
