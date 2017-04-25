@@ -115,6 +115,18 @@ public class add3 extends AppCompatActivity
                     }
                 }
             });
+
+            if( BackgroundTask.isNetworkAvailable(add3.this))
+            {
+                backgroundTask.execute("writeEmployee", eName, username, eEmail, ePhone, eJob, eWage, ePart, password, cid);
+            }
+            else
+            {
+                System.out.println(BackgroundTask.var);
+                finish();
+                Toast.makeText(add3.this,"No internet connection", Toast.LENGTH_LONG ).show();
+            }
+
             backgroundTask.execute("writeEmployee", eName, username, eEmail, ePhone, eJob, eWage, ePart, password, cid);
 
             BackgroundTask backgroundTask2 = new BackgroundTask(new BackgroundTask.AsyncResponse()
@@ -131,7 +143,6 @@ public class add3 extends AppCompatActivity
                     {
                         eID = output;
                     }
-
                     Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                     NdefMessage ndefMessage = createNdefMessage(eID);
 
@@ -155,7 +166,18 @@ public class add3 extends AppCompatActivity
                     alertDialog.show();
                 }
             });
-            backgroundTask2.execute("getEmployeeID", eName, username, eEmail, ePhone, eJob, eWage, ePart, password, cid);
+
+            if( BackgroundTask.isNetworkAvailable(add3.this))
+            {
+                backgroundTask2.execute("getEmployeeID", eName, username, eEmail, ePhone, eJob, eWage, ePart, password, cid);
+            }
+            else
+            {
+                System.out.println(BackgroundTask.var);
+                finish();
+                Toast.makeText(add3.this,"No internet connection", Toast.LENGTH_LONG ).show();
+            }
+
         }
     }
 

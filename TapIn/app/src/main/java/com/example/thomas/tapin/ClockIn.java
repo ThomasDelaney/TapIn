@@ -221,7 +221,16 @@ public class ClockIn extends AppCompatActivity
                                         }
                                     });
 
-                                    backgroundTask.execute(method,timetable,currentDateTimeString);
+                                    if( BackgroundTask.isNetworkAvailable(ClockIn.this))
+                                    {
+                                        backgroundTask.execute(method,timetable,currentDateTimeString);
+                                    }
+                                    else
+                                    {
+                                        System.out.println(BackgroundTask.var);
+                                        finish();
+                                        Toast.makeText(ClockIn.this,"No internet connection", Toast.LENGTH_LONG ).show();
+                                    }
                                 }
                                 else
                                 {
@@ -287,7 +296,17 @@ public class ClockIn extends AppCompatActivity
                                             }
                                         }
                                     });
-                                    backgroundTask.execute(method, timetable, currentDateTimeString, totalstr);
+                                    if( BackgroundTask.isNetworkAvailable(ClockIn.this))
+                                    {
+                                        backgroundTask.execute(method, timetable, currentDateTimeString, totalstr);
+                                    }
+                                    else
+                                    {
+                                        System.out.println(BackgroundTask.var);
+                                        finish();
+                                        Toast.makeText(ClockIn.this,"No internet connection", Toast.LENGTH_LONG ).show();
+                                    }
+
                                 }
                                 else
                                 {
@@ -324,10 +343,30 @@ public class ClockIn extends AppCompatActivity
                     {
                     }
                 });
-                backgroundTask2.execute("sendNotification", output, yeeid, day, month);
+                if( BackgroundTask.isNetworkAvailable(ClockIn.this))
+                {
+                    backgroundTask2.execute("sendNotification", output, yeeid, day, month);
+                }
+                else
+                {
+                    System.out.println(BackgroundTask.var);
+                    finish();
+                    Toast.makeText(ClockIn.this,"No internet connection", Toast.LENGTH_LONG ).show();
+                }
+
             }
         });
-        backgroundTask.execute("getCIDfromYEEID", yeeid);
+        if( BackgroundTask.isNetworkAvailable(ClockIn.this))
+        {
+            backgroundTask.execute("getCIDfromYEEID", yeeid);
+        }
+        else
+        {
+            System.out.println(BackgroundTask.var);
+            finish();
+            Toast.makeText(ClockIn.this,"No internet connection", Toast.LENGTH_LONG ).show();
+        }
+
     }
 
     float getPayment(String start, String end, float wage)

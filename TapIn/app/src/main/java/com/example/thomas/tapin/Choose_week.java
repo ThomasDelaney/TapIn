@@ -156,8 +156,16 @@ public class Choose_week extends AppCompatActivity
                     }
                 }
         );
-        backgroundTask.execute("getDetails", eid);
-
+        if( BackgroundTask.isNetworkAvailable(Choose_week.this))
+        {
+            backgroundTask.execute("getDetails", eid);;
+        }
+        else
+        {
+            System.out.println(BackgroundTask.var);
+            finish();
+            Toast.makeText(Choose_week.this,"No internet connection", Toast.LENGTH_LONG ).show();
+        }
         // Populating the spinner
         // initially the monday_index starts at our current day
         calendar = Calendar.getInstance();

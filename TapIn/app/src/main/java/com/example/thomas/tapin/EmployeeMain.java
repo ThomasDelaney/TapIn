@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,16 +25,15 @@ public class EmployeeMain extends AppCompatActivity
     private EmployeeListAdapter adapter;
     private List<Employee> employeeList;
     private int[] days_working= new int[7];
-
     // Temp Product used for sorting the arraylist
     private Employee temp = new Employee(1000, "Temp","Temp");
     public TextView Total_Hours_tv;
+    private String eid;
+    private String selectedWeek;
     public int selected;
     private long total_to_work;
+    private int total_hours_to_work, total_minutes_to_work;
 
-    private String eid;
-
-    private String selectedWeek;
 
     EmployeeSessionManager session;
 
@@ -152,10 +152,10 @@ public class EmployeeMain extends AppCompatActivity
                                     {
                                         e.printStackTrace();
                                     }
-                                    long difference = date2.getTime() - date1.getTime();
+                                    long total_to_work = date2.getTime() - date1.getTime();
                                     // Adding to the total
-                                    total_to_work +=difference;
-
+                                    total_minutes_to_work  += (int) ((total_to_work / (1000*60)) % 60);
+                                    total_hours_to_work   += (int) ((total_to_work / (1000*60*60)) % 24);
 
                                     days_working[(Integer.valueOf(splitInfo[0]) - (monday_index - 1) ) % 7]=1;
                                     if(Integer.valueOf(splitInfo[1]) < 10)
@@ -190,11 +190,10 @@ public class EmployeeMain extends AppCompatActivity
                                     {
                                         e.printStackTrace();
                                     }
-                                    long difference = date2.getTime() - date1.getTime();
+                                    long total_to_work = date2.getTime() - date1.getTime();
                                     // Adding to the total
-                                    total_to_work +=difference;
-
-
+                                    total_minutes_to_work  += (int) ((total_to_work / (1000*60)) % 60);
+                                    total_hours_to_work   += (int) ((total_to_work / (1000*60*60)) % 24);
 
                                     days_working[(Integer.valueOf(splitInfo[0]) - (monday_index -1) ) % 7]=1;
                                     if(Integer.valueOf(splitInfo[1]) < 10)
@@ -255,17 +254,15 @@ public class EmployeeMain extends AppCompatActivity
                             } // end inner for
                         } // end outer for
 
-                        int minutes = (int) ((total_to_work / (1000*60)) % 60);
-                        int hours   = (int) ((total_to_work / (1000*60*60)) % 24);
 
                         String total_text;
-                        if(hours == 1)
+                        if(total_hours_to_work == 1)
                         {
-                            total_text="This Week: " + String.valueOf(String.format(Locale.UK,"%d hr & %d mins", hours, minutes));
+                            total_text="This Week: " + String.valueOf(String.format(Locale.UK,"%d hr & %d mins", total_hours_to_work, total_minutes_to_work));
                         }
                         else
                         {
-                            total_text="This Week: " + String.valueOf(String.format(Locale.UK,"%d hrs & %d mins", hours, minutes));
+                            total_text="This Week: " + String.valueOf(String.format(Locale.UK,"%d hrs & %d mins", total_hours_to_work, total_minutes_to_work));
                         }
                         Total_Hours_tv.setText(total_text);
                         // init adapter
@@ -273,7 +270,17 @@ public class EmployeeMain extends AppCompatActivity
                         lvProduct.setAdapter(adapter);
                     }
                 });
-        backgroundTask.execute("getTimetable", eid);
+        if( BackgroundTask.isNetworkAvailable(EmployeeMain.this))
+        {
+            backgroundTask.execute("getTimetable", eid);
+        }
+        else
+        {
+            System.out.println(BackgroundTask.var);
+            finish();
+            Toast.makeText(EmployeeMain.this,"No internet connection", Toast.LENGTH_LONG ).show();
+        }
+
     }
 
 

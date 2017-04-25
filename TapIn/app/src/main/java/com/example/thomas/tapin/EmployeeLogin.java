@@ -1,9 +1,11 @@
 package com.example.thomas.tapin;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Created by Thomas on 21/04/2017.
+ * Created by Thomas on 21/04/2017
  */
 
 public class EmployeeLogin extends AppCompatActivity
@@ -101,7 +103,16 @@ public class EmployeeLogin extends AppCompatActivity
                             });
 
 
-                    backgroundTask.execute(method, user, pass);
+                    if( BackgroundTask.isNetworkAvailable(EmployeeLogin.this))
+                    {
+                        backgroundTask.execute(method, user, pass);
+                    }
+                    else
+                    {
+                        System.out.println(BackgroundTask.var);
+                        finish();
+                        Toast.makeText(EmployeeLogin.this,"No internet connection", Toast.LENGTH_LONG ).show();
+                    }
                 }
 
             }

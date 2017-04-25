@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by Thomas on 21/04/2017.
+ * Created by Thomas on 21/04/2017
  */
 
 public class EmployeeScroll extends BaseAdapter
