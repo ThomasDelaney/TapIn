@@ -31,13 +31,21 @@ There are 4 tables, COMPANY, EMPLOYER, EMPLOYEE and TIMETABLES
 
 * COMPANY
 
-It holds information about the company. Upon request for access to our product, the company will provide a name, location and the length of the break time that they offer. This information will be held by this table, as well as, an auto-incrementing company id. 
+It holds information about the company. Upon request for access to our software, the company will provide a name, location and the length of the break time that they offer. This information will be held by this table, as well as, an auto-incrementing company id which will be used as a foreign key for all the other tables. 
 
 * EMPLOYER
 
-Upon completing the requirements for the COMPANY table, the said company will send information about how many employers will use our product. This is the table that will hold the login details for each employer and Tap In Hub. Both of them are set up by us on request.
+Upon completing the requirements for the COMPANY table, the said company will send information about how many employers will use our product, followed by us created the login keys for each employer. This table will hold the login details for each employer and Tap In Hub.
+Last but not least, one of the most important fields is the token which is used when an employer gets a notification when the employee clocks in. This holds a string which is made of 150 characters and is used to identify the employer's devicee when he logs in.
 
-The structure of the table consists of: -
+* EMPLOYEE
+
+This table contains details about the employees which are linked with the companies through the company id. Every field from this table is set by the employer whenever he sets up an nfc tag for the new employee. The employee, with the help of the employer, has the freedom to choose the login details he wants to use. Therefore, the employee will get a login that he will remember easily and will not require our help in case he forgets the details.
+
+* TIMETABLES
+
+In this table each scheduled day will have the details set. It will be populated by the employer through the app whenver he sets up a schedule for an employee. The said employer has the freedom to add, edit and delete a record so no intervention from us would be needed. Each record is linked to a company and to an employee through the unique Ids.
+Apart from the schedule set and display, this table is also used for the clock in and clock out function because it holds the scheduled time, the actual time when the employee clocked in and if he already clocked in or not he cannot clock in/out more than once.
 
 # Main Menu Summary
 3 Buttons and an Image, the first Button brings the user to the Employer Main Home Page, it will checked SharedPreferences to see if the Employer is already logged in, if so then the page loads, else then the Employer Login page is shown, which prompts the Employer to login, when they do the Home Page is loaded. This workins in hand for the second button for Employee Mode; the Hub however does not save the Employer's details into SharedPreferences.
@@ -59,6 +67,22 @@ These are accessed through buttons which bring the user to the respective activi
    * Add Schedules
    
      This displays a CalendarView to the Employer, where he can select any day from the current month + 2 months ahead and also that isn't today or previous days of that month. When the user taps on the day it the asks them are they sure, if so then another ListView, similar to Check Staff except it displays the the Employee name, their job title and if they have a schedule for that day or not. If not, a button will appear on the very left side of the ListViewAdapter which will allow the Employer to add a schedule for that day for that employee, if they do then the times they are working for that day is displayed and a button called which allows the employer to edit or delete that schedule. The times are chosed by TimePickers, which allows the user to chose an hour and a minute in the 24 hour format, the end/clock out time has to be at least 1 hour more than the start/clock in time. 
+
+# Employee Mode
+Being meant to be accessed only by the employees, this mode rather restrictive, because its purpose is to display the schedule on the following weeks.
+
+   * Choose Week
+   
+   The fucntion of this page is to get the schedule displayed for the employee. The user is prompted by his name, the position that he holds in the company and the name of the company that he works for. All this data is retrived through the use of a database which is linked to the Java code by Php files.
+   
+   The main element of this page is a spinner which holds the dates of the next four weeks starting with the current one. The content that goes into the spinner gets checked through a substantial amount of error checking. The user can choose which week to be displayed on the following screen. The next two buttons are the "Done" button and "Log out" button. Upon pressing the "Done" button the Timetable View screen gets launched
+   
+   Just like in the Employer mode, there is a Session Manager that will remember the details for the log in. Therefore, the employee part has a "Log Out" button that simply clears the session and takes you back the the main screen.
+   
+   
+   * The Timetable view 
+   
+   Upon the user choosing the week, the app will retrive from the database all the days scheduled to work for that employee and display it in a List View. Aditionally, the app will also display the not scheduled day with appropiate color marking. On the the text view that is on the top side of the screen the total amount of hours to be worked on that week will be displayed.
 
 # Hub Mode
 In order to use the Hub, the employer must login first. There are two main activities in this mode:
