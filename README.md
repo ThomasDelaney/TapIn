@@ -49,18 +49,25 @@ There is a class called BackgroundTask which extends AsyncTask which is used to 
 Employer mode has 3 core functions, Check Staff, Add Employee and Add Schedules.
 These are accessed through buttons which bring the user to the respective activity. 
   * Check Staff 
+  
     This part of Employer mode displays all Employees working that day and if they have clocked in or not clocked in for work. A PHP file is called by this class where all the named employees working for that day are returned. The CheckedIn field from the database is used to see if the employee has clocked in or not. A ListView and ListViewAdapter (extends BaseAdapter) are used to create a scrollable nicely laid out list to see who has clocked in or not, if the user taps on these little adapters they can see what time that employee clocked in at and when they have to clock in at OR what time they should clock in at.
     
   * Add Employee
+  
     The Employer is first asked to turn on NFC if they have not on their phone, this is because when the Employer is finished entering info about the new employee, they must load that new Employee's ID to the NFC so they can clock in/out on the Hub. This is done by getting the users phone's NFC adapter and putting into a NfcAdapter object, if the adapter is not null and is Enabled then the Enter Employee form is loaded, else a screen is displayed notifying then Employer to turn on NFC on their phone. If it is then a form to enter new Employee info is displayed, there is fields for most attributes in the EMPLOYEE table in the database. There is also error checking to make sure all fields are entered correctly (@ in email address, wage format in XX.XX). They are the asked to give the new Employee a Username and Password so they can login to their TapIn account; the password has to be entered twice for error checking sake. Finally a gif is displayed and a message for the user to place the NFC card on the phone and hold it until propted. How it works is when the card is placed on the phone, the app is notified (through OnNewIntent, which has a check to see if an NFC tag has been tagged on the phone) and the Employee is added to the database, the ID is then retrieved as a String and converted into an NFC record then creates an NFC message from that record (through a number of methods), the tag is formatted to the device and the message is written to the card/tag. An AlertDialog pops up when the process is complete notifying the user of this, then when the user clicks okay they go back to the homescreen.
     
    * Add Schedules
+   
      This displays a CalendarView to the Employer, where he can select any day from the current month + 2 months ahead and also that isn't today or previous days of that month. When the user taps on the day it the asks them are they sure, if so then another ListView, similar to Check Staff except it displays the the Employee name, their job title and if they have a schedule for that day or not. If not, a button will appear on the very left side of the ListViewAdapter which will allow the Employer to add a schedule for that day for that employee, if they do then the times they are working for that day is displayed and a button called which allows the employer to edit or delete that schedule. The times are chosed by TimePickers, which allows the user to chose an hour and a minute in the 24 hour format, the end/clock out time has to be at least 1 hour more than the start/clock in time. 
 
 # Hub Mode
 In order to use the Hub, the employer must login first. There are two main activities in this mode:
    * Card Scanning
+   
+   This avtivity reads the id stored in the employee's NFC card. It checks if the employee works for the same company as the employer, and if it succeeds the employee can now clock in or clock out.
+   
    * Clock in / Clock out
+   
    Once the employee scans the NFC card, a TextView will be displayed showing the current time, another TextView showing if they are working or not that day and the options to clock in and clock out.
    
    When the employee taps the clock in Button, the app checks if he is eledgible to clock in. A php file returns the starting time of the employee. If the current time is either 15 minutes behind or 15 minutes after the start time, the employee can clock in, storing the current time into the database and changing the CHECKEDIN to true. Otherwise, a toast will pop up saying "You cannot clock in now". If the employee tries to clock in again an error message will be displayed.
