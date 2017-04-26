@@ -196,6 +196,7 @@ public class Choose_week extends AppCompatActivity
             // ex: 24/04- 30/04   (notice the month of the 30/04)
             if(end-1 == last_day_of_month) condition2 = true;
             month++;
+            if(month == 13) month=1;
             // Getting the number of the day from the next month
             // if the end is greater than the last day then the number of the day in the next month is end - last day
             end -= last_day_of_month;
@@ -240,6 +241,7 @@ public class Choose_week extends AppCompatActivity
                 {
                     if(end-1 == last_day_of_month) condition2 = true;
                     month++;
+                    if(month == 13) month=1;
                     end -= last_day_of_month;
                     last_day_of_month = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
                     condition = true;
@@ -264,6 +266,7 @@ public class Choose_week extends AppCompatActivity
                 {
                     if(end-1 == last_day_of_month) condition2 = true;
                     month++;
+                    if(month == 13) month=1;
                     end -= last_day_of_month;
                     last_day_of_month = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
                     condition = true;

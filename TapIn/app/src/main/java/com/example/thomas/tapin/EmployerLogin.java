@@ -83,6 +83,12 @@ public class EmployerLogin extends AppCompatActivity
 
                             if (output.equals("null "))
                             {
+                                login.setVisibility(View.VISIBLE);
+                                user.setVisibility(View.VISIBLE);
+                                pass.setVisibility(View.VISIBLE);
+                                hText.setVisibility(View.VISIBLE);
+
+
                                 Toast.makeText(EmployerLogin.this, "Password Incorrect or Employer Does Not Exists", Toast.LENGTH_SHORT).show();
                             }
                             else

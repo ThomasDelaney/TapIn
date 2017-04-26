@@ -40,7 +40,7 @@
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
-        android:textColor="@color/colorAccent"
+        android:textColor="#000000"
         android:textColorHint="@color/colorAccent"
         app:backgroundTint="@color/colorAccent" />
 

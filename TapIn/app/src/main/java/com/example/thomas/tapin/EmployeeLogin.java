@@ -82,6 +82,11 @@ public class EmployeeLogin extends AppCompatActivity
 
                                     if(output.equals("false"))
                                     {
+                                        tv.setVisibility(View.VISIBLE);
+                                        loginbutton.setVisibility(View.VISIBLE);
+                                        pass2.setVisibility(View.VISIBLE);
+                                        user2.setVisibility(View.VISIBLE);
+
                                         Toast.makeText(EmployeeLogin.this, "Wrong login details", Toast.LENGTH_LONG).show();
                                     }
                                     else //if (output.equals("true"))
