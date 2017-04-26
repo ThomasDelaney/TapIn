@@ -2,7 +2,7 @@
 TapInBoiz 
 Thomas Delaney C15300756
 Mohamad Zabad ADD YOUR STUDENT NUMBERS HERE 
-Raul Alvarez ADD YOUR STUDENT NUMBERS HERE 
+Raul Alvarez C14722441
 
 #YouTube Video
 
@@ -45,6 +45,16 @@ These are accessed through buttons which bring the user to the respective activi
    * Add Schedules
      This displays a CalendarView to the Employer, where he can select any day from the current month + 2 months ahead and also that isn't today or previous days of that month. When the user taps on the day it the asks them are they sure, if so then another ListView, similar to Check Staff except it displays the the Employee name, their job title and if they have a schedule for that day or not. If not, a button will appear on the very left side of the ListViewAdapter which will allow the Employer to add a schedule for that day for that employee, if they do then the times they are working for that day is displayed and a button called which allows the employer to edit or delete that schedule. The times are chosed by TimePickers, which allows the user to chose an hour and a minute in the 24 hour format, the end/clock out time has to be at least 1 hour more than the start/clock in time. 
 
+# Hub Mode
+In order to use the Hub, the employer must login first. There are two main activities in this mode:
+   * Card Scanning
+   * Clock in / Clock out
+   Once the employee scans the NFC card, a TextView will be displayed showing the current time, another TextView showing if they are working or not that day and the options to clock in and clock out.
+   
+   When the employee taps the clock in Button, the app checks if he is eledgible to clock in. A php file returns the starting time of the employee. If the current time is either 15 minutes behind or 15 minutes after the start time, the employee can clock in, storing the current time into the database and changing the CHECKEDIN to true. Otherwise, a toast will pop up saying "You cannot clock in now". If the employee tries to clock in again an error message will be displayed.
+   
+   Clocking out works in a very similar way, the employee can only clock out if the current time is in range of the finishing time (15 minutes before and after) and the status of CHECKEDIN is equal to true. If the conditions are met, the current time is saved into the database, the CHECKEDIN is changed to false, and the payment for the day, whick is calcuted using the total hours worked for the day multiplied by the employee's wage.
+   
 # Key Notes
 * Use of Android Studio's vast libraries.
 
