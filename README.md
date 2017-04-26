@@ -9,7 +9,7 @@ Raul Alvarez C14722441
 
 #YouTube Video
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/1V9bT77H-N8/0.jpg)](https://www.youtube.com/watch?v=1V9bT77H-N8)
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/EsPfizWKrfA/0.jpg)](https://www.youtube.com/watch?v=EsPfizWKrfA)
 
 # What is TapIn?
 TapIn is a multi-functional utility mobile Android app for Employers and Employees of a Company. A Company would come to us to start up a service for them, we would add them to our database and give them Employer Logins. An Employer can add an Employee to the system by entering in the respective information, giving them a login and then finally loading their ID onto a personalised NFC Card. The employer can see who has clocked in for the current day and add schedules and new employees to the system. An Employee can also login now with their details and see their schedules for 4 weeks from the current week. There is a Hub part of the App (that would really be on a piece of Hardware, we put the software on the app to show functionality however) where the Employee can clock in and out of work. The employee places their NFC Card on the phone and it will display the current time and if they are or are not working today. If so they can clock in for work (The Employee will recieve a notification of this). When the employee clocks out they can see how much money they have made that day. 
