@@ -126,7 +126,6 @@ public class add3 extends AppCompatActivity
                 Toast.makeText(add3.this,"No internet connection", Toast.LENGTH_LONG ).show();
             }
 
-            backgroundTask.execute("writeEmployee", eName, username, eEmail, ePhone, eJob, eWage, ePart, password, cid);
 
             BackgroundTask backgroundTask2 = new BackgroundTask(new BackgroundTask.AsyncResponse()
             {

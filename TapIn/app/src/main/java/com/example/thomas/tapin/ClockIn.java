@@ -30,6 +30,7 @@ public class ClockIn extends AppCompatActivity
     Button clockout;
 
     private ProgressBar spinner;
+    private int break_time;
 
     String yeeid;
 
@@ -42,6 +43,7 @@ public class ClockIn extends AppCompatActivity
 
     String day;
     String month;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +92,27 @@ public class ClockIn extends AppCompatActivity
                     spinner.setVisibility(View.INVISIBLE);
                     working.setText("You are working today");
 
+                    /*
+                        This background task will get the length of the break time once the hub is opened
+                        We do it here cause its more efficient to get it when the hub opens, rather than
+                        when an employee tries to clock out
+                        The value is held in the global variable "break_time"
+
+                     */
+                    if( BackgroundTask.isNetworkAvailable(ClockIn.this))
+                    {
+                        BackgroundTask backgroundTask5 = new BackgroundTask(new BackgroundTask.AsyncResponse()
+                        {
+                            @Override
+                            public void processFinish(String output)
+                            {
+                                break_time = Integer.valueOf(output);
+                            }
+                        });
+                        backgroundTask5.execute("getBreak", yeeid);
+                    }
 
                     final String[] tokens = output.split(",");
-                    System.out.println(output);
 
                     final String[] starttimestr;
                     final String[] endtimestr;
@@ -161,11 +181,6 @@ public class ClockIn extends AppCompatActivity
                     minimumoutTime = String.format("%s:%s:%s", String.valueOf(minHour2), String.valueOf(minMinutes2), "00");
                     maximumoutTime = String.format("%s:%s:%s", String.valueOf(maxHour2), String.valueOf(maxMinutes2), "00");
 
-                    System.out.println(minimuminTime);
-                    System.out.println(maximuminTime);
-
-                    System.out.println(minimumoutTime);
-                    System.out.println(maximumoutTime);
 
 
                     clockin.setOnClickListener(new View.OnClickListener()
@@ -191,10 +206,6 @@ public class ClockIn extends AppCompatActivity
                                 calendar3.setTime(cur2);
 
                                 Date x = calendar3.getTime();
-                                System.out.println(calendar1.getTime());
-                                System.out.println(calendar2.getTime());
-                                System.out.println(calendar3.getTime());
-
 
                                 if (x.after(calendar1.getTime()) && x.before(calendar2.getTime()))
                                 {
@@ -205,7 +216,6 @@ public class ClockIn extends AppCompatActivity
                                         @Override
                                         public void processFinish(String output)
                                         {
-                                            System.out.println(output);
 
                                             if(output.equals("Success "))
                                             {
@@ -279,7 +289,6 @@ public class ClockIn extends AppCompatActivity
                                         @Override
                                         public void processFinish(String output)
                                         {
-                                            System.out.println(output);
 
                                             if(output.equals("Success "))
                                             {
@@ -324,7 +333,16 @@ public class ClockIn extends AppCompatActivity
         });
 
 
-        backgroundTask.execute(method, day, month, yeeid);
+        if( BackgroundTask.isNetworkAvailable(ClockIn.this))
+        {
+            backgroundTask.execute(method, day, month, yeeid);
+        }
+        else
+        {
+            finish();
+            Toast.makeText(ClockIn.this,"No internet connection", Toast.LENGTH_LONG ).show();
+        }
+
     }
 
     void sendNotification()
@@ -367,6 +385,8 @@ public class ClockIn extends AppCompatActivity
 
     float getPayment(String start, String end, float wage)
     {
+
+        float total = 0;
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         Date date1 = new Date();
         Date date2 = new Date();
@@ -385,11 +405,28 @@ public class ClockIn extends AppCompatActivity
         long difference = date2.getTime() - date1.getTime();
 
         int minutes = (int) TimeUnit.MILLISECONDS.toMinutes(difference);
-        System.out.println(minutes);
         DecimalFormat df = new DecimalFormat("0.00");
         float hours =  (float) minutes / 60;
-        System.out.println(hours);
-        float total = hours * wage;
+
+        // If the time worked  exceeds 4 hours that means that the employee took a break too
+        if(hours > 4)
+        {
+            if( BackgroundTask.isNetworkAvailable(ClockIn.this))
+            {
+                hours -= break_time / 60;
+                total = hours * wage;
+            }
+            else
+            {
+                total=0;
+                finish();
+                Toast.makeText(ClockIn.this,"No internet connection", Toast.LENGTH_LONG ).show();
+            }
+        }
+        else // We calculate the total normally without taking the break into consideration
+        {
+            total = hours * wage;
+        }
 
         return total;
     }

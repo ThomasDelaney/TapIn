@@ -72,7 +72,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
         String read_url = "http://tapin.comli.com/employee.php";
         String get_timetable= "http://tapin.comli.com/yeeTimetableGet.php";
         String get_details = "https://tapin.000webhostapp.com/yeeGetDetails.php";
-
+        String getBreak= "https://tapin.000webhostapp.com/yeeBreakGet.php";
         String method = params[0];
 
         if (method.equals("employerLogin"))
@@ -670,7 +670,6 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
                     response += " ";
                 }
 
-                System.out.println(response);
 
                 bufferedReader.close();
                 inputStream.close();
@@ -1039,6 +1038,56 @@ public class BackgroundTask extends AsyncTask<String, Void, String>
 
                 //encode data and write to php file on server
                 String data = URLEncoder.encode("eid", "UTF-8")+"="+URLEncoder.encode(eid, "UTF-8");
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+
+                String response = "";
+
+                String line = "";
+
+                while((line = bufferedReader.readLine()) != null)
+                {
+                    response += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return response;
+            }
+            catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else if( method.equals("getBreak"))
+        {
+            String eid = params[1];
+
+            try
+            {
+                URL url = new URL(getBreak);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                //encode data and write to php file on server
+                String data = URLEncoder.encode("yeeid", "UTF-8")+"="+URLEncoder.encode(eid, "UTF-8");
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
