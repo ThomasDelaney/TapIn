@@ -1,7 +1,10 @@
 # TapIn
 TapInBoiz 
+
 Thomas Delaney C15300756
-Mohamad Zabad ADD YOUR STUDENT NUMBERS HERE 
+
+Mohamad Zabad C15745405 
+
 Raul Alvarez C14722441
 
 #YouTube Video
@@ -9,7 +12,7 @@ Raul Alvarez C14722441
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/1V9bT77H-N8/0.jpg)](https://www.youtube.com/watch?v=1V9bT77H-N8)
 
 # What is TapIn?
-TapIn is a multi-functional utility mobile Android app for Employers and Employees of a Company. A Company would come to us to start up a service for them, we would add them to our database and give them Employer Logins. An Employer can add an Employee to the system by entering in the respective information, giving them a login and then finally loading their ID onto a personalised NFC Card. The employer can see who has clocked in for the current day and add schedules and new employees to the system. An Employee can also login now with their details and see their schedules for 4 weeks from the current week. There is a Hub part of the App (that would really be on a piece of Hardware, we put the software on the app to show functionality however) where the Employee can clock in and out of work. The employee places their NFC Card on the phone and it will display the current time and if they are or are not working today. If so they can clock in for work (The Employee will recieve a notification of this). When the employee clocks out they can see how much money they have made that day. This is the 
+TapIn is a multi-functional utility mobile Android app for Employers and Employees of a Company. A Company would come to us to start up a service for them, we would add them to our database and give them Employer Logins. An Employer can add an Employee to the system by entering in the respective information, giving them a login and then finally loading their ID onto a personalised NFC Card. The employer can see who has clocked in for the current day and add schedules and new employees to the system. An Employee can also login now with their details and see their schedules for 4 weeks from the current week. There is a Hub part of the App (that would really be on a piece of Hardware, we put the software on the app to show functionality however) where the Employee can clock in and out of work. The employee places their NFC Card on the phone and it will display the current time and if they are or are not working today. If so they can clock in for work (The Employee will recieve a notification of this). When the employee clocks out they can see how much money they have made that day. 
 
 # Main Menu Features
 * Main Menu
@@ -17,7 +20,7 @@ TapIn is a multi-functional utility mobile Android app for Employers and Employe
 * Employer Mode
   * Main Area for Employer where they can see who is checked in for current day, Add new Employees or add Schedules for current Employees
 * Employee Mode
-  * Main Are for Employee where they can select a week to view their Schedule for that week (allows up to 4 weeks including current week)
+  * Main Area for Employee where they get some of their details displayed and have the option to select a week from the spinner  to view their Schedule for that week (allows up to 4 weeks including current week)
 * Hub Mode
   * Allows Employee to Clock in/out using NFC Card
 
@@ -25,7 +28,16 @@ TapIn is a multi-functional utility mobile Android app for Employers and Employe
 The database is hosted on a free hosting site called 000webhost.com, the connection is made through a php file on the server which has the creditentials to access the database.
 
 There are 4 tables, COMPANY, EMPLOYER, EMPLOYEE and TIMETABLES
-* SOMEONE WRITE ABOUT THE TABLES LIKE WHAT THEY INCLUDE *
+
+* COMPANY
+
+It holds information about the company. Upon request for access to our product, the company will provide a name, location and the length of the break time that they offer. This information will be held by this table, as well as, an auto-incrementing company id. 
+
+* EMPLOYER
+
+Upon completing the requirements for the COMPANY table, the said company will send information about how many employers will use our product. This is the table that will hold the login details for each employer and Tap In Hub. Both of them are set up by us on request.
+
+The structure of the table consists of: -
 
 # Main Menu Summary
 3 Buttons and an Image, the first Button brings the user to the Employer Main Home Page, it will checked SharedPreferences to see if the Employer is already logged in, if so then the page loads, else then the Employer Login page is shown, which prompts the Employer to login, when they do the Home Page is loaded. This workins in hand for the second button for Employee Mode; the Hub however does not save the Employer's details into SharedPreferences.
